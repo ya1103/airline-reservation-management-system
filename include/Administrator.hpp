@@ -1,0 +1,5 @@
+#ifndef ADMINISTRATOR_HPP
+#define ADMINISTRATOR_HPP
+
+
+#endif
