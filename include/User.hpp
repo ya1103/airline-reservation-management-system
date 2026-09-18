@@ -5,16 +5,31 @@
 #include <memory>
 #include <vector>
 
+//Forward declaration
+class FlightManager;
+
 //User is an abstract class which will be used as an interface in our program
 class User{
     protected:   
-        int id;
+        std::string id;
         std::string name;
         std::string role;
         std::string email;
-        std::string passwordHash; //encrypted password for better security
+        std::string password;
         bool loggedIn = false; 
+
+        //reference to FlightManager which manages all flights
+        //static as it belongs to the class and same for all derived objects
+        //initialized to nullptr
+        inline static std::shared_ptr<FlightManager> flightsReference = nullptr;
     public:
+
+        //Parameterized constructor
+        User(const std::string& passedName, const std::string& passedRole, const std::string& passedEmail, const std::string& password)
+            :  id("N/A"), name(passedName) , role(passedRole), email(passedEmail), password(password){}
+        
+        static void setFlightsReference(std::shared_ptr<FlightManager>);
+
         virtual void showMenu() = 0; //Pure virtual function, as user is an abstract class this will support polymorphism
         void logOut();
     
