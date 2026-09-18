@@ -30,7 +30,7 @@ class FlightManager{
         //function which reserves a ticket for passenger
         //reservation status stays pending until passenger completes payment
         //returns to caller a reference to flight and seat
-        std::tuple<Flight&, Seat&> bookFlight(const std::string& flightNumber, const std::string& departureDate, const std::string& seatNumber);
+        std::tuple<std::shared_ptr<Flight>, std::shared_ptr<Seat>> bookFlight(const std::string& flightNumber, const std::string& departureDate, const std::string& seatNumber);
 
 
 
