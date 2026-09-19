@@ -10,10 +10,19 @@ class UserManager;
 class Administrator: public User{
     private:
         std::weak_ptr<UserManager> allUsersReference;
-    public:
-        //Parameterized constructor
-        Administrator(const std::string& passedName, const std::string& passedRole, const std::string& passedEmail, const std::string& password, std::shared_ptr<UserManager> usersReference)
-            :  User(passedName, passedRole, passedEmail, password), allUsersReference(usersReference){}
+        inline static int nextID = 1000;
+    public:        
+        //Parameterized constructor ONLY for rebuilding existing admins from memory on program startup
+        //Should not be used for creation of new admins
+        Administrator(int passedID, const std::string& passedName, const std::string& passedEmail, const std::string& password, std::shared_ptr<UserManager> usersReference)
+            :  User(passedID, passedName, "Administrator", passedEmail, password), allUsersReference(usersReference){}
+
+        //Parameterized constructor ONLY for creating new administrators
+        Administrator(const std::string& passedName, const std::string& passedEmail, const std::string& password, std::shared_ptr<UserManager> usersReference)
+            : Administrator(nextID++, passedName, passedEmail, password, usersReference) {} 
+
+        //Static function which sets static nextID member
+        static void setNextID(int passedID) {nextID = passedID;}
 
         //Function which creates user based on criteria
         //User's role must be either: Passenger, BookingAgent or Administrator
