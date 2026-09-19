@@ -7,7 +7,7 @@
 class Reservation;
 
 //inherits from User class and enable_shared_from_this which allow passing shared pointer of "this" object
-class Passenger: User, public std::enable_shared_from_this<Passenger>{
+class Passenger: public User, public std::enable_shared_from_this<Passenger>{
     private:
         int loyaltyPoints;
         std::vector<std::shared_ptr<Reservation>> passengerReservations; //list of reservations made by a passenger
