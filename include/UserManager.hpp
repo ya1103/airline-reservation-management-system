@@ -13,7 +13,7 @@ class UserManager: public std::enable_shared_from_this<UserManager>{
         //If found it returns a pointer to user, if not returns a nullptr
         std::shared_ptr<User> logIn(const std::string& emailInputByUser, const std::string& passwordAttemptByUser);
         
-        void createUser(const std::string& name, const std::string& role, const std::string& email, const std::string& password, shared_from_this() );
+        void createUser(const std::string& name, const std::string& role, const std::string& email, const std::string& password);
     };
 
 #endif
