@@ -4,6 +4,8 @@
 #include <memory>
 #include <vector>
 
+#include <tuple>
+
 //Forward declaration
 class Aircraft;
 class CrewMember;
