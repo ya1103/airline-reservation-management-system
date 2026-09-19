@@ -12,22 +12,23 @@ class MaintenanceRecord{
         std::string id;
         std::string dateScheduled;
         std::string description;
-        std::string status;
+        std::string latestStatus;
 
-        //Reference to aircraft
-        std::weak_ptr<Aircraft> aircraftReference;
+        // //Reference to aircraft
+        // std::weak_ptr<Aircraft> aircraftReference;
     public:
-        // Getters
+        //Parameterized constructor
+        MaintenanceRecord(const std::string& dateScheduled, const std::string& description, const std::string& status)
+            : id("N/A"), dateScheduled(dateScheduled), description(description), latestStatus(status) {}
+        
+            // Getters
         const std::string& getId() const { return id; }
         const std::string& getDateScheduled() const { return dateScheduled; }
         const std::string& getDescription() const { return description; }
-        const std::string& getStatus() const { return status; }
+        const std::string& getStatus() const { return latestStatus; }
 
         //setter for status
         void updateStatus(const std::string&);
-
-        // // Direct access to the raw weak_ptr
-        // const std::weak_ptr<Aircraft>& getAircraftReference() const { return aircraftReference; }
 
         // // Safe helper getter: Returns a locked shared_ptr (nullptr if Aircraft was destroyed)
         // std::shared_ptr<Aircraft> getAircraft() const {
