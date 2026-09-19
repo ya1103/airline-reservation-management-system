@@ -30,6 +30,9 @@ class Passenger: User, public std::enable_shared_from_this<Passenger>{
         //this should call another makeReservation() to create a reservation with related details
         //returns bool indicating successful booking or failed process
         bool bookFlight(const std::string& flightNumber, const std::string& seatNumber, const std::string& departureDate);
+
+        //Checks in passenger on flight updating reservation status on passenger's flight to checkedIN
+        void checkIn(std::string reservationID);
         
         //function which iterates over all reservations made by user to print them out
         void viewHistory();
