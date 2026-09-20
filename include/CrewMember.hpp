@@ -12,7 +12,8 @@ class Flight;
 
 class CrewMember{
     private:
-        std::string id;
+        int id;
+        inline static int nextID = 1;
         std::string name;
         std::string role;
         int flightHours;
@@ -20,20 +21,25 @@ class CrewMember{
         //list of flights that crew member is assigned to later
         std::vector<std::weak_ptr<Flight>> flightsReference;
     public:
-        //Parameterized constructor
-        CrewMember(const std::string& name, const std::string& role, int flightHours = 0)
-            : name(name), role(role), flightHours(flightHours){}
+        //Parameterized constructor ONLY for creating new crew members
+        CrewMember(std::string passedName, std::string passedRole)
+            : CrewMember(nextID++, std::move(passedName), std::move(passedRole), 0){}
+
+        //Parameterized constructor ONLY for rebuilding crew members from memory during program startup
+        CrewMember(int passedID, std::string passedName, std::string passedRole, int passedFlightHours)
+            : id(passedID), name(std::move(passedName)), role(std::move(passedRole)), flightHours(passedFlightHours) {}
         
+        //Static function which sets static nextID member
+        static void setNextID(int passedID) {nextID = passedID;}
+
         // Getters
-        const std::string& getId() const { return id; }
+        int getId() const { return id; }
         const std::string& getName() const { return name; }
         const std::string& getRole() const { return role; }
         int getFlightHours() const { return flightHours; }
         
         // Setters
-        void setId(const std::string& newId) { id = newId; }
         void setName(const std::string& newName) { name = newName; }
-        void setRole(const std::string& newRole) { role = newRole; }
         void setFlightHours(int newFlightHours) { flightHours = newFlightHours; }
 
         // Raw reference to weak pointers
@@ -47,6 +53,9 @@ class CrewMember{
 
         //Helper getter: Returns only valid, active flights by locking weak_ptrs
         std::vector<std::shared_ptr<Flight>> getActiveFlights() const;
+
+        // Print function to display crew member details
+        void print() const;
 };
 
 #endif
