@@ -28,11 +28,18 @@ class Payment{
             std::string date, std::string paymentMethod, std::string status)
             : id(passedID), amount(amountToBeDeducted), method(std::move(paymentMethod)), status(std::move(status)),
                 paymentDate(std::move(date)), reservationReference(pointerToReservation) {}
+        
+        //Static function which sets static nextID member
+        static void setNextID(int passedID) {nextID = passedID;}
+        
         //function which will start payment process and update status and returns it to caller
         std::string process(double amountToBeDeducted, const std::string& method);
 
         //function which starts refund process and update status and returns it to caller
         std::string refund(void);
+        
+        // Print function to display payment details
+        void print() const;
 };
 
 #endif
