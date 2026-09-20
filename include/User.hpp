@@ -30,8 +30,12 @@ class User{
         
         static void setFlightsReference(std::shared_ptr<AirlineOperations>);
 
+        virtual ~User() = default; //Forces calling derived objects destructors implementing RTTI
         virtual void showMenu() = 0; //Pure virtual function, as user is an abstract class this will support polymorphism
-        
+        virtual void printUserInfo() const; //Virtual function, to print info of derived objects, might be overriden by derived classes
+
+
+
         void logOut() {loggedIn = false;}
         void logIn() {loggedIn = true;}
     
