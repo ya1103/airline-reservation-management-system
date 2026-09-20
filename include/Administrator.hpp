@@ -30,15 +30,23 @@ class Administrator: public User{
         //If all arguments are valid, print successfull message
         void createUser(const std::string& passedName, const std::string& passedRole, const std::string& passedEmail, const std::string& password);
 
-        //Function which deletes user by id (currently implemented by email)
+        //Function which deletes user by id and role (Passenger, BookingAgent or Administrator)
         //If id not found print error message and abort process
-        //If user found print successfull message 
-        void deleteUser(const std::string& userEmail);
+        //If user found print successfull message
+        //Note: an admin can not delete him self 
+        void deleteUser(int id, const std::string& role);
 
         //Function which updates user data
         //It should not affect user's id, role, email or password
-        //Name and role can only be altered
-        void updateUser(const std::string& newName);
+        //Searches user based on id and role
+        //Name can only be altered
+        void updateUserName(int id, const std::string& role, std::string newName);
+
+        //Function which will print down the menu choices for user
+        void showMenu() override;
+
+        //Function which will print another menu of options related to flights management
+        void manageFlights();
 };
 
 #endif
