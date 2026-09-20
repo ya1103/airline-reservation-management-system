@@ -3,6 +3,7 @@
 
 #include <string>
 #include <memory>
+#include "DateUtils.hpp"
 
 //forward declaration
 class Passenger;
@@ -12,7 +13,8 @@ class Seat;
 
 class Reservation: public std::enable_shared_from_this<Reservation>{
     private:
-        std::string id;
+        int id;
+        inline static int nextID = 1;
         std::string bookingDate;
         std::string status;
         std::weak_ptr<Passenger> passengerReference;
@@ -20,14 +22,20 @@ class Reservation: public std::enable_shared_from_this<Reservation>{
         std::weak_ptr<Flight> flightReference; //default empty pointer until a flight is booked
         std::weak_ptr<Seat> seatReference; //default empty pointer until a seat is booked
         public:
-        //Parameterized Constructor
+        //Parameterized Constructor ONLY for creating new reservations
         //Note: after constructing a new reservation, assignReservationToFlightAndSeat() must be called immediately after
         //      this, or otherwise the flight and seat will not be observing this new reservation
         Reservation(std::shared_ptr<Passenger> ptrToPassenger, std::shared_ptr<Flight> ptrToFlight,
             std::shared_ptr<Seat> ptrToSeat)
-            : id("N/A"), bookingDate("Today"), status("Pending"),
-            passengerReference(ptrToPassenger), flightReference(ptrToFlight), seatReference(ptrToSeat){}
-
+             : Reservation(nextID++, ptrToPassenger, ptrToFlight, ptrToSeat, "Pending", DateUtils::getCurrentDate()) {}
+        
+        //Parameterized constructor ONLY for rebuilding existing reservations from memory during program startup
+        Reservation(int passedID, std::shared_ptr<Passenger> ptrToPassenger,
+            std::shared_ptr<Flight> ptrToFlight, std::shared_ptr<Seat> ptrToSeat,
+            std::string passedStatus, std::string passedDate)
+            : id(passedID), bookingDate(std::move(passedDate)), status(std::move(passedStatus)),
+            passengerReference(ptrToPassenger), flightReference(ptrToFlight), seatReference(ptrToSeat) {}
+        
         //This function must be called immediately after constructing a new reservation
         //It should not be called inside the constructor other wise it will throw bad weak pointer exception
         void assignReservationToFlightAndSeat();
