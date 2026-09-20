@@ -9,11 +9,20 @@ class Passenger;
 class Reservation;
 
 class BookingAgent: public User{
+    private:
+        inline static int nextID = 2000;
     public: 
-        //Parameterized constructor
-        BookingAgent(const std::string& passedName, const std::string& passedRole, const std::string& passedEmail, const std::string& password)
-            :  User(passedName, passedRole, passedEmail, password){}
+        //Parameterized constructor ONLY for rebuilding existing passengers from memory on program startup
+        //Should NOT be used for creation of new passengers
+        BookingAgent(int passedID, const std::string& passedName, const std::string& passedEmail, const std::string& password)
+            : User(passedID, passedName, "BookingAgent", passedEmail, password) {}
         
+        //Parameterized constructor ONLY for creating new passengers
+        BookingAgent(const std::string& passedName, const std::string& passedEmail, const std::string& password)
+            : BookingAgent(nextID++, passedName, passedEmail, password) {}
+        
+        //Static function which sets static nextID member
+        static void setNextID(int passedID) {nextID = passedID;}
         //Searches for flights based on criteria departure, origin, and destination
         //Prints all available flights
         void searchFlight(const std::string& departureDate, const std::string& origin, const std::string& destination);
