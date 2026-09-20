@@ -11,7 +11,7 @@ class AirlineOperations;
 //User is an abstract class which will be used as an interface in our program
 class User{
     protected:   
-        std::string id;
+        int id;
         std::string name;
         std::string role;
         std::string email;
@@ -25,8 +25,8 @@ class User{
     public:
 
         //Parameterized constructor
-        User(const std::string& passedName, const std::string& passedRole, const std::string& passedEmail, const std::string& password)
-            :  id("N/A"), name(passedName) , role(passedRole), email(passedEmail), password(password){}
+        User(int passedID, const std::string& passedName, const std::string& passedRole, const std::string& passedEmail, const std::string& password)
+            :  id(passedID), name(passedName) , role(passedRole), email(passedEmail), password(password){}
         
         static void setFlightsReference(std::shared_ptr<AirlineOperations>);
 
