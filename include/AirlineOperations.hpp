@@ -11,6 +11,7 @@ class Aircraft;
 class CrewMember;
 class Flight;
 class Seat;
+class Administrator;
 
 
 //This class acts as a container for all aircrafts, crew members and flights
@@ -20,6 +21,8 @@ class AirlineOperations{
         std::vector<std::shared_ptr<Aircraft>> allAircrafts;
         std::vector<std::shared_ptr<CrewMember>> allCrewMembers;
 
+        //declaring friendship
+        friend class Administrator;
     public:
         //function which returns list of available flights based on criteria
         //vector contains tuples where each tuple holds
