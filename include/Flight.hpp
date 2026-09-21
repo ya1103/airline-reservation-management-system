@@ -16,8 +16,11 @@ class Flight: public std::enable_shared_from_this<Flight>{
         std::string flightNumber;
         std::string origin;
         std::string destination;
-        std::string departure;
-        std::string arrival;
+        std::string departureDate;
+        std::string departureTime;
+        int duration;
+        int hoursDelay = 0;
+        int minsDelay = 0;
         std::string flightStatus;
         int numberOfSeats = 210; //Assume all flights have the same number of seats for simplicity
 
@@ -37,9 +40,9 @@ class Flight: public std::enable_shared_from_this<Flight>{
         //Parameterized constructor
         //Note: initializeSeats() must be called after constructing each flight
         Flight(std::string newFlightNumber, std::string newOrigin, std::string newDestination,
-                std::string newDeparture, std::string newArrival, std::string newStatus = "On Schedule")
-                : flightNumber(std::move(newFlightNumber)), origin(std::move(newOrigin)), destination(std::move(newDestination)), departure(std::move(newDeparture)),
-                    arrival(std::move(newArrival)), flightStatus(std::move(newStatus)) {}
+                std::string newDepartureDate, std::string newDepartureTime, int newDuration, std::string newStatus = "On Schedule")
+                : flightNumber(std::move(newFlightNumber)), origin(std::move(newOrigin)), destination(std::move(newDestination)), departureDate(std::move(newDepartureDate)),
+                    departureTime(std::move(newDepartureTime)), duration(duration) , flightStatus(std::move(newStatus)) {}
         
         //Function which must be called after constructing each flight
         //Unless no seats are assigned to this flight
@@ -48,22 +51,22 @@ class Flight: public std::enable_shared_from_this<Flight>{
         const auto& getFlightNumber() const { return flightNumber; }
         const auto& getOrigin() const { return origin; }
         const auto& getDestination() const { return destination; }
-        const auto& getDeparture() const { return departure; }
-        const auto& getArrival() const { return arrival; }
+        const auto& getDepartureTime() const { return departureTime; }
+        const auto& getDepartureDate() const { return departureDate; }
+        int getDuration() const { return duration; }
         const auto& getFlightStatus() const { return flightStatus; }
         
         //function which updates flight status acts as a setter
-        void updateStatus(const std::string& newStatus){
-            flightStatus = newStatus;
+        void updateStatus(std::string newStatus){
+            flightStatus = std::move(newStatus);
         }
 
         //function which updates flight departure time
-        //parameter is auto as departure data type might change through development process
-        void updateDeparture(const auto& newDepartureTime);
-
-        //function which updates flight arrival time
-        //parameter is auto as arrival data type might change through development process
-        void updateArrival(const auto& newArrivalTime);
+        //takes two parameters delay in hours and mins
+        //function handles conversion process to match data type of departureTime
+        //function also handles overnight delays which will affect departureDate too
+        //function updates flight status to "Delayed" and modify internal hoursDelay and minsDelay data members
+        void delayDepartureTime(int hours, int mins);
 
 
         // ==========================================
