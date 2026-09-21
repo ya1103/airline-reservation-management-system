@@ -36,10 +36,10 @@ class Flight: public std::enable_shared_from_this<Flight>{
 
         //Parameterized constructor
         //Note: initializeSeats() must be called after constructing each flight
-        Flight(const std::string& newFlightNumber, const std::string& newOrigin, const std::string& newDestination,
-                const std::string& newDeparture, const std::string& newArrival, const std::string& newStatus = "On Schedule")
-                : flightNumber(newFlightNumber), origin(newOrigin), destination(newDestination), departure(newDeparture),
-                    arrival(newArrival), flightStatus(newStatus) {}
+        Flight(std::string newFlightNumber, std::string newOrigin, std::string newDestination,
+                std::string newDeparture, std::string newArrival, std::string newStatus = "On Schedule")
+                : flightNumber(std::move(newFlightNumber)), origin(std::move(newOrigin)), destination(std::move(newDestination)), departure(std::move(newDeparture)),
+                    arrival(std::move(newArrival)), flightStatus(std::move(newStatus)) {}
         
         //Function which must be called after constructing each flight
         //Unless no seats are assigned to this flight
