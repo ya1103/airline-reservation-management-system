@@ -23,6 +23,11 @@ class AirlineOperations{
 
         //declaring friendship
         friend class Administrator;
+
+        //This function searches a flight number and departure date with the existing flights list
+        //Used before creating new flights
+        //If flight number and departure date is available already in flights list, then throw exception
+        void checkFlightContradiction(const std::string& targetFlightNumber, const std::string& targetDepartureDate);
     public:
         //function which returns list of available flights based on criteria
         //vector contains tuples where each tuple holds
