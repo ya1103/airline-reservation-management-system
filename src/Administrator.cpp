@@ -1,6 +1,9 @@
 #include "Administrator.hpp"
 #include <iostream>
 #include <limits>
+#include "Flight.hpp"
+#include "AirlineOperations.hpp"
+#include <exception>
 
 //Function which will print down the menu choices for user
 void Administrator::showMenu() {
@@ -91,3 +94,35 @@ void Administrator::showMenu() {
         }
     }
 }
+
+
+//Function which will trigger creation of new flight
+//If there is a flight number on the same date this will throw an error and must be catched
+bool Administrator::createNewFlight(std::string newFlightNumber, std::string newOrigin, std::string newDestination,
+                std::string newDepartureDate, std::string newDepartureTime, int newDuration){
+          try{
+            auto airlineOperationsPtr = User::getAirlineOperations();
+            
+            //check nullability before dereferencing
+            if(airlineOperationsPtr){
+                airlineOperationsPtr->checkFlightContradiction(newFlightNumber, newDepartureDate);
+                (airlineOperationsPtr->allFlights).push_back(std::make_shared<Flight>(Flight(newFlightNumber, newOrigin, 
+                                                                                        newDestination, newDepartureDate,
+                                                                                         newDepartureTime, newDuration)));
+                //return indicating successfull operation
+                return true;
+            }
+          } catch(std::exception& e){
+            std::cout << std::endl << e.what() << std::endl;
+            //indicating failed operation
+            return false;
+          } 
+        }
+
+
+//Function which updates flight status
+//Should be either "Scheduled" or "Delayed" or "Cancelleed" or "Departured"
+void updateFlightStatus(std::string targetFlightNumber, std::string targetFlightDeparture,
+                        std::string flightNewStatus){
+
+                        }

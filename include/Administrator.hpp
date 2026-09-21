@@ -47,6 +47,40 @@ class Administrator: public User{
 
         //Function which will print another menu of options related to flights management
         void manageFlights();
-};
+
+        //Function which will trigger creation of new flight
+        //If there is a flight number on the same date this will throw an error and must be catched
+        bool createNewFlight(std::string newFlightNumber, std::string newOrigin, std::string newDestination,
+                std::string newDepartureDate, std::string newDepartureTime, int newDuration);
+
+        //Function which updates flight status
+        //Should be either "Scheduled" or "Delayed" or "Cancelleed" or "Departured"
+        void updateFlightStatus(const std::string& targetFlightNumber,
+                                const std::string& targetFlightDepartureDate,
+                                std::string flightNewStatus);
+        
+        //Function which affects flight status and departure time, by passing delay in hours and in mins
+        void delayFlight(int hours, int mins);
+
+        //Function which creates new aircraft and add it to aircrafts list
+        //Aircraft tail number should be unique
+        void createNewAircraft();
+
+        //Function which assigns aircraft to a flight
+        //Aircraft should not have any flights on the same day of the targetted flight
+        void assignAircraftToFlight(const std::string& tailNumber, const std::string& flightNumber, const std::string& departureDate);
+        
+        //Function which creates new crew member
+        //Email must be unique, otherwise it will throw an error
+        void createNewCrewMember();
+
+        //Function which assigns crew member to existing flight
+        //Crew member must be eligible by not exceeding the flight hours limit monthly
+        void assignCrewMemberToFlight(int targetID, const std::string& flightNumber, const std::string& departureDate);
+
+        //Function which removes crew member from flight list
+        //This should alter flight hours of the crew member to decrease it back
+        void removeCrewMemberFromFlight(int targetID, const std::string& flightNumber, const std::string& departureDate);
+    };
 
 #endif
