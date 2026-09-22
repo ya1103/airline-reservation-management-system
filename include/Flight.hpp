@@ -1,6 +1,7 @@
 #ifndef FLIGHT_HPP
 #define FLIGHT_HPP
 
+#include <iostream>
 #include <string>
 #include <memory>
 #include <vector>
