@@ -47,6 +47,21 @@ class Flight: public std::enable_shared_from_this<Flight>{
         void setDepartureDate(std::string newDepartureDate) { departureDate = newDepartureDate; }
         void setDuration(int newDuration) { duration = newDuration; }
         void setFlightStatus(std::string newFlightStatus) { flightStatus = newFlightStatus; }
+        void setDelay(int hours, int mins)
+        {
+            if(hours > 24)
+            {
+                std::cout << "Invalid hours, should be between 0 and 24 hours, please try again\n";
+                return;
+            }else if(mins > 60)
+            {
+                std::cout <<"Invalid minutes, should be between 0 and 60 mins, please try again\n";
+                return;
+            }
+            //If conditions passed, assign safely
+            hoursDelay = hours;
+            minsDelay = mins;
+        }
     public:
 
         //Parameterized constructor
