@@ -236,3 +236,16 @@ bool Administrator::createNewAircraft(std::string tailNumber, std::string model,
         return false;
     }
 }
+
+//Function which assigns aircraft to a flight
+//Aircraft should not have any flights on the same day of the targetted flight
+bool Administrator::assignAircraftToFlight(const std::string& tailNumber, const std::string& flightNumber, const std::string& departureDate)
+{
+    auto ops = User::getAirlineOperations();
+    if (!ops) {
+        std::cout << "No airline operations reference found!\n";
+        return false;
+    }
+    return ops->assignAircraftToFlight((tailNumber), flightNumber, departureDate);
+}
+

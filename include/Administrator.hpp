@@ -69,7 +69,7 @@ class Administrator: public User{
 
         //Function which assigns aircraft to a flight
         //Aircraft should not have any flights on the same day of the targetted flight
-        void assignAircraftToFlight(const std::string& tailNumber, const std::string& flightNumber, const std::string& departureDate);
+        bool assignAircraftToFlight(const std::string& tailNumber, const std::string& flightNumber, const std::string& departureDate);
         
         //Function which creates new crew member
         //Email must be unique, otherwise it will throw an error
