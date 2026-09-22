@@ -14,3 +14,7 @@ bool Aircraft::hasFlightOnDate(const std::string& targetDate) const {
     }
     return false;
 }
+
+void Aircraft::addFlight(const std::shared_ptr<Flight>& newFlight){
+    assignedFlights.push_back(newFlight);
+}
