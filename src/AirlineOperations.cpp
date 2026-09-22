@@ -53,3 +53,16 @@ bool AirlineOperations::assignAircraftToFlight(const std::string& tailNumber, co
     (*aircraftIt)->addFlight(*flightIt); // you'll need this to keep assignedFlights in sync — the other direction
     return true;
 }
+
+//Function which will trigger creation of new flight
+//If there is a flight number on the same date this will throw an error and must be catched
+bool AirlineOperations::createFlight(std::string flightNumber, std::string origin, std::string destination,
+                                      std::string departureDate, std::string departureTime, int duration)
+{
+    //check for contradiction, if found error will be thrown, process aborts
+    checkFlightContradiction(flightNumber, departureDate);
+    allFlights.push_back(std::make_shared<Flight>(std::move(flightNumber), std::move(origin),
+                                                    std::move(destination), std::move(departureDate),
+                                                    std::move(departureTime), duration));
+    return true;
+}

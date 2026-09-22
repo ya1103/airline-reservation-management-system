@@ -100,28 +100,20 @@ void Administrator::showMenu() {
 //Function which will trigger creation of new flight
 //If there is a flight number on the same date this will throw an error and must be catched
 bool Administrator::createNewFlight(std::string newFlightNumber, std::string newOrigin, std::string newDestination,
-                std::string newDepartureDate, std::string newDepartureTime, int newDuration){
-          try{
-            auto airlineOperationsPtr = User::getAirlineOperations();
-            
-            //check nullability before dereferencing
-            if(airlineOperationsPtr){
-                airlineOperationsPtr->checkFlightContradiction(newFlightNumber, newDepartureDate);
-                (airlineOperationsPtr->allFlights).push_back(std::make_shared<Flight>(Flight(std::move(newFlightNumber), std::move(newOrigin), 
-                                                                                        std::move(newDestination), std::move(newDepartureDate),
-                                                                                         std::move(newDepartureTime), newDuration)));
-                //return indicating successfull operation
-                return true;
-            }else{
-                std::cout << "No airlines reference found!";
-                return false;
-            }
-          } catch(std::exception& e){
-            std::cout << std::endl << e.what() << std::endl;
-            //indicating failed operation
+                                     std::string newDepartureDate, std::string newDepartureTime, int newDuration) {
+    try {
+        auto ops = User::getAirlineOperations();
+        if (!ops) {
+            std::cout << "No airline operations reference found!\n";
             return false;
-          } 
         }
+        return ops->createFlight(std::move(newFlightNumber), std::move(newOrigin), std::move(newDestination),
+                                  std::move(newDepartureDate), std::move(newDepartureTime), newDuration);
+    } catch (std::exception& e) {
+        std::cout << std::endl << e.what() << std::endl;
+        return false;
+    }
+}
 
 
 //Function which updates flight status
@@ -209,7 +201,7 @@ bool Administrator::delayFlight(const std::string& targetFlightNumber,
 
 //Function which creates new aircraft and add it to aircrafts list
 //Aircraft tail number should be unique
-bool Administrator::createNewAircraft(std::string tailNumber, std::string model, int capacity, bool isAvailable = true)
+bool Administrator::createNewAircraft(std::string tailNumber, std::string model, int capacity, bool isAvailable)
 {
     //get reference to airline operations
     auto airlineOperationsPtr = User::getAirlineOperations();

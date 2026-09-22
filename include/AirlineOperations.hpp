@@ -33,6 +33,11 @@ class AirlineOperations{
         //Returns bool indicating success or failure process
         bool assignAircraftToFlight(const std::string& tailNumber, const std::string& flightNumber, const std::string& departureDate);
 
+        //Function which will trigger creation of new flight
+        //If there is a flight number on the same date this will throw an error and must be catched
+        bool createFlight(std::string flightNumber, std::string origin, std::string destination,
+                       std::string departureDate, std::string departureTime, int duration);
+
     public:
         //function which returns list of available flights based on criteria
         //vector contains tuples where each tuple holds
