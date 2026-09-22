@@ -28,6 +28,11 @@ class AirlineOperations{
         //Used before creating new flights
         //If flight number and departure date is available already in flights list, then throw exception
         void checkFlightContradiction(const std::string& targetFlightNumber, const std::string& targetDepartureDate);
+        
+        //Function which handles aircrafts assigning to flights
+        //Returns bool indicating success or failure process
+        bool assignAircraftToFlight(const std::string& tailNumber, const std::string& flightNumber, const std::string& departureDate);
+
     public:
         //function which returns list of available flights based on criteria
         //vector contains tuples where each tuple holds
