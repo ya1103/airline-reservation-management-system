@@ -1,9 +1,10 @@
 #include "Administrator.hpp"
-#include <iostream>
-#include <limits>
 #include "Flight.hpp"
 #include "AirlineOperations.hpp"
+#include "Aircraft.hpp"
 #include <exception>
+#include <iostream>
+#include <limits>
 
 //Function which will print down the menu choices for user
 void Administrator::showMenu() {
@@ -111,6 +112,9 @@ bool Administrator::createNewFlight(std::string newFlightNumber, std::string new
                                                                                          std::move(newDepartureTime), newDuration)));
                 //return indicating successfull operation
                 return true;
+            }else{
+                std::cout << "No airlines reference found!";
+                return false;
             }
           } catch(std::exception& e){
             std::cout << std::endl << e.what() << std::endl;
@@ -184,11 +188,51 @@ bool Administrator::delayFlight(const std::string& targetFlightNumber,
                     && eachFlight->getDepartureDate() == targetFlightDepartureDate)
                     {
                         eachFlight->setDelay(hours, mins);
+                        //indicating successfull operation
+                        std::cout << "Delay for flight was set successfully!\n";
+                        eachFlight->printFlightInfo();
+                        return true;
                     }
 
             }
+            //else if target flight was not found inform user and return
+            std::cout << "Flight not found, please double check criteria and try again!\n";
+            return false;
+        } else{
+            std::cout << "No airlines reference found!";
+            return false;
         }
         
     }
 
+}
+
+//Function which creates new aircraft and add it to aircrafts list
+//Aircraft tail number should be unique
+bool Administrator::createNewAircraft(std::string tailNumber, std::string model, int capacity, bool isAvailable = true)
+{
+    //get reference to airline operations
+    auto airlineOperationsPtr = User::getAirlineOperations();
+
+    //Check for nullability
+    if(airlineOperationsPtr)
+    {
+        //search if there is existing tailNumber in one of aircrafts
+        //loop on each aircraft
+        for(auto eachAircraft: airlineOperationsPtr->allAircrafts)
+        {
+            if(eachAircraft->getTailNumber() == tailNumber)
+            {
+                //return safely indicating existing aircraft with same tail number exists
+                std::cout << "Tail number already exists, it cannot duplicate, please try again!\n";
+                return false;
+            }
+        }
+        //if tail number didn't contradict then add new aircraft
+        airlineOperationsPtr->allAircrafts.push_back(std::make_shared<Aircraft>(std::move(tailNumber), std::move(model), capacity, isAvailable));
+        return true;
+    } else{
+        std::cout << "No airlines reference found!";
+        return false;
+    }
 }

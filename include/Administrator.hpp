@@ -65,7 +65,7 @@ class Administrator: public User{
 
         //Function which creates new aircraft and add it to aircrafts list
         //Aircraft tail number should be unique
-        void createNewAircraft();
+        bool createNewAircraft(std::string tailNumber, std::string model, int capacity, bool isAvailable = true);
 
         //Function which assigns aircraft to a flight
         //Aircraft should not have any flights on the same day of the targetted flight
