@@ -35,6 +35,18 @@ class Flight: public std::enable_shared_from_this<Flight>{
 
         //vector of references of each seat on flight
         std::vector<std::shared_ptr<Seat>> seatsReference;
+
+        //declaring friendship
+        friend class Administrator;
+
+        // Setters
+        void setFlightNumber(std::string newFlightNumber) { flightNumber = newFlightNumber; }
+        void setOrigin(std::string newOrigin) { origin = newOrigin; }
+        void setDestination(std::string newDestination) { destination = newDestination; }
+        void setDepartureTime(std::string newDepartureTime) { departureTime = newDepartureTime; }
+        void setDepartureDate(std::string newDepartureDate) { departureDate = newDepartureDate; }
+        void setDuration(int newDuration) { duration = newDuration; }
+        void setFlightStatus(std::string newFlightStatus) { flightStatus = newFlightStatus; }
     public:
 
         //Parameterized constructor
