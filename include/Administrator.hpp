@@ -60,7 +60,8 @@ class Administrator: public User{
                                 std::string flightNewStatus);
         
         //Function which affects flight status and departure time, by passing delay in hours and in mins
-        void delayFlight(int hours, int mins);
+        bool delayFlight(const std::string& targetFlightNumber,
+                                const std::string& targetFlightDepartureDate, int hours, int mins);
 
         //Function which creates new aircraft and add it to aircrafts list
         //Aircraft tail number should be unique

@@ -155,3 +155,40 @@ bool Administrator::updateFlightStatus(const std::string& targetFlightNumber, co
                 return false;
             }
         }
+
+//Function which affects flight status and departure time, by passing delay in hours and in mins
+bool Administrator::delayFlight(const std::string& targetFlightNumber,
+                                const std::string& targetFlightDepartureDate, int hours, int mins){
+    if(hours > 24)
+    {
+        std::cout << "Invalid hours, should be between 0 and 24 hours, please try again\n";
+        return false;
+    }else if(mins > 60)
+    {
+        std::cout <<"Invalid minutes, should be between 0 and 60 mins, please try again\n";
+        return false;
+    }else
+    {
+        //Assign delay to flight, first get airlines reference
+
+        auto airlineOperationsPtr = User::getAirlineOperations();
+        
+        //check nullability before dereferencing
+        if(airlineOperationsPtr)
+        {
+            //Loop and search for target flight
+            for(auto eachFlight : airlineOperationsPtr->allFlights)
+            {
+                //if target flight found, check if new status is same as flight current status
+                if(eachFlight->getFlightNumber() == targetFlightNumber
+                    && eachFlight->getDepartureDate() == targetFlightDepartureDate)
+                    {
+                        eachFlight->setDelay(hours, mins);
+                    }
+
+            }
+        }
+        
+    }
+
+}
