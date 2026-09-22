@@ -21,8 +21,8 @@ class Aircraft{
         std::vector<std::shared_ptr<MaintenanceRecord>> maintenanceOfAircraft;
     public:
         //Parameterized constructor
-        Aircraft(const std::string& tailNumber, const std::string& model, int capacity, bool isAvailable = true)
-            : tailNumber(tailNumber), model(model), capacity(capacity), isAvailable(isAvailable) {}
+        Aircraft(std::string tailNumber, std::string model, int capacity, bool isAvailable = true)
+            : tailNumber(std::move(tailNumber)), model(std::move(model)), capacity(capacity), isAvailable(isAvailable) {}
         // Getters inlined in header
         const std::string& getTailNumber() const { return tailNumber; }
         const std::string& getModel() const { return model; }
