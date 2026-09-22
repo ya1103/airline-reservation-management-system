@@ -38,7 +38,7 @@ class Flight: public std::enable_shared_from_this<Flight>{
         std::vector<std::shared_ptr<Seat>> seatsReference;
 
         //declaring friendship
-        friend class Administrator;
+        friend class AirlineOperations;
 
         // Setters
         void setFlightNumber(std::string newFlightNumber) { flightNumber = newFlightNumber; }
@@ -50,11 +50,11 @@ class Flight: public std::enable_shared_from_this<Flight>{
         void setFlightStatus(std::string newFlightStatus) { flightStatus = newFlightStatus; }
         void setDelay(int hours, int mins)
         {
-            if(hours > 24)
+            if(hours < 0 || hours > 23)
             {
                 std::cout << "Invalid hours, should be between 0 and 24 hours, please try again\n";
                 return;
-            }else if(mins > 60)
+            }else if(mins < 0 || mins > 59)
             {
                 std::cout <<"Invalid minutes, should be between 0 and 60 mins, please try again\n";
                 return;

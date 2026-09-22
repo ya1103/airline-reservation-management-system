@@ -38,10 +38,14 @@ class AirlineOperations{
         bool createFlight(std::string flightNumber, std::string origin, std::string destination,
                        std::string departureDate, std::string departureTime, int duration);
 
-
+        //Function which updates flight status
+        //Should be either "Scheduled" or "Delayed" or "Cancelleed" or "Departured"
         bool updateFlightStatus(const std::string& targetFlightNumber, const std::string& targetFlightDeparture,
                              std::string newStatus);
-
+        
+        //Function which affects flight status and departure time, by passing delay in hours and in mins
+        bool delayFlight(const std::string& targetFlightNumber, const std::string& targetFlightDepartureDate,
+                      int hours, int mins);
     public:
         //function which returns list of available flights based on criteria
         //vector contains tuples where each tuple holds

@@ -129,50 +129,23 @@ bool Administrator::updateFlightStatus(const std::string& targetFlightNumber, co
 }
 
 //Function which affects flight status and departure time, by passing delay in hours and in mins
-bool Administrator::delayFlight(const std::string& targetFlightNumber,
-                                const std::string& targetFlightDepartureDate, int hours, int mins){
-    if(hours > 24)
-    {
-        std::cout << "Invalid hours, should be between 0 and 24 hours, please try again\n";
+bool Administrator::delayFlight(const std::string& targetFlightNumber, const std::string& targetFlightDepartureDate,
+                                 int hours, int mins) {
+    if (hours < 0 || hours > 23) {
+        std::cout << "Invalid hours, should be between 0 and 23 hours, please try again\n";
         return false;
-    }else if(mins > 60)
-    {
-        std::cout <<"Invalid minutes, should be between 0 and 60 mins, please try again\n";
+    }
+    if (mins < 0 || mins > 59) {
+        std::cout << "Invalid minutes, should be between 0 and 59 mins, please try again\n";
         return false;
-    }else
-    {
-        //Assign delay to flight, first get airlines reference
-
-        auto airlineOperationsPtr = User::getAirlineOperations();
-        
-        //check nullability before dereferencing
-        if(airlineOperationsPtr)
-        {
-            //Loop and search for target flight
-            for(auto eachFlight : airlineOperationsPtr->allFlights)
-            {
-                //if target flight found, check if new status is same as flight current status
-                if(eachFlight->getFlightNumber() == targetFlightNumber
-                    && eachFlight->getDepartureDate() == targetFlightDepartureDate)
-                    {
-                        //eachFlight->setDelay(hours, mins);
-                        //indicating successfull operation
-                        std::cout << "Delay for flight was set successfully!\n";
-                        eachFlight->printFlightInfo();
-                        return true;
-                    }
-
-            }
-            //else if target flight was not found inform user and return
-            std::cout << "Flight not found, please double check criteria and try again!\n";
-            return false;
-        } else{
-            std::cout << "No airlines reference found!";
-            return false;
-        }
-        
     }
 
+    auto ops = User::getAirlineOperations();
+    if (!ops) {
+        std::cout << "No airline operations reference found!\n";
+        return false;
+    }
+    return ops->delayFlight(targetFlightNumber, targetFlightDepartureDate, hours, mins);
 }
 
 //Function which creates new aircraft and add it to aircrafts list

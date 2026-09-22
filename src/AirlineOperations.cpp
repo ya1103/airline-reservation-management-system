@@ -85,3 +85,19 @@ bool AirlineOperations::updateFlightStatus(const std::string& targetFlightNumber
     std::cout << "No flights found based on entered criteria, please try again!\n";
     return false;
 }
+
+//Function which affects flight status and departure time, by passing delay in hours and in mins
+bool AirlineOperations::delayFlight(const std::string& targetFlightNumber, const std::string& targetFlightDepartureDate,
+                                     int hours, int mins) {
+    for (const auto& eachFlight : allFlights) {
+        if (eachFlight->getFlightNumber() == targetFlightNumber &&
+            eachFlight->getDepartureDate() == targetFlightDepartureDate) {
+            eachFlight->setDelay(hours, mins);
+            std::cout << "Delay for flight was set successfully!\n";
+            eachFlight->printFlightInfo();
+            return true;
+        }
+    }
+    std::cout << "Flight not found, please double check criteria and try again!\n";
+    return false;
+}
