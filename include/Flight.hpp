@@ -54,7 +54,7 @@ class Flight: public std::enable_shared_from_this<Flight>{
         Flight(std::string newFlightNumber, std::string newOrigin, std::string newDestination,
                 std::string newDepartureDate, std::string newDepartureTime, int newDuration, std::string newStatus = "On Schedule")
                 : flightNumber(std::move(newFlightNumber)), origin(std::move(newOrigin)), destination(std::move(newDestination)), departureDate(std::move(newDepartureDate)),
-                    departureTime(std::move(newDepartureTime)), duration(duration) , flightStatus(std::move(newStatus)) {}
+                    departureTime(std::move(newDepartureTime)), duration(newDuration) , flightStatus(std::move(newStatus)) {}
         
         //Function which must be called after constructing each flight
         //Unless no seats are assigned to this flight
@@ -141,6 +141,8 @@ class Flight: public std::enable_shared_from_this<Flight>{
         void removeCrewMember(std::shared_ptr<CrewMember> CrewMember);
         //==========================================
 
+        //Helper function to print flight details
+        void printFlightInfo(void) const;
 
         std::shared_ptr<Seat> bookSeat(const std::string& seatNumber);
 

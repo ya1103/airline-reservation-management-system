@@ -40,3 +40,27 @@ void Flight::removeCrewMember(std::shared_ptr<CrewMember> targetCrewMember){
     std::cout << "\nCrew member is not assigned to flight, please try again!\n";
     return;
 }   
+     
+//Helper function to print flight details
+void Flight::printFlightInfo() const {
+    std::cout << "========================================\n";
+    std::cout << "           FLIGHT INFORMATION           \n";
+    std::cout << "========================================\n";
+    std::cout << " Flight Number : " << flightNumber << "\n";
+    std::cout << " Status        : " << flightStatus << "\n";
+    std::cout << " Route         : " << origin << " -> " << destination << "\n";
+    std::cout << " Date          : " << departureDate << "\n";
+    std::cout << " Departure     : " << departureTime << "\n";
+    std::cout << " Duration      : " << duration << " mins\n";
+
+    if (hoursDelay > 0 || minsDelay > 0) {
+        std::cout << " Delay         : " << hoursDelay << "h " << minsDelay << "m\n";
+    }
+
+    std::cout << "----------------------------------------\n";
+    std::cout << " Aircraft      : " << (aircraftReference ? "Assigned" : "Not Assigned") << "\n";
+    std::cout << " Crew Count    : " << crewMembersReference.size() << "\n";
+    std::cout << " Reservations  : " << reservationsReference.size() << "\n";
+    std::cout << " Seats Loaded  : " << seatsReference.size() << " / " << numberOfSeats << "\n";
+    std::cout << "========================================\n";
+}
