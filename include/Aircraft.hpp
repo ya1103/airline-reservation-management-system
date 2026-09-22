@@ -19,6 +19,9 @@ class Aircraft{
 
         //array of maintenance record of this aircraft
         std::vector<std::shared_ptr<MaintenanceRecord>> maintenanceOfAircraft;
+
+        //list of flights assigned to aircraft
+        std::vector<std::weak_ptr<Flight>> assignedFlights;
     public:
         //Parameterized constructor
         Aircraft(std::string tailNumber, std::string model, int capacity, bool isAvailable = true)
@@ -37,6 +40,12 @@ class Aircraft{
 
         //function which updates a status of maintenance record
         void updateMaintenance(const std::string&);
+
+        //function which assigns new flight to this aircraft
+        void addFlight(const std::shared_ptr<Flight>& newFlight);
+
+        // Aircraft.hpp
+        bool hasFlightOnDate(const std::string& targetDate) const;
 };
 
 #endif
