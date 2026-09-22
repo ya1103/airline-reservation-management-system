@@ -66,3 +66,22 @@ bool AirlineOperations::createFlight(std::string flightNumber, std::string origi
                                                     std::move(departureTime), duration));
     return true;
 }
+
+// AirlineOperations.cpp — the real logic moves here
+bool AirlineOperations::updateFlightStatus(const std::string& targetFlightNumber, const std::string& targetFlightDeparture,
+                                            std::string newStatus) {
+    for (auto& eachFlight : allFlights) {
+        if (eachFlight->getFlightNumber() == targetFlightNumber && eachFlight->getDepartureDate() == targetFlightDeparture) {
+            if (eachFlight->getFlightStatus() == newStatus) {
+                std::cout << "Flight status is already " << newStatus << std::endl;
+            } else {
+                eachFlight->setFlightStatus(std::move(newStatus));
+                std::cout << "Flight updated successfully!\n";
+            }
+            eachFlight->printFlightInfo();
+            return true;
+        }
+    }
+    std::cout << "No flights found based on entered criteria, please try again!\n";
+    return false;
+}

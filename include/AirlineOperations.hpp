@@ -38,6 +38,10 @@ class AirlineOperations{
         bool createFlight(std::string flightNumber, std::string origin, std::string destination,
                        std::string departureDate, std::string departureTime, int duration);
 
+
+        bool updateFlightStatus(const std::string& targetFlightNumber, const std::string& targetFlightDeparture,
+                             std::string newStatus);
+
     public:
         //function which returns list of available flights based on criteria
         //vector contains tuples where each tuple holds

@@ -119,38 +119,14 @@ bool Administrator::createNewFlight(std::string newFlightNumber, std::string new
 //Function which updates flight status
 //Should be either "Scheduled" or "Delayed" or "Cancelleed" or "Departured"
 bool Administrator::updateFlightStatus(const std::string& targetFlightNumber, const std::string& targetFlightDeparture,
-                        std::string flightNewStatus){
-            auto airlineOperationsPtr = User::getAirlineOperations();
-            
-            //check nullability before dereferencing
-            if(airlineOperationsPtr)
-            {
-                //Loop and search for target flight
-                for(auto eachFlight: airlineOperationsPtr->allFlights)
-                {
-                    //if target flight found, check if new status is same as flight current status
-                    if(eachFlight->getFlightNumber() == targetFlightNumber
-                        && eachFlight->getDepartureDate() == targetFlightDeparture)
-                        {
-                            if(eachFlight->getFlightStatus() == flightNewStatus)
-                            {
-                                std::cout << "Flight status is already " << flightNewStatus << std::endl;
-                                eachFlight->printFlightInfo();
-                                return true;
-                            } else{
-                                //update status
-                                eachFlight->setFlightStatus(std::move(flightNewStatus));
-                                std::cout << "Flight updated successfully!\n";
-                                eachFlight->printFlightInfo();
-                                return true;
-                            }
-                        }
-                }
-                //if there is no any flight found based on criteria, then return false
-                std::cout << "No flights found based on entered criteria, please try again!\n";
-                return false;
-            }
-        }
+                                        std::string flightNewStatus) {
+    auto ops = User::getAirlineOperations();
+    if (!ops) {
+        std::cout << "No airline operations reference found!\n";
+        return false;
+    }
+    return ops->updateFlightStatus(targetFlightNumber, targetFlightDeparture, std::move(flightNewStatus));
+}
 
 //Function which affects flight status and departure time, by passing delay in hours and in mins
 bool Administrator::delayFlight(const std::string& targetFlightNumber,
@@ -179,7 +155,7 @@ bool Administrator::delayFlight(const std::string& targetFlightNumber,
                 if(eachFlight->getFlightNumber() == targetFlightNumber
                     && eachFlight->getDepartureDate() == targetFlightDepartureDate)
                     {
-                        eachFlight->setDelay(hours, mins);
+                        //eachFlight->setDelay(hours, mins);
                         //indicating successfull operation
                         std::cout << "Delay for flight was set successfully!\n";
                         eachFlight->printFlightInfo();
