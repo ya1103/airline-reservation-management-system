@@ -1,6 +1,7 @@
 #include "AirlineOperations.hpp"
 #include "Flight.hpp"
 #include "Aircraft.hpp"
+#include "CrewMember.hpp"
 #include <iostream>
 #include <algorithm>
 #include <stdexcept>
@@ -112,5 +113,11 @@ bool AirlineOperations::createAircraft(std::string tailNumber, std::string model
         }
     }
     allAircrafts.push_back(std::make_shared<Aircraft>(std::move(tailNumber), std::move(model), capacity, isAvailable));
+    return true;
+}
+
+bool AirlineOperations::createCrewMember(std::string name, std::string role) {
+    allCrewMembers.push_back(std::make_shared<CrewMember>(std::move(name), std::move(role)));
+    std::cout << "Crew member created successfully!\n";
     return true;
 }

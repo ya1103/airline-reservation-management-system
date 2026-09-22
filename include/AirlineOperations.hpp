@@ -34,22 +34,32 @@ class AirlineOperations{
         bool assignAircraftToFlight(const std::string& tailNumber, const std::string& flightNumber, const std::string& departureDate);
 
         //Function which will trigger creation of new flight
-        //If there is a flight number on the same date this will throw an error and must be catched
+        //If there is a flight number on the same date this will throw an error and must be catched 
+        //Returns bool indicating success or failure process
         bool createFlight(std::string flightNumber, std::string origin, std::string destination,
                        std::string departureDate, std::string departureTime, int duration);
 
         //Function which updates flight status
         //Should be either "Scheduled" or "Delayed" or "Cancelleed" or "Departured"
+        //Returns bool indicating success or failure process
         bool updateFlightStatus(const std::string& targetFlightNumber, const std::string& targetFlightDeparture,
                              std::string newStatus);
         
         //Function which affects flight status and departure time, by passing delay in hours and in mins
+        //Returns bool indicating success or failure process
         bool delayFlight(const std::string& targetFlightNumber, const std::string& targetFlightDepartureDate,
                       int hours, int mins);
         
         //Function which creates new aircraft and add it to aircrafts list
         //Aircraft tail number should be unique
+        //Returns bool indicating success or failure process
         bool createAircraft(std::string tailNumber, std::string model, int capacity, bool isAvailable);
+
+        //Function which creates new crew member
+        //Returns bool indicating success or failure process
+        bool createCrewMember(std::string name, std::string role);
+
+
     public:
         //function which returns list of available flights based on criteria
         //vector contains tuples where each tuple holds

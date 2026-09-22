@@ -176,3 +176,24 @@ bool Administrator::assignAircraftToFlight(const std::string& tailNumber, const 
     return ops->assignAircraftToFlight((tailNumber), flightNumber, departureDate);
 }
 
+bool Administrator::createNewCrewMember(std::string name, std::string role) {
+    // Validate role is one of the accepted values — input sanity check, belongs here
+    if (role != "Pilot" && role != "CoPilot" && role != "FlightAttendant") {
+        std::cout << "Invalid role, must be Pilot, CoPilot, or FlightAttendant. Please try again!\n";
+        return false;
+    }
+
+    if (name.empty()) {
+        std::cout << "Name cannot be empty, please try again!\n";
+        return false;
+    }
+
+    auto ops = User::getAirlineOperations();
+    if (!ops) {
+        std::cout << "No airline operations reference found!\n";
+        return false;
+    }
+
+    return ops->createCrewMember(std::move(name), std::move(role));
+}
+
