@@ -150,32 +150,18 @@ bool Administrator::delayFlight(const std::string& targetFlightNumber, const std
 
 //Function which creates new aircraft and add it to aircrafts list
 //Aircraft tail number should be unique
-bool Administrator::createNewAircraft(std::string tailNumber, std::string model, int capacity, bool isAvailable)
-{
-    //get reference to airline operations
-    auto airlineOperationsPtr = User::getAirlineOperations();
-
-    //Check for nullability
-    if(airlineOperationsPtr)
-    {
-        //search if there is existing tailNumber in one of aircrafts
-        //loop on each aircraft
-        for(auto eachAircraft: airlineOperationsPtr->allAircrafts)
-        {
-            if(eachAircraft->getTailNumber() == tailNumber)
-            {
-                //return safely indicating existing aircraft with same tail number exists
-                std::cout << "Tail number already exists, it cannot duplicate, please try again!\n";
-                return false;
-            }
-        }
-        //if tail number didn't contradict then add new aircraft
-        airlineOperationsPtr->allAircrafts.push_back(std::make_shared<Aircraft>(std::move(tailNumber), std::move(model), capacity, isAvailable));
-        return true;
-    } else{
-        std::cout << "No airlines reference found!";
+bool Administrator::createNewAircraft(std::string tailNumber, std::string model, int capacity, bool isAvailable) {
+    if (capacity <= 0) {
+        std::cout << "Capacity must be greater than zero, please try again!\n";
         return false;
     }
+
+    auto ops = User::getAirlineOperations();
+    if (!ops) {
+        std::cout << "No airline operations reference found!\n";
+        return false;
+    }
+    return ops->createAircraft(std::move(tailNumber), std::move(model), capacity, isAvailable);
 }
 
 //Function which assigns aircraft to a flight

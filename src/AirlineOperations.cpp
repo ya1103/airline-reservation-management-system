@@ -101,3 +101,16 @@ bool AirlineOperations::delayFlight(const std::string& targetFlightNumber, const
     std::cout << "Flight not found, please double check criteria and try again!\n";
     return false;
 }
+
+//Function which creates new aircraft and add it to aircrafts list
+//Aircraft tail number should be unique
+bool AirlineOperations::createAircraft(std::string tailNumber, std::string model, int capacity, bool isAvailable) {
+    for (const auto& eachAircraft : allAircrafts) {
+        if (eachAircraft->getTailNumber() == tailNumber) {
+            std::cout << "Tail number already exists, it cannot duplicate, please try again!\n";
+            return false;
+        }
+    }
+    allAircrafts.push_back(std::make_shared<Aircraft>(std::move(tailNumber), std::move(model), capacity, isAvailable));
+    return true;
+}

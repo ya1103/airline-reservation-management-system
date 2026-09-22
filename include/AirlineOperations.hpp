@@ -46,6 +46,10 @@ class AirlineOperations{
         //Function which affects flight status and departure time, by passing delay in hours and in mins
         bool delayFlight(const std::string& targetFlightNumber, const std::string& targetFlightDepartureDate,
                       int hours, int mins);
+        
+        //Function which creates new aircraft and add it to aircrafts list
+        //Aircraft tail number should be unique
+        bool createAircraft(std::string tailNumber, std::string model, int capacity, bool isAvailable);
     public:
         //function which returns list of available flights based on criteria
         //vector contains tuples where each tuple holds
