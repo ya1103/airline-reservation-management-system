@@ -21,6 +21,11 @@ class CrewMember{
         //list of flights that crew member is assigned to later
         std::vector<std::weak_ptr<Flight>> flightsReference;
     public:
+    
+        // NOTE: simplified as a flat lifetime cap, not a true monthly-reset limit,
+        // for this project's scope. A real system would track hours per calendar month.
+        static constexpr int MAX_FLIGHT_HOURS = 100;
+        
         //Parameterized constructor ONLY for creating new crew members
         CrewMember(std::string passedName, std::string passedRole)
             : CrewMember(nextID++, std::move(passedName), std::move(passedRole), 0){}

@@ -197,3 +197,13 @@ bool Administrator::createNewCrewMember(std::string name, std::string role) {
     return ops->createCrewMember(std::move(name), std::move(role));
 }
 
+// Administrator.cpp
+bool Administrator::assignCrewMemberToFlight(int targetID, const std::string& flightNumber, const std::string& departureDate) {
+    auto ops = User::getAirlineOperations();
+    if (!ops) {
+        std::cout << "No airline operations reference found!\n";
+        return false;
+    }
+    return ops->assignCrewMemberToFlight(targetID, flightNumber, departureDate);
+}
+

@@ -59,6 +59,12 @@ class AirlineOperations{
         //Returns bool indicating success or failure process
         bool createCrewMember(std::string name, std::string role);
 
+        //Function which assigns crew member to existing flight
+        //Crew member must be eligible by not exceeding the flight hours limit monthly
+        //This function should alter crew member flighing hours
+        //Returns bool indicating success or failure process
+        bool assignCrewMemberToFlight(int targetID, const std::string& flightNumber, const std::string& departureDate);
+
 
     public:
         //function which returns list of available flights based on criteria

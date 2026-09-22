@@ -121,3 +121,29 @@ bool AirlineOperations::createCrewMember(std::string name, std::string role) {
     std::cout << "Crew member created successfully!\n";
     return true;
 }
+
+bool AirlineOperations::assignCrewMemberToFlight(int targetID, const std::string& flightNumber, const std::string& departureDate) {
+    auto crewIt = std::find_if(allCrewMembers.begin(), allCrewMembers.end(),
+        [&](const auto& c) { return c->getId() == targetID; });
+    if (crewIt == allCrewMembers.end()) {
+        std::cout << "No crew member found with the entered ID, please try again!\n";
+        return false;
+    }
+
+    auto flightIt = std::find_if(allFlights.begin(), allFlights.end(),
+        [&](const auto& f) { return f->getFlightNumber() == flightNumber && f->getDepartureDate() == departureDate; });
+    if (flightIt == allFlights.end()) {
+        std::cout << "No flight found based on entered criteria, please try again!\n";
+        return false;
+    }
+
+    int projectedHours = (*crewIt)->getFlightHours() + (*flightIt)->getDuration();
+    if (projectedHours > CrewMember::MAX_FLIGHT_HOURS) {
+        std::cout << "Crew member would exceed the maximum flight hours limit. Assignment rejected.\n";
+        return false;
+    }
+
+    (*flightIt)->addCrewMember(*crewIt);
+    (*crewIt)->addFlight(*flightIt);
+    return true;
+}
