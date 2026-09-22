@@ -55,7 +55,7 @@ class Administrator: public User{
 
         //Function which updates flight status
         //Should be either "Scheduled" or "Delayed" or "Cancelleed" or "Departured"
-        void updateFlightStatus(const std::string& targetFlightNumber,
+        bool updateFlightStatus(const std::string& targetFlightNumber,
                                 const std::string& targetFlightDepartureDate,
                                 std::string flightNewStatus);
         

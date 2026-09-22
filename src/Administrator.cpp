@@ -106,9 +106,9 @@ bool Administrator::createNewFlight(std::string newFlightNumber, std::string new
             //check nullability before dereferencing
             if(airlineOperationsPtr){
                 airlineOperationsPtr->checkFlightContradiction(newFlightNumber, newDepartureDate);
-                (airlineOperationsPtr->allFlights).push_back(std::make_shared<Flight>(Flight(newFlightNumber, newOrigin, 
-                                                                                        newDestination, newDepartureDate,
-                                                                                         newDepartureTime, newDuration)));
+                (airlineOperationsPtr->allFlights).push_back(std::make_shared<Flight>(Flight(std::move(newFlightNumber), std::move(newOrigin), 
+                                                                                        std::move(newDestination), std::move(newDepartureDate),
+                                                                                         std::move(newDepartureTime), newDuration)));
                 //return indicating successfull operation
                 return true;
             }
@@ -122,7 +122,36 @@ bool Administrator::createNewFlight(std::string newFlightNumber, std::string new
 
 //Function which updates flight status
 //Should be either "Scheduled" or "Delayed" or "Cancelleed" or "Departured"
-void updateFlightStatus(std::string targetFlightNumber, std::string targetFlightDeparture,
+bool Administrator::updateFlightStatus(const std::string& targetFlightNumber, const std::string& targetFlightDeparture,
                         std::string flightNewStatus){
-
+            auto airlineOperationsPtr = User::getAirlineOperations();
+            
+            //check nullability before dereferencing
+            if(airlineOperationsPtr)
+            {
+                //Loop and search for target flight
+                for(auto eachFlight: airlineOperationsPtr->allFlights)
+                {
+                    //if target flight found, check if new status is same as flight current status
+                    if(eachFlight->getFlightNumber() == targetFlightNumber
+                        && eachFlight->getDepartureDate() == targetFlightDeparture)
+                        {
+                            if(eachFlight->getFlightStatus() == flightNewStatus)
+                            {
+                                std::cout << "Flight status is already " << flightNewStatus << std::endl;
+                                eachFlight->printFlightInfo();
+                                return true;
+                            } else{
+                                //update status
+                                eachFlight->setFlightStatus(std::move(flightNewStatus));
+                                std::cout << "Flight updated successfully!\n";
+                                eachFlight->printFlightInfo();
+                                return true;
+                            }
                         }
+                }
+                //if there is no any flight found based on criteria, then return false
+                std::cout << "No flights found based on entered criteria, please try again!\n";
+                return false;
+            }
+        }
