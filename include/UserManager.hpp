@@ -13,7 +13,10 @@ class UserManager: public std::enable_shared_from_this<UserManager>{
         //If found it returns a pointer to user, if not returns a nullptr
         std::shared_ptr<User> logIn(const std::string& emailInputByUser, const std::string& passwordAttemptByUser);
         
-        void createUser(const std::string& name, const std::string& role, const std::string& email, const std::string& password);
+        //Creating new user only if email is unique, unless it returns false with message displaying failed process
+        //User's role must be either: Passenger, BookingAgent or Administrator, unless it returns false with message displaying failed process
+        bool createUser(const std::string& passedName, const std::string& passedRole,
+                              const std::string& passedEmail, const std::string& password);
     };
 
 #endif

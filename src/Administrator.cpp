@@ -2,6 +2,7 @@
 #include "Flight.hpp"
 #include "AirlineOperations.hpp"
 #include "Aircraft.hpp"
+#include "UserManager.hpp"
 #include <exception>
 #include <iostream>
 #include <limits>
@@ -231,4 +232,18 @@ bool Administrator::newAircraftMaintenance(const std::string& tailNumber, std::s
         return false;
     }
     return ops->newAircraftMaintenance(tailNumber, std::move(dateScheduled), std::move(caseDescription));
+}
+
+//Function which creates user based on criteria
+//User's role must be either: Passenger, BookingAgent or Administrator
+//If passed argument is neither of them it should print error message and abort creation
+//If all arguments are valid, print successfull message
+bool Administrator::createUser(const std::string& passedName, const std::string& passedRole, const std::string& passedEmail, const std::string& password)
+{
+        auto manager = allUsersReference.lock();
+    if (!manager) {
+        std::cout << "No user manager reference found!\n";
+        return false;
+    }
+    return manager->createUser(passedName, passedRole, passedEmail, password);
 }

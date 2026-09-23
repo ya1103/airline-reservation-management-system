@@ -27,6 +27,9 @@ class User{
         //Parameterized constructor
         User(int passedID, const std::string& passedName, const std::string& passedRole, const std::string& passedEmail, const std::string& password)
             :  id(passedID), name(passedName) , role(passedRole), email(passedEmail), password(password){}
+
+        //Email getter
+        const std::string& getEmail() const{return email;}
         
         static void setFlightsReference(std::shared_ptr<AirlineOperations>);
 

@@ -28,7 +28,7 @@ class Administrator: public User{
         //User's role must be either: Passenger, BookingAgent or Administrator
         //If passed argument is neither of them it should print error message and abort creation
         //If all arguments are valid, print successfull message
-        void createUser(const std::string& passedName, const std::string& passedRole, const std::string& passedEmail, const std::string& password);
+        bool createUser(const std::string& passedName, const std::string& passedRole, const std::string& passedEmail, const std::string& password);
 
         //Function which deletes user by id and role (Passenger, BookingAgent or Administrator)
         //If id not found print error message and abort process
