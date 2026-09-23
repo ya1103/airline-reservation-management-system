@@ -16,14 +16,19 @@ void CrewMember::removeFlight(std::shared_ptr<Flight> targetFlight){
             auto shared = fl.lock();
             return shared == targetFlight;
     });
+
     if(iterator != flightsReference.end()){
+        //subtract this flight's duration before removing it, so flightHours
+        //accurately reflects only the flights still assigned
+        flightHours -= targetFlight->getDuration();
+        if (flightHours < 0) flightHours = 0; //defensive clamp, shouldn't happen if accounting stays consistent
+
         flightsReference.erase(iterator);
         //return if flight was unassigned successfully
         return;
     }
     //otherwise inform that flight was not found
     std::cout << "Flight not found in crew member schedule!";
-
 }
 
 //Helper getter: Returns only valid, active flights by locking weak_ptrs

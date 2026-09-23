@@ -207,3 +207,11 @@ bool Administrator::assignCrewMemberToFlight(int targetID, const std::string& fl
     return ops->assignCrewMemberToFlight(targetID, flightNumber, departureDate);
 }
 
+bool Administrator::removeCrewMemberFromFlight(int targetID, const std::string& flightNumber, const std::string& departureDate) {
+    auto ops = User::getAirlineOperations();
+    if (!ops) {
+        std::cout << "No airline operations reference found!\n";
+        return false;
+    }
+    return ops->removeCrewMemberFromFlight(targetID, flightNumber, departureDate);
+}

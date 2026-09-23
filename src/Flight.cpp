@@ -23,24 +23,6 @@ void Flight::initializeSeats() {
     }
 }
 
-//Remover: Removes crew member from this flight
-void Flight::removeCrewMember(std::shared_ptr<CrewMember> targetCrewMember){
-    auto iterator = std::find_if(crewMembersReference.begin(), crewMembersReference.end(),
-        [&targetCrewMember](const std::shared_ptr<CrewMember>& cm){
-            return targetCrewMember == cm;
-    });
-
-    if(iterator != crewMembersReference.end()){
-        crewMembersReference.erase(iterator);
-        targetCrewMember->removeFlight(shared_from_this());
-        //when removed successfully return
-        std::cout << "Crew member removed from flight successfully";
-        return;
-    }
-    std::cout << "\nCrew member is not assigned to flight, please try again!\n";
-    return;
-}   
-     
 //Helper function to print flight details
 void Flight::printFlightInfo() const {
     std::cout << "========================================\n";
@@ -63,4 +45,13 @@ void Flight::printFlightInfo() const {
     std::cout << " Reservations  : " << reservationsReference.size() << "\n";
     std::cout << " Seats Loaded  : " << seatsReference.size() << " / " << numberOfSeats << "\n";
     std::cout << "========================================\n";
+}
+
+void Flight::removeCrewMember(std::shared_ptr<CrewMember> crewMember) {
+    auto it = std::find_if(crewMembersReference.begin(), crewMembersReference.end(),
+        [&](const std::shared_ptr<CrewMember>& c) { return c->getId() == crewMember->getId(); });
+
+    if (it != crewMembersReference.end()) {
+        crewMembersReference.erase(it);
+    }
 }

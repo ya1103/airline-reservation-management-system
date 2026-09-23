@@ -147,3 +147,34 @@ bool AirlineOperations::assignCrewMemberToFlight(int targetID, const std::string
     (*crewIt)->addFlight(*flightIt);
     return true;
 }
+
+bool AirlineOperations::removeCrewMemberFromFlight(int targetID, const std::string& flightNumber, const std::string& departureDate) {
+    auto crewIt = std::find_if(allCrewMembers.begin(), allCrewMembers.end(),
+        [&](const auto& c) { return c->getId() == targetID; });
+    if (crewIt == allCrewMembers.end()) {
+        std::cout << "No crew member found with the entered ID, please try again!\n";
+        return false;
+    }
+
+    auto flightIt = std::find_if(allFlights.begin(), allFlights.end(),
+        [&](const auto& f) { return f->getFlightNumber() == flightNumber && f->getDepartureDate() == departureDate; });
+    if (flightIt == allFlights.end()) {
+        std::cout << "No flight found based on entered criteria, please try again!\n";
+        return false;
+    }
+
+    // Check the crew member is actually assigned to this flight before touching anything
+    bool isAssigned = std::any_of((*crewIt)->getFlightsReference().begin(), (*crewIt)->getFlightsReference().end(),
+        [&](const std::weak_ptr<Flight>& wf) {
+            auto locked = wf.lock();
+            return locked && locked->getFlightNumber() == flightNumber;
+        });
+    if (!isAssigned) {
+        std::cout << "Crew member is not assigned to this flight.\n";
+        return false;
+    }
+
+    (*flightIt)->removeCrewMember(*crewIt);
+    (*crewIt)->removeFlight(*flightIt);
+    return true;
+}

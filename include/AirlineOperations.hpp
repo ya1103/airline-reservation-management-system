@@ -64,8 +64,10 @@ class AirlineOperations{
         //This function should alter crew member flighing hours
         //Returns bool indicating success or failure process
         bool assignCrewMemberToFlight(int targetID, const std::string& flightNumber, const std::string& departureDate);
-
-
+        
+        //Removes a crew member from flight, and unbinding any relations between them
+        //Returns bool indicating success or failure process
+        bool removeCrewMemberFromFlight(int targetID, const std::string& flightNumber, const std::string& departureDate);
     public:
         //function which returns list of available flights based on criteria
         //vector contains tuples where each tuple holds
