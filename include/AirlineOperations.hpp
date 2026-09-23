@@ -68,7 +68,11 @@ class AirlineOperations{
         //Removes a crew member from flight, and unbinding any relations between them
         //Returns bool indicating success or failure process
         bool removeCrewMemberFromFlight(int targetID, const std::string& flightNumber, const std::string& departureDate);
-    public:
+    
+        //function which creates a new maintenance record
+        bool newAircraftMaintenance(const std::string& tailNumber, std::string dateScheduled, std::string caseDescription);
+    
+public:
         //function which returns list of available flights based on criteria
         //vector contains tuples where each tuple holds
         //1) Flight Number

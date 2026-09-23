@@ -178,3 +178,15 @@ bool AirlineOperations::removeCrewMemberFromFlight(int targetID, const std::stri
     (*crewIt)->removeFlight(*flightIt);
     return true;
 }
+
+bool AirlineOperations::newAircraftMaintenance(const std::string& tailNumber, std::string dateScheduled, std::string caseDescription) {
+    auto aircraftIt = std::find_if(allAircrafts.begin(), allAircrafts.end(),
+        [&](const auto& a) { return a->getTailNumber() == tailNumber; });
+
+    if (aircraftIt == allAircrafts.end()) {
+        std::cout << "No aircraft with tail number entered was found, please try again!\n";
+        return false;
+    }
+
+    return (*aircraftIt)->addNewMaintenance(std::move(dateScheduled), std::move(caseDescription));
+}

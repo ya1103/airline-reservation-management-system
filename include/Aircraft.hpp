@@ -36,7 +36,7 @@ class Aircraft{
             { return maintenanceOfAircraft; }
 
         //function which creates a new maintenance record
-        void addNewMaintenance(void);
+        bool addNewMaintenance(std::string dateScheduled, std::string caseDescription);
 
         //function which updates a status of maintenance record
         void updateMaintenance(const std::string&);

@@ -197,7 +197,6 @@ bool Administrator::createNewCrewMember(std::string name, std::string role) {
     return ops->createCrewMember(std::move(name), std::move(role));
 }
 
-// Administrator.cpp
 bool Administrator::assignCrewMemberToFlight(int targetID, const std::string& flightNumber, const std::string& departureDate) {
     auto ops = User::getAirlineOperations();
     if (!ops) {
@@ -214,4 +213,22 @@ bool Administrator::removeCrewMemberFromFlight(int targetID, const std::string& 
         return false;
     }
     return ops->removeCrewMemberFromFlight(targetID, flightNumber, departureDate);
+}
+
+bool Administrator::newAircraftMaintenance(const std::string& tailNumber, std::string dateScheduled, std::string caseDescription) {
+    if (dateScheduled.empty()) {
+        std::cout << "Scheduled date cannot be empty, please try again!\n";
+        return false;
+    }
+    if (caseDescription.empty()) {
+        std::cout << "Description cannot be empty, please try again!\n";
+        return false;
+    }
+
+    auto ops = User::getAirlineOperations();
+    if (!ops) {
+        std::cout << "No airline operations reference found!\n";
+        return false;
+    }
+    return ops->newAircraftMaintenance(tailNumber, std::move(dateScheduled), std::move(caseDescription));
 }

@@ -19,8 +19,8 @@ class MaintenanceRecord{
         std::weak_ptr<Aircraft> aircraftReference;
     public:
         //Parameterized constructor ONLY for creating new maintenance records
-        MaintenanceRecord(std::string dateScheduled, std::string caseDescription)
-            : MaintenanceRecord(nextID++, dateScheduled, caseDescription, "Scheduled") {}
+        MaintenanceRecord(std::string dateScheduled, std::string caseDescription, std::string status)
+            : MaintenanceRecord(nextID++, std::move(dateScheduled), std::move(caseDescription), std::move(status)) {}
         
         //Parameterized constructor ONLY for rebuilding existing records from memory during program startup
         MaintenanceRecord(int passedID, std::string dateScheduled, std::string caseDescription, std::string status)

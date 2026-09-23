@@ -90,6 +90,10 @@ class Administrator: public User{
         //This should alter flight hours of the crew member to decrease it back
         //Returns bool indicating success or failure process
         bool removeCrewMemberFromFlight(int targetID, const std::string& flightNumber, const std::string& departureDate);
+
+        //Function which creates a new maintenance schedule for an aircraft
+        //Returns bool indicating success or failure process
+        bool newAircraftMaintenance(const std::string& tailNumber, std::string dateScheduled, std::string caseDescription);
     };
 
 #endif
