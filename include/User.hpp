@@ -17,6 +17,7 @@ class User{
         std::string email;
         std::string password;
         bool loggedIn = false; 
+        bool isActive = true; //by default on new user accounts are active
 
         //reference to FlightManager which manages all flights
         //static as it belongs to the class and same for all derived objects
@@ -25,11 +26,26 @@ class User{
     public:
 
         //Parameterized constructor
-        User(int passedID, const std::string& passedName, const std::string& passedRole, const std::string& passedEmail, const std::string& password)
-            :  id(passedID), name(passedName) , role(passedRole), email(passedEmail), password(password){}
+        User(int passedID, const std::string& passedName, const std::string& passedRole, const std::string& passedEmail, const std::string& password, bool isActiveStatus = true)
+            :  id(passedID), name(passedName) , role(passedRole), email(passedEmail), password(password), isActive(isActiveStatus){}
 
         //Email getter
         const std::string& getEmail() const{return email;}
+
+        //ID getter
+        int getID() const {return id;}
+
+        //Role getter
+        const std::string& getRole() const {return role;}
+
+        //Active status getter
+        bool getIsActive() const {return isActive;}
+
+        //Deactivate user
+        void deactivate() {isActive = false;}
+
+        //Active user
+        void activate() {isActive = true;}
         
         static void setFlightsReference(std::shared_ptr<AirlineOperations>);
 
