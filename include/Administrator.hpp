@@ -34,7 +34,7 @@ class Administrator: public User{
         //If id not found print error message and abort process
         //If user found print successfull message
         //Note: an admin can not delete him self 
-        void deleteUser(int id, const std::string& role);
+        bool deactivateUser(int id, const std::string& role);
 
         //Function which updates user data
         //It should not affect user's id, role, email or password

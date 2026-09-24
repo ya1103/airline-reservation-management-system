@@ -78,7 +78,7 @@ void Administrator::showMenu() {
                 std::cout << "Enter Role of the user: ";
                 std::cin >> targetRole;
 
-                deleteUser(targetId, targetRole);
+                deactivateUser(targetId, targetRole);
                 break;
             }
             case 4:
@@ -246,4 +246,27 @@ bool Administrator::createUser(const std::string& passedName, const std::string&
         return false;
     }
     return manager->createUser(passedName, passedRole, passedEmail, password);
+}
+
+//Function which deletes user by id and role (Passenger, BookingAgent or Administrator)
+//If id not found print error message and abort process
+//If user found print successfull message
+//Note: an admin can not delete him self 
+bool Administrator::deactivateUser(int id, const std::string& role)
+{
+    //Self check
+    if((id == this->id) && (role == this->role))
+    {
+        std::cout << "You cannot delete your own account.\n";
+        return false;
+    }
+
+    //Check if user manager is available
+    auto manager = allUsersReference.lock();
+    if (!manager) {
+        std::cout << "No user manager reference found!\n";
+        return false;
+    }
+
+    manager->deactivateUser(id, role);
 }

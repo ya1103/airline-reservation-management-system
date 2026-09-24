@@ -40,3 +40,25 @@ bool UserManager::createUser(const std::string& passedName, const std::string& p
     std::cout << "User created successfully!\n";
     return true;
 }
+
+bool UserManager::deactivateUser(int id, const std::string& role)
+{
+    auto it = std::find_if(users.begin(), users.end(),
+        [&](const auto& u) { return (u->getID() == id) && (u->getRole() == role); });
+
+    if (it == users.end()) {
+        std::cout << "No user found with the entered ID and role, please try again!\n";
+        return false;
+    }
+
+    if (!((*it)->getIsActive())) {
+        std::cout << "This user is already deactivated.\n";
+        return false;
+    }
+
+    //Deactivate safely
+    (*it)->deactivate();
+    std::cout << "User deactivated successfully!\n";
+    return true;
+    
+}

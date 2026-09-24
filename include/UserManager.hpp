@@ -17,6 +17,11 @@ class UserManager: public std::enable_shared_from_this<UserManager>{
         //User's role must be either: Passenger, BookingAgent or Administrator, unless it returns false with message displaying failed process
         bool createUser(const std::string& passedName, const std::string& passedRole,
                               const std::string& passedEmail, const std::string& password);
+
+        //Deactivates User which will not allow him to relogin again instead of user deletion
+        //If user id and role didn't match an existing one, then return false with message displaying failed process
+        //Also if user is already deactivated, then return false with message displaying failed process
+        bool deactivateUser(int id, const std::string& role);
     };
 
 #endif
