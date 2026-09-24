@@ -19,6 +19,12 @@ class User{
         bool loggedIn = false; 
         bool isActive = true; //by default on new user accounts are active
 
+        //Declare friendship
+        friend class UserManager;
+
+        //Setter to name, where UserManager only can use this setter
+        void setName(std::string newName) {name = std::move(newName);};
+
         //reference to FlightManager which manages all flights
         //static as it belongs to the class and same for all derived objects
         //initialized to nullptr
