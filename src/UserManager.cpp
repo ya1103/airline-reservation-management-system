@@ -62,3 +62,30 @@ bool UserManager::deactivateUser(int id, const std::string& role)
     return true;
     
 }
+
+bool UserManager::updateUserName(int id, const std::string& role, std::string newName){
+    
+    //Find target user
+    auto it = std::find_if(users.begin(), users.end(),
+            [&](const auto& u) { return (u->getID() == id) && (u->getRole() == role); });
+
+    //Check if user found not an invalid iterator
+    if (it == users.end()) {
+        std::cout << "No user found with the entered ID and role, please try again!\n";
+        return false;
+    }
+
+    //Check if user is active or not
+    if(!(*it)->getIsActive())
+    {
+        std::cout << "User is inactive! Please activate user first!\n";
+        return false;
+    }
+
+    //Assign name safely
+    (*it)->setName(std::move(newName));
+    std::cout << "Name updated successfully!\n";
+    (*it)->printUserInfo();
+    return true;
+
+}

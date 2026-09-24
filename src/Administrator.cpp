@@ -268,5 +268,18 @@ bool Administrator::deactivateUser(int id, const std::string& role)
         return false;
     }
 
-    manager->deactivateUser(id, role);
+    return manager->deactivateUser(id, role);
+}
+
+bool Administrator::updateUserName(int id, const std::string& role, std::string newName)
+{
+    //Check if user manager is available
+    auto manager = allUsersReference.lock();
+    if (!manager) {
+        std::cout << "No user manager reference found!\n";
+        return false;
+    }
+
+    //Pass parameters to UserManager to handle process
+   return manager->updateUserName(id, role, std::move(newName));
 }

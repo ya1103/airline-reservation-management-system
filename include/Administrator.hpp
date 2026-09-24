@@ -40,7 +40,7 @@ class Administrator: public User{
         //It should not affect user's id, role, email or password
         //Searches user based on id and role
         //Name can only be altered
-        void updateUserName(int id, const std::string& role, std::string newName);
+        bool updateUserName(int id, const std::string& role, std::string newName);
 
         //Function which will print down the menu choices for user
         void showMenu() override;

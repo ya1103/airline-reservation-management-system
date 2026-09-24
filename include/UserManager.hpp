@@ -22,6 +22,9 @@ class UserManager: public std::enable_shared_from_this<UserManager>{
         //If user id and role didn't match an existing one, then return false with message displaying failed process
         //Also if user is already deactivated, then return false with message displaying failed process
         bool deactivateUser(int id, const std::string& role);
+
+        //Update user name only if id and role matches existing user, unless returns false with message displaying failed process
+        bool updateUserName(int id, const std::string& role, std::string newName);
     };
 
 #endif
