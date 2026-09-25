@@ -80,7 +80,7 @@ public:
         //3) Destination
         //4) Departure date and time
         //5) Arrival date and time
-        std::vector<std::tuple<std::string, std::string, std::string, std::string, std::string>> searchFlight(const std::string& departureDate, const std::string& origin, const std::string& destination);
+        bool searchFlight(const std::string& departureDate, const std::string& origin, const std::string& destination);
         
         //function which searches all available seats on a flight
         //returns an array of seat numbers available on flight

@@ -190,3 +190,28 @@ bool AirlineOperations::newAircraftMaintenance(const std::string& tailNumber, st
 
     return (*aircraftIt)->addNewMaintenance(std::move(dateScheduled), std::move(caseDescription));
 }
+
+bool AirlineOperations::searchFlight(const std::string& departureDate, const std::string& origin, const std::string& destination)
+{
+    int counterFlights = 0; //Initialized to zero, counts number of matching flights
+    for(const auto& eachFlight: allFlights)
+    {
+        if(eachFlight && eachFlight->getDepartureDate() == departureDate && eachFlight->getOrigin() == origin && eachFlight->getDestination() == destination)
+        {
+            //If a flight found matching criteria, print its info
+            eachFlight->printFlightInfo();
+            counterFlights++; //increment flight counter
+        }
+    }
+
+    if(counterFlights == 0)
+    {
+        //If no flights found inform user and return indicating failed process
+        std::cout << "No flights found based on entered criteria, please try again!\n";
+        return false;
+    } else{
+        //return safely indicating successful process
+        return true;
+    }
+    
+}

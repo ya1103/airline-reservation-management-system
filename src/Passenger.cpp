@@ -1,4 +1,5 @@
 #include "Passenger.hpp"
+#include "AirlineOperations.hpp"
 #include <limits>
 #include <iostream>
 
@@ -132,4 +133,18 @@ void Passenger::showMenu(){
             }
         }
     }
+}
+
+bool Passenger::searchFlight(const std::string& departureDate, const std::string& origin, const std::string& destination)
+{
+    auto AirlineOperationsPtr = User::airlineOperationsReference; //Airline operations pointer which holds all flights and seats
+
+    //Check nullability before dereferencing
+    if(!AirlineOperationsPtr)
+    {
+        std::cout << "No airline operations reference found!\n";
+        return false;
+    }
+
+    return AirlineOperationsPtr->searchFlight(departureDate, origin, destination);
 }
