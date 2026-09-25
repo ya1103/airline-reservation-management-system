@@ -215,3 +215,25 @@ bool AirlineOperations::searchFlight(const std::string& departureDate, const std
     }
     
 }
+
+bool AirlineOperations::searchAvailableSeats(const std::string& flightNumber, const std::string& departureDate)
+{
+    //Perform search based on flight number and departure date only, as flight number can't duplicate on same departure date contradicting airline rules
+    auto it = std::find_if(allFlights.begin(), allFlights.end(), 
+                            [&](const auto& fl){
+                                return fl && fl->getFlightNumber() == flightNumber && fl->getDepartureDate() == departureDate;
+                            });
+
+    //Check nullablility before dereferencing
+    if(it == allFlights.end())
+    {
+        //If no flights found inform user and return indicating failed process
+        std::cout << "Flight not found based on entered criteria, please try again!";
+        return false;
+    }
+
+    //Access flight safely and print its seats and return indicating successfull process
+    (*it)->printSeatMap();
+    return true;
+
+}

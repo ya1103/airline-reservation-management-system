@@ -160,6 +160,10 @@ class Flight: public std::enable_shared_from_this<Flight>{
         //Helper function to print flight details
         void printFlightInfo(void) const;
 
+        //Function which prints all seats on flight
+        //If seat is not available seat number will not be printed, instead "-" will be printed indicating it is booked
+        void printSeatMap() const;
+
         std::shared_ptr<Seat> bookSeat(const std::string& seatNumber);
 
 

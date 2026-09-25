@@ -148,3 +148,19 @@ bool Passenger::searchFlight(const std::string& departureDate, const std::string
 
     return AirlineOperationsPtr->searchFlight(departureDate, origin, destination);
 }
+
+bool Passenger::availableSeats(const std::string& flightNumber, const std::string& departureDate)
+{
+     auto AirlineOperationsPtr = User::airlineOperationsReference; //Airline operations pointer which holds all flights and seats
+
+    //Check nullability before dereferencing
+    if(!AirlineOperationsPtr)
+    {
+        std::cout << "No airline operations reference found!\n";
+        return false;
+    }
+
+    //Call airline operations to perform seats search
+    return AirlineOperationsPtr->searchAvailableSeats(flightNumber, departureDate);
+    
+}

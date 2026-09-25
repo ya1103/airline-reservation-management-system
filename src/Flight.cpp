@@ -4,6 +4,7 @@
 #include "Seat.hpp"
 #include "Reservation.hpp"
 #include "algorithm"
+#include <iomanip>
 #include <iostream>
 
 
@@ -54,4 +55,35 @@ void Flight::removeCrewMember(std::shared_ptr<CrewMember> crewMember) {
     if (it != crewMembersReference.end()) {
         crewMembersReference.erase(it);
     }
+}
+
+void Flight::printSeatMap() const {
+    std::cout << "\n=========================================\n";
+    std::cout << "              FLIGHT SEAT MAP              \n";
+    std::cout << "=========================================\n\n";
+
+    int seatIndex = 0;
+    
+    for (int r = 1; r <= 30; ++r) {
+
+        for (int c = 0; c < 7; ++c) {
+            auto& seat = seatsReference[seatIndex++];
+            
+            // Print the seat number or a "-" if booked
+            if (seat->getIsAvailable()) {
+                std::cout << std::setw(3) << seat->getSeatNumber();
+            } else {
+                std::cout << std::setw(3) << "-";
+            }
+            
+            // Insert spaces to create aisles
+            if (c == 1 || c == 4) {
+                std::cout << "      "; // Wide space for aisles (After B and E)
+            } else {
+                std::cout << " ";      // Normal space between adjacent seats
+            }
+        }
+        std::cout << "\n"; // Next row
+    }
+    std::cout << "\n=========================================\n";
 }

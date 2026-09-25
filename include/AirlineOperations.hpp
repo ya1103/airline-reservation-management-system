@@ -84,7 +84,7 @@ public:
         
         //function which searches all available seats on a flight
         //returns an array of seat numbers available on flight
-        std::vector<std::string> searchAvailableSeats(const std::string& flightNumber, const std::string& departureDate);
+        bool searchAvailableSeats(const std::string& flightNumber, const std::string& departureDate);
 
         //function which reserves a ticket for passenger
         //reservation status stays pending until passenger completes payment
