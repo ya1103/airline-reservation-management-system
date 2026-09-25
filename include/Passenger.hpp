@@ -30,10 +30,15 @@ class Passenger: public User, public std::enable_shared_from_this<Passenger>{
         //Static function which sets static nextID member
         static void setNextID(int passedID) {nextID = passedID;}
 
-        void searchFlight(const std::string& departureDate, const std::string& origin, const std::string& destination);
+        //Function which performs search on airline operations to fetch all flights available on given criteria
+        //If any invalid data, it shall print out error for user and return false
+        //Else print all available flights' details and return true
+        bool searchFlight(const std::string& departureDate, const std::string& origin, const std::string& destination);
         
-        //function which searches all available seats on a flight
-        void availableSeats(const std::string& flightNumber, const std::string& departureDate);
+        //Function which searches all available seats on a flight by flight number and departure date
+        //If any invalid data, it shall print out error for user and return false
+        //Else print all available seats' details and return true
+        bool availableSeats(const std::string& flightNumber, const std::string& departureDate);
 
         //function which reserves a ticket for passenger
         //reservation status stays pending until passenger completes payment
@@ -42,10 +47,17 @@ class Passenger: public User, public std::enable_shared_from_this<Passenger>{
         bool bookFlight(const std::string& flightNumber, const std::string& seatNumber, const std::string& departureDate);
 
         //Checks in passenger on flight updating reservation status on passenger's flight to checkedIN
-        void checkIn(std::string reservationID);
+        //If any invalid data, it shall print out error for user and return false
+        //Else print all available flights' details and return true
+        bool checkIn(std::string reservationID);
         
-        //function which iterates over all reservations made by user to print them out
+        //Function which iterates over all reservations made by user to print them out
+        //If any invalid data, it shall print out error for user and return to caller safely 
+        //Else prints all reservations history for passenger
         void viewHistory();
+
+        //Function which will print menu options for passenger
+        virtual void showMenu() override;
 
     };      
 
