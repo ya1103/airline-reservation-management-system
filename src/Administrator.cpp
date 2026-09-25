@@ -32,53 +32,79 @@ void Administrator::showMenu() {
 
         switch (choice) {
             case 1: {
+                bool processApproved = true;
                 std::string name, role, email, password;
+                do{
+                    if(!processApproved)
+                    {
+                        std::cout << "To return back to user manager enter '0', to try again enter any number: ";
+                        int userInput;
+                        std::cin >> userInput;
+                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                        if(userInput == 0) {break;}
+                    }
+                    std::cout << "Enter Name: ";
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                    std::getline(std::cin, name);
 
-                std::cout << "Enter Name: ";
-                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                std::getline(std::cin, name);
+                    std::cout << "Enter Role (Passenger / BookingAgent / Administrator): ";
+                    std::cin >> role;
 
-                std::cout << "Enter Role (Passenger / BookingAgent / Administrator): ";
-                std::cin >> role;
+                    std::cout << "Enter Email: ";
+                    std::cin >> email;
 
-                std::cout << "Enter Email: ";
-                std::cin >> email;
-
-                std::cout << "Enter Password: ";
-                std::cin >> password;
-
-                createUser(name, role, email, password);
+                    std::cout << "Enter Password: ";
+                    std::cin >> password;
+                }
+                while(!(processApproved = createUser(name, role, email, password)));
                 break;
             }
-            case 2: {                
+            case 2: {
+                bool processApproved = true;
                 int targetId;
-                std::string targetRole;
+                std::string targetRole, newName;
+                do{
+                    if(!processApproved)
+                        {
+                            std::cout << "To return back to user manager enter '0', to try again enter any number: ";
+                            int userInput;
+                            std::cin >> userInput;
+                            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                            if(userInput == 0) {break;}
+                        }
+                        std::cout << "Enter User ID to update: ";
+                        std::cin >> targetId;
 
-                std::cout << "Enter User ID to update: ";
-                std::cin >> targetId;
+                        std::cout << "Enter Role of the user: ";
+                        std::cin >> targetRole;
 
-                std::cout << "Enter Role of the user: ";
-                std::cin >> targetRole;
-
-                std::string newName;
-                std::cout << "Enter New Name: ";
-                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                std::getline(std::cin, newName);
-
-                updateUserName(targetId, targetRole, newName);
-                break;
+                        std::cout << "Enter New Name: ";
+                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                        std::getline(std::cin, newName);
+                    }
+                        while(!(processApproved = updateUserName(targetId, targetRole, newName)));
+                        break;
             }
             case 3: {
+                bool processApproved = true;
                 int targetId;
                 std::string targetRole;
+                do{
+                    if(!processApproved)
+                    {
+                        std::cout << "To return back to user manager enter '0', to try again enter any number: ";
+                        int userInput;
+                        std::cin >> userInput;
+                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                        if(userInput == 0) {break;}
+                    }
+                    std::cout << "Enter User ID to delete: ";
+                    std::cin >> targetId;
 
-                std::cout << "Enter User ID to delete: ";
-                std::cin >> targetId;
-
-                std::cout << "Enter Role of the user: ";
-                std::cin >> targetRole;
-
-                deactivateUser(targetId, targetRole);
+                    std::cout << "Enter Role of the user: ";
+                    std::cin >> targetRole;
+                }
+                while(!(processApproved = deactivateUser(targetId, targetRole)));
                 break;
             }
             case 4:
@@ -86,7 +112,7 @@ void Administrator::showMenu() {
                 break;
 
             case 5:
-                loggedIn = false;
+                logOut();
                 std::cout << "Logged out successfully.\n";
                 break;
 
@@ -95,6 +121,223 @@ void Administrator::showMenu() {
                 break;
         }
     }
+}
+
+void Administrator::manageFlights()
+{
+    int choice = 0;
+    bool exitSubmenu = false;
+
+    while (!exitSubmenu) {
+        std::cout << "\n====================================\n"
+                  << "         FLIGHT MANAGEMENT          \n"
+                  << "====================================\n"
+                  << "1. Create New Flight\n"
+                  << "2. Update Flight Status\n"
+                  << "3. Delay Flight\n"
+                  << "4. Create New Aircraft\n"
+                  << "5. Assign Aircraft to Flight\n"
+                  << "6. Schedule Aircraft Maintenance\n"
+                  << "7. Create New Crew Member\n"
+                  << "8. Assign Crew Member to Flight\n"
+                  << "9. Remove Crew Member from Flight\n"
+                  << "10. Back to Main Menu\n"
+                  << "Enter your choice: ";
+
+        std::cin >> choice;
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // clear the leftover newline before any getline() calls below
+
+        switch (choice) {
+            case 1: {
+                bool processApproved = true; //Initialized to true, it will be used to save return status from called function
+                std::string flightNumber, origin, destination, departureDate, departureTime;
+                int duration;
+                do{
+                    //If process failed and rentered the loop, ask user if he wants to abort operation
+                    if(!processApproved)
+                    {
+                        std::cout << "To return back to flight manager enter '0', to try again enter any number: ";
+                        int userInput;
+                        std::cin >> userInput;
+                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                        if(userInput == 0) {break;}
+                            
+                    }
+                    std::cout << "Flight number: ";    std::getline(std::cin, flightNumber);
+                    std::cout << "Origin: ";            std::getline(std::cin, origin);
+                    std::cout << "Destination: ";       std::getline(std::cin, destination);
+                    std::cout << "Departure date: ";    std::getline(std::cin, departureDate);
+                    std::cout << "Departure time: ";    std::getline(std::cin, departureTime);
+                    std::cout << "Duration (hours): ";  std::cin >> duration; std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                }
+                while(!(processApproved = createNewFlight(flightNumber, origin, destination, departureDate, departureTime, duration)));
+                break;
+            }
+            case 2: {
+                bool processApproved = true;
+                std::string flightNumber, departureDate, newStatus;
+                do{
+                    if(!processApproved)
+                    {
+                        std::cout << "To return back to flight manager enter '0', to try again enter any number: ";
+                        int userInput;
+                        std::cin >> userInput;
+                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                        if(userInput == 0) {break;}
+                    }
+                    std::cout << "Flight number: ";  std::getline(std::cin, flightNumber);
+                    std::cout << "Departure date: "; std::getline(std::cin, departureDate);
+                    std::cout << "New status: ";     std::getline(std::cin, newStatus);
+                }
+                while(!(processApproved = updateFlightStatus(flightNumber, departureDate, newStatus)));
+                break;
+            }
+            case 3: {
+                bool processApproved = true;
+                std::string flightNumber, departureDate;
+                int hours, mins;
+                do{
+                    if(!processApproved)
+                    {
+                        std::cout << "To return back to flight manager enter '0', to try again enter any number: ";
+                        int userInput;
+                        std::cin >> userInput;
+                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                        if(userInput == 0) {break;}
+                    }
+                    std::cout << "Flight number: ";   std::getline(std::cin, flightNumber);
+                    std::cout << "Departure date: ";  std::getline(std::cin, departureDate);
+                    std::cout << "Delay hours: ";     std::cin >> hours;
+                    std::cout << "Delay minutes: ";   std::cin >> mins; std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                }
+                while(!(processApproved = delayFlight(flightNumber, departureDate, hours, mins)));
+                break;
+            }
+            case 4: {
+                bool processApproved = true;
+                std::string tailNumber, model;
+                int capacity;
+                bool isAvailable;
+                do{
+                    if(!processApproved)
+                    {
+                        std::cout << "To return back to flight manager enter '0', to try again enter any number: ";
+                        int userInput;
+                        std::cin >> userInput;
+                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                        if(userInput == 0) {break;}
+                    }
+                    std::cout << "Tail number: ";       std::getline(std::cin, tailNumber);
+                    std::cout << "Model: ";             std::getline(std::cin, model);
+                    std::cout << "Capacity: ";          std::cin >> capacity;
+                    std::cout << "Available? (1/0): "; std::cin >> isAvailable; std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                }
+                while(!(processApproved = createNewAircraft(tailNumber, model, capacity, isAvailable)));
+                break;
+            }
+            case 5: {
+                bool processApproved = true;
+                std::string tailNumber, flightNumber, departureDate;
+                do{
+                    if(!processApproved)
+                    {
+                        std::cout << "To return back to flight manager enter '0', to try again enter any number: ";
+                        int userInput;
+                        std::cin >> userInput;
+                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                        if(userInput == 0) {break;}
+                    }
+                    std::cout << "Tail number: ";    std::getline(std::cin, tailNumber);
+                    std::cout << "Flight number: ";  std::getline(std::cin, flightNumber);
+                    std::cout << "Departure date: "; std::getline(std::cin, departureDate);
+                }
+                while(!(processApproved = assignAircraftToFlight(tailNumber, flightNumber, departureDate)));
+                break;
+            }
+            case 6: {
+                bool processApproved = true;
+                std::string tailNumber, dateScheduled, description;
+                do{
+                    if(!processApproved)
+                    {
+                        std::cout << "To return back to flight manager enter '0', to try again enter any number: ";
+                        int userInput;
+                        std::cin >> userInput;
+                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                        if(userInput == 0) {break;}
+                    }
+                    std::cout << "Tail number: ";     std::getline(std::cin, tailNumber);
+                    std::cout << "Scheduled date: ";  std::getline(std::cin, dateScheduled);
+                    std::cout << "Description: ";     std::getline(std::cin, description);
+                }
+                while(!(processApproved = newAircraftMaintenance(tailNumber, dateScheduled, description)));
+                break;
+            }
+            case 7: {
+                bool processApproved = true;
+                std::string name, role;
+                do{
+                    if(!processApproved)
+                    {
+                        std::cout << "To return back to flight manager enter '0', to try again enter any number: ";
+                        int userInput;
+                        std::cin >> userInput;
+                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                        if(userInput == 0) {break;}
+                    }
+                    std::cout << "Name: ";  std::getline(std::cin, name);
+                    std::cout << "Role (Pilot/CoPilot/FlightAttendant): "; std::getline(std::cin, role);
+                }
+                while(!(processApproved = createNewCrewMember(name, role)));
+                break;
+            }
+            case 8: {
+                bool processApproved = true;
+                int targetID;
+                std::string flightNumber, departureDate;
+                do{
+                    if(!processApproved)
+                    {
+                        std::cout << "To return back to flight manager enter '0', to try again enter any number: ";
+                        int userInput;
+                        std::cin >> userInput;
+                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                        if(userInput == 0) {break;}
+                    }
+                    std::cout << "Crew member ID: ";  std::cin >> targetID; std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                    std::cout << "Flight number: ";   std::getline(std::cin, flightNumber);
+                    std::cout << "Departure date: ";  std::getline(std::cin, departureDate);
+                }
+                while(!(processApproved = assignCrewMemberToFlight(targetID, flightNumber, departureDate)));
+                break;
+            }
+            case 9: {
+                bool processApproved = true;
+                int targetID;
+                std::string flightNumber, departureDate;
+                do{
+                    if(!processApproved)
+                    {
+                        std::cout << "To return back to flight manager enter '0', to try again enter any number: ";
+                        int userInput;
+                        std::cin >> userInput;
+                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                        if(userInput == 0) {break;}
+                    }
+                    std::cout << "Crew member ID: ";  std::cin >> targetID; std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                    std::cout << "Flight number: ";   std::getline(std::cin, flightNumber);
+                    std::cout << "Departure date: ";  std::getline(std::cin, departureDate);
+                }
+                while(!(processApproved = removeCrewMemberFromFlight(targetID, flightNumber, departureDate)));
+                break;
+            }
+            case 10:
+                exitSubmenu = true;
+                break;
+            default:
+                std::cout << "Invalid choice, please try again.\n";
+        }
+    }    
 }
 
 

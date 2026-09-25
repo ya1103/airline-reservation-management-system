@@ -42,7 +42,7 @@ class Administrator: public User{
         //Name can only be altered
         bool updateUserName(int id, const std::string& role, std::string newName);
 
-        //Function which will print down the menu choices for user
+        //Function which will print down the menu choices for admin
         void showMenu() override;
 
         //Function which will print another menu of options related to flights management
