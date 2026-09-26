@@ -14,7 +14,7 @@ class Seat;
 class Reservation: public std::enable_shared_from_this<Reservation>{
     private:
         int id;
-        inline static int nextID = 1;
+        inline static int nextID = 1000;
         std::string bookingDate;
         std::string status;
         std::weak_ptr<Passenger> passengerReference;

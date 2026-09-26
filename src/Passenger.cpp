@@ -103,7 +103,7 @@ void Passenger::showMenu(){
             }
             case 4: {
                 bool processApproved = true;
-                std::string reservationID;
+                int reservationID;
                 do{
                     if(!processApproved)
                     {
