@@ -142,7 +142,31 @@ void Passenger::showMenu(){
                     std::cout << "Enter Reservation ID for Cancellation: ";
                     std::cin >> reservationID;
                 } while(!(processApproved = cancelReservation(reservationID)));
+                break;
             }
+            case 7: {
+                bool processApproved = true;
+                int reservationID;
+                std::string newSeatNumber;
+                do{
+                    if(!processApproved)
+                    {
+                        std::cout << "To return back to passenger menu enter '0', to try again enter any number: ";
+                        int userInput;
+                        std::cin >> userInput;
+                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                        if(userInput == 0) {break;}
+                    }
+                    std::cout << "Enter Reservation ID: ";
+                    std::cin >> reservationID;
+
+                    std::cout << "Enter New Seat Number: ";
+                    std::cin >> newSeatNumber;
+                }
+                while(!(processApproved = modifySeatNumber(reservationID, newSeatNumber)));
+                break;
+            }
+            
             case 9: {
                 logOut();
                 std::cout << "Logged out successfully.\n";
@@ -261,4 +285,20 @@ bool Passenger::cancelReservation(int reservationID)
     
     //If all constraints passed, run cancellation process
     return (*it)->cancelReservation();
+}
+
+bool Passenger::modifySeatNumber(int reservationID, const std::string& newSeatNumber)
+{
+    auto it = std::find_if(passengerReservations.begin(), passengerReservations.end(),
+                    [&](const auto& res){
+                        return res && res->getID() == reservationID;
+                    });
+
+    if(it == passengerReservations.end())
+    {
+        std::cout << "Reservation ID not found, please try again!\n";
+        return false;
+    }
+
+    return (*it)->modifyReservation(newSeatNumber);
 }

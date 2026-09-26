@@ -112,3 +112,12 @@ std::shared_ptr<Seat> Flight::bookSeat(const std::string& seatNumber)
     (*it)->setIsAvailable(false);
     return *it;
 }
+
+
+void releaseSeat(std::shared_ptr<Seat> seat)
+{
+    //Check nullability before dereferencing
+    if (seat) {
+        seat->setIsAvailable(true);
+    }
+}

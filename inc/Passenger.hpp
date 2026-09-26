@@ -63,6 +63,10 @@ class Passenger: public User, public std::enable_shared_from_this<Passenger>{
         //Returns status of process
         bool cancelReservation(int reservationID);
 
+        //Function which allows user to assign new seat number if available
+        //Return status of process
+        bool modifySeatNumber(int reservationID, const std::string& newSeatNumber);
+
         //Function which will print menu options for passenger
         virtual void showMenu() override;
 

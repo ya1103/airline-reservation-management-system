@@ -94,6 +94,10 @@ class Flight: public std::enable_shared_from_this<Flight>{
         void updateStatus(std::string newStatus){
             flightStatus = std::move(newStatus);
         }
+        
+        //Function which releases acquired seat back to available
+        //This is used if reassigning a new seat is to be made
+        void releaseSeat(std::shared_ptr<Seat> seat);
 
         // ==========================================
         // AIRCRAFT REFERENCE

@@ -92,3 +92,36 @@ bool Reservation::cancelReservation(){
 
     
 }
+
+bool Reservation::modifyReservation(const std::string& newSeatNumber)
+{
+    if (status == "Cancelled" || status == "CheckedIn") {
+        std::cout << "Cannot modify a reservation that is " << status << ".\n";
+        return false;
+    }
+
+    auto flight = flightReference.lock();
+    if (!flight) {
+        std::cout << "Flight reference no longer available.\n";
+        return false;
+    }
+
+    //Books new seat if available and marks it unavailable
+    auto newSeat = flight->bookSeat(newSeatNumber); 
+    if (!newSeat) {
+        return false; // bookSeat already printed the error message
+    }
+
+    //Releases old seat to make it available again
+    if (auto oldSeat = seatReference.lock()) {
+        flight->releaseSeat(oldSeat);
+        oldSeat->setReservationReference(nullptr);
+    }
+
+    //Assign new seat to seatReference
+    newSeat->setReservationReference(shared_from_this());
+    seatReference = newSeat;
+
+    std::cout << "Seat changed successfully to " << newSeatNumber << ".\n";
+    return true;
+}

@@ -55,8 +55,8 @@ class Reservation: public std::enable_shared_from_this<Reservation>{
         //if reservation was confirmed previously, then start refund process
         bool cancelReservation();
 
-        //function which helps passenger to reassign a new seat if available
-        void modifyReservation(const std::string& newSeatNumber);
+        //Function which helps passenger to reassign a new seat if available
+        bool modifyReservation(const std::string& newSeatNumber);
 
         //function which processes payment with payment class
         void processPayment();
