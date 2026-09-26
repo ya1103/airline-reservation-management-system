@@ -164,6 +164,8 @@ class Flight: public std::enable_shared_from_this<Flight>{
         //If seat is not available seat number will not be printed, instead "-" will be printed indicating it is booked
         void printSeatMap() const;
 
+        //Function which books a seat by setting to unavailable to avoid double booking
+        //Returns a shared pointer of the booked seat
         std::shared_ptr<Seat> bookSeat(const std::string& seatNumber);
 
 

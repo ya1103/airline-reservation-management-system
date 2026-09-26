@@ -4,7 +4,7 @@
 #include <memory>
 #include <vector>
 
-#include <tuple>
+#include <utility>
 
 //Forward declaration
 class Aircraft;
@@ -88,8 +88,8 @@ public:
 
         //function which reserves a ticket for passenger
         //reservation status stays pending until passenger completes payment
-        //returns to caller a reference to flight and seat
-        std::tuple<std::shared_ptr<Flight>, std::shared_ptr<Seat>> bookFlight(const std::string& flightNumber, const std::string& departureDate, const std::string& seatNumber);
+        //returns to caller bool indicating success or fail process
+        std::pair<std::shared_ptr<Flight>, std::shared_ptr<Seat>> bookFlight(const std::string& flightNumber, const std::string& departureDate, const std::string& seatNumber);
 
 };
 

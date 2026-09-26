@@ -237,3 +237,34 @@ bool AirlineOperations::searchAvailableSeats(const std::string& flightNumber, co
     return true;
 
 }
+
+std::pair<std::shared_ptr<Flight>, std::shared_ptr<Seat>> 
+AirlineOperations::bookFlight(const std::string& flightNumber, const std::string& departureDate, const std::string& seatNumber)
+{
+    //Search based on flight number and departure date
+    auto flightIt = std::find_if(allFlights.begin(), allFlights.end(),
+        [&](const auto& f) { return f && f->getFlightNumber() == flightNumber && f->getDepartureDate() == departureDate; });
+    
+    //Check flight nullability
+    if(flightIt == allFlights.end())
+    {
+        std::cout << "Flight not found based on entered criteria, please try again!\n";
+        //Return null to indicate failed process        
+        return {nullptr, nullptr};
+    }
+
+    //Book seat number entered by user
+    // prints its own error if seat missing/unavailable
+    auto seat = (*flightIt)->bookSeat(seatNumber);
+
+    //Check if seat shared pointer is valid or not
+    if(!seat)
+    {
+        //Should have already printed error message inside previous called function
+        //Return null to indicate failed process
+        return {nullptr, nullptr};
+    } else{
+        //Return reserved seat and flight reference
+        return {*flightIt, seat};
+    }
+}

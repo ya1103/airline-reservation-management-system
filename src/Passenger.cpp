@@ -1,5 +1,6 @@
 #include "Passenger.hpp"
 #include "AirlineOperations.hpp"
+#include "Reservation.hpp"
 #include <limits>
 #include <iostream>
 
@@ -163,4 +164,31 @@ bool Passenger::availableSeats(const std::string& flightNumber, const std::strin
     //Call airline operations to perform seats search
     return AirlineOperationsPtr->searchAvailableSeats(flightNumber, departureDate);
     
+}
+
+bool Passenger::bookFlight(const std::string& flightNumber, const std::string& seatNumber, const std::string& departureDate)
+{
+    auto AirlineOperationsPtr = User::airlineOperationsReference; //Airline operations pointer which holds all flights and seats
+
+    //Check nullability before dereferencing
+    if(!AirlineOperationsPtr)
+    {
+        std::cout << "No airline operations reference found!\n";
+        return false;
+    }
+
+    auto [flight, seat] = AirlineOperationsPtr->bookFlight(flightNumber, departureDate, seatNumber);
+    
+    //Check if process was sucessfull
+    //If not, an error message should be already printed when bookFlight was called in AirlineOperationsPtr
+    //Return false, indicating failed process
+    if(!flight || !seat) {return false;}
+
+    //Create a new reservation 
+    auto newReservation = std::make_shared<Reservation>(shared_from_this(), flight, seat);
+    newReservation->assignReservationToFlightAndSeat();
+    makeReservation(std::move(newReservation));
+
+    std::cout << "Seat " << seatNumber << " booked successfully on flight " << flightNumber << "!\n";
+    return true;   
 }

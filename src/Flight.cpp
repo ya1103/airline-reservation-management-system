@@ -87,3 +87,28 @@ void Flight::printSeatMap() const {
     }
     std::cout << "\n=========================================\n";
 }
+
+std::shared_ptr<Seat> Flight::bookSeat(const std::string& seatNumber)
+{
+    //Find seat
+    auto it = std::find_if(seatsReference.begin(), seatsReference.end(),
+                    [&](const auto& s) { return s->getSeatNumber() == seatNumber; });
+
+    //Check if seat number found before dereferencing
+    if(it == seatsReference.end())
+    {
+        std::cout << "Seat number not found, please try again!\n";
+        return nullptr;
+    }
+
+    //Check seat availability
+    if(!(*it)->getIsAvailable())
+    {
+        std::cout << "Seat number is already booked, please view available seats and try again!\n";
+        return nullptr;
+    }    
+    
+    //If all constraints passsed, reserve the seat safely and return a pointer to it
+    (*it)->setIsAvailable(false);
+    return *it;
+}

@@ -35,6 +35,9 @@ class Seat{
         const std::string& getSeatClass() const { return seatClass; }
         bool getIsAvailable() const { return isAvailable; }
 
+        //Setter for availability
+        void setIsAvailable(bool available) { isAvailable = available; }
+
         // ==========================================
         // FLIGHT REFERENCE
         // ==========================================

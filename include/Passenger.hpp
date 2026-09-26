@@ -14,9 +14,12 @@ class Passenger: public User, public std::enable_shared_from_this<Passenger>{
         int loyaltyPoints;
         std::vector<std::shared_ptr<Reservation>> passengerReservations; //list of reservations made by a passenger
 
-        //function creates a reservation only if passenger booked a flight
-        //reservation status stays pending until payment is complete or cancelled
-        void makeReservation();
+        //Function creates a reservation only if passenger booked a flight
+        //Reservation status stays pending until payment is complete or cancelled
+        void makeReservation(std::shared_ptr<Reservation>&& res)
+        {
+            passengerReservations.push_back(std::move(res));
+        }
     public:        
         //Parameterized constructor ONLY for rebuilding existing passengers from memory on program startup
         //Should NOT be used for creation of new passengers
