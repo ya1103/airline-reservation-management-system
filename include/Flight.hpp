@@ -48,7 +48,11 @@ class Flight: public std::enable_shared_from_this<Flight>{
         void setDepartureDate(std::string newDepartureDate) { departureDate = newDepartureDate; }
         void setDuration(int newDuration) { duration = newDuration; }
         void setFlightStatus(std::string newFlightStatus) { flightStatus = newFlightStatus; }
-        void setDelay(int hours, int mins)
+        
+        //Function which updates flight departure time
+        //Takes two parameters delay in hours and mins
+        //Updates flight status to "Delayed" and modify internal hoursDelay and minsDelay data members
+        void delayDepartureTime(int hours, int mins)
         {
             if(hours < 0 || hours > 23)
             {
@@ -62,6 +66,8 @@ class Flight: public std::enable_shared_from_this<Flight>{
             //If conditions passed, assign safely
             hoursDelay = hours;
             minsDelay = mins;
+            //Update status to Delayed
+            flightStatus = "Delayed";
         }
     public:
 
@@ -88,14 +94,6 @@ class Flight: public std::enable_shared_from_this<Flight>{
         void updateStatus(std::string newStatus){
             flightStatus = std::move(newStatus);
         }
-
-        //function which updates flight departure time
-        //takes two parameters delay in hours and mins
-        //function handles conversion process to match data type of departureTime
-        //function also handles overnight delays which will affect departureDate too
-        //function updates flight status to "Delayed" and modify internal hoursDelay and minsDelay data members
-        void delayDepartureTime(int hours, int mins);
-
 
         // ==========================================
         // AIRCRAFT REFERENCE
