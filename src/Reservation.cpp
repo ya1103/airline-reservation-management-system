@@ -1,6 +1,7 @@
 #include "Reservation.hpp"
 #include "Seat.hpp"
 #include "Flight.hpp"
+#include "Payment.hpp"
 
 // This function must be called immediately after constructing a new reservation
 // It should not be called inside the constructor other wise it will throw bad weak pointer exception
@@ -61,4 +62,33 @@ void Reservation::printReservInfo() const
     }
 
     std::cout << "========================================\n";
+}
+
+bool Reservation::cancelReservation(){
+    //Check before double cancellation
+    if(status == "Cancelled")
+    {
+        std::cout << "Reservation is already cancelled!\n";
+        return false;
+    }
+
+    if(auto shared = seatReference.lock())
+    {
+        //Release seat to be available again
+        shared->setIsAvailable(true);
+    }
+
+    //Update status
+    status = "Cancelled";
+
+    if(paymentReference)
+    {
+        //If payment was made previously start refund process
+        paymentReference->refund();
+    }
+
+    //Return to caller indicating successfull process
+    return true;
+
+    
 }

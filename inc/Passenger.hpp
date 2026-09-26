@@ -59,6 +59,10 @@ class Passenger: public User, public std::enable_shared_from_this<Passenger>{
         //Else prints all reservations history for passenger
         void viewHistory();
 
+        //Function which cancels reservation by id
+        //Returns status of process
+        bool cancelReservation(int reservationID);
+
         //Function which will print menu options for passenger
         virtual void showMenu() override;
 

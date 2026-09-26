@@ -9,3 +9,11 @@ void Payment::print() const {
         << "Status: " << status << "\n"
         << "Payment Date: " << paymentDate << "\n";
 }
+
+void Payment::refund(void)
+{
+    std::cout << "Processing refund...\n";
+    //There should be an api process to process refund
+    std::cout << "Refund issued!\n";
+    status = "Refunded";
+}

@@ -52,8 +52,8 @@ class Reservation: public std::enable_shared_from_this<Reservation>{
         void assignReservationToFlightAndSeat();
         
         //function which cancels passenger flight and makes seat available for others to reserve
-        //if reservation was confirmed before start refund process
-        void cancelReservation();
+        //if reservation was confirmed previously, then start refund process
+        bool cancelReservation();
 
         //function which helps passenger to reassign a new seat if available
         void modifyReservation(const std::string& newSeatNumber);

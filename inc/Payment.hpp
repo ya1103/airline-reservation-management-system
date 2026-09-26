@@ -36,7 +36,7 @@ class Payment{
         std::string process(double amountToBeDeducted, const std::string& method);
 
         //function which starts refund process and update status and returns it to caller
-        std::string refund(void);
+        void refund(void);
         
         // Print function to display payment details
         void print() const;

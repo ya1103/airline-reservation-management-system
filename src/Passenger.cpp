@@ -14,8 +14,11 @@ void Passenger::showMenu(){
                   << "2. View Available Seats\n"
                   << "3. Book Flight\n"
                   << "4. Check-In\n"
-                  << "5. View Booking History\n"
-                  << "6. Log Out\n"
+                  << "5. View Reservation History\n"
+                  << "6. Cancel Reservation"
+                  << "7. Modify Seat Number in Reservation"
+                  << "8. Process Payment"
+                  << "9. Log Out\n"
                   << "Enter your choice: ";
 
         int choice;
@@ -125,6 +128,22 @@ void Passenger::showMenu(){
                 break;
             }
             case 6: {
+                bool processApproved = true;
+                int reservationID;
+                do{
+                    if(!processApproved)
+                    {
+                        std::cout << "To return back to passenger menu enter '0', to try again enter any number: ";
+                        int userInput;
+                        std::cin >> userInput;
+                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                        if(userInput == 0) {break;}
+                    }
+                    std::cout << "Enter Reservation ID for Cancellation: ";
+                    std::cin >> reservationID;
+                } while(!(processApproved = cancelReservation(reservationID)));
+            }
+            case 9: {
                 logOut();
                 std::cout << "Logged out successfully.\n";
                 break;
@@ -223,4 +242,23 @@ void Passenger::viewHistory()
     {
         res->printReservInfo();
     }
+}
+
+bool Passenger::cancelReservation(int reservationID)
+{    
+    //Find reservation by id
+    auto it = std::find_if(passengerReservations.begin(), passengerReservations.end(), 
+                    [&](const auto& res){
+                        return res && res->getID() == reservationID;
+                    });
+
+    //Check nullability before dereferencing
+    if(it == passengerReservations.end())
+    {
+        std::cout << "Reservation ID not found, please try again!\n";
+        return false;
+    }
+    
+    //If all constraints passed, run cancellation process
+    return (*it)->cancelReservation();
 }
