@@ -19,16 +19,16 @@ void Reservation::assignReservationToFlightAndSeat(){
 
 bool Reservation::checkIn()
 {
-    if(status != "Confirmed")
-    {
-        std::cout << "Please complete payment before checking in.\n";
-        return false;
-    }
-
     if(status == "CheckedIn")
     {
         std::cout << "Passenger already checked-in on flight\n";
         return true;
+    }
+
+    if(status != "Confirmed")
+    {
+        std::cout << "Please complete payment before checking in.\n";
+        return false;
     }
 
     //If all constraints passed then check in passenger
@@ -141,5 +141,6 @@ bool Reservation::processPayment(std::string paymentMethod)
     double seatPrice = seat->getPrice();
     paymentReference = std::make_shared<Payment>(shared_from_this(), seatPrice, std::move(paymentMethod));
     paymentReference->process();
+    status = "Confirmed";
     return true;
 }
