@@ -35,3 +35,30 @@ bool Reservation::checkIn()
     std::cout << "Checked-in passenger on flight successfully";
     return true;
 }
+
+void Reservation::printReservInfo() const
+{
+    std::cout << "========================================\n";
+    std::cout << "         RESERVATION INFORMATION        \n";
+    std::cout << "========================================\n";
+    std::cout << " Reservation ID : " << id << "\n";
+    std::cout << " Booking Date   : " << bookingDate << "\n";
+    std::cout << " Status         : " << status << "\n";
+
+    if (auto seat = seatReference.lock()) {
+        std::cout << " Seat Number    : " << seat->getSeatNumber() << "\n";
+        std::cout << " Seat Class     : " << seat->getSeatClass() << "\n";
+    } else {
+        std::cout << " Seat           : Not available (reference expired)\n";
+    }
+
+    std::cout << "----------------------------------------\n";
+
+    if (auto flight = flightReference.lock()) {
+        flight->printFlightInfo();
+    } else {
+        std::cout << " Flight         : Not available (reference expired)\n";
+    }
+
+    std::cout << "========================================\n";
+}

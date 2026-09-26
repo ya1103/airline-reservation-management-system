@@ -60,6 +60,9 @@ class Reservation: public std::enable_shared_from_this<Reservation>{
 
         //function which processes payment with payment class
         void processPayment();
+
+        //Function which prints all details related to reservation
+        void printReservInfo() const;
 };
 
 #endif

@@ -211,3 +211,16 @@ bool Passenger::checkIn(int reservationID)
 
     return (*it)->checkIn();
 }
+
+void Passenger::viewHistory()
+{
+    if(passengerReservations.size() == 0)
+    {
+        std::cout << "No reservations found!\n";
+    }
+
+    for(auto res: passengerReservations)
+    {
+        res->printReservInfo();
+    }
+}
