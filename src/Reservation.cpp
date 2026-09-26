@@ -16,3 +16,22 @@ void Reservation::assignReservationToFlightAndSeat(){
     }
 }
 
+bool Reservation::checkIn()
+{
+    if(status != "Confirmed")
+    {
+        std::cout << "Please complete payment before checking in.\n";
+        return false;
+    }
+
+    if(status == "CheckedIn")
+    {
+        std::cout << "Passenger already checked-in on flight\n";
+        return true;
+    }
+
+    //If all constraints passed then check in passenger
+    setStatus("CheckedIn");
+    std::cout << "Checked-in passenger on flight successfully";
+    return true;
+}

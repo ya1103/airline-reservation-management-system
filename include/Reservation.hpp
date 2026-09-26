@@ -21,6 +21,9 @@ class Reservation: public std::enable_shared_from_this<Reservation>{
         std::shared_ptr<Payment> paymentReference = nullptr; //default is null until payment is processed
         std::weak_ptr<Flight> flightReference; //default empty pointer until a flight is booked
         std::weak_ptr<Seat> seatReference; //default empty pointer until a seat is booked
+        
+        //Setter for reservation status
+        void setStatus(std::string newStatus) { status = std::move(newStatus); }
         public:
         //Parameterized Constructor ONLY for creating new reservations
         //Note: after constructing a new reservation, assignReservationToFlightAndSeat() must be called immediately after
@@ -36,6 +39,14 @@ class Reservation: public std::enable_shared_from_this<Reservation>{
             : id(passedID), bookingDate(std::move(passedDate)), status(std::move(passedStatus)),
             passengerReference(ptrToPassenger), flightReference(ptrToFlight), seatReference(ptrToSeat) {}
         
+        //Getter for reservation ID
+        int getID() const { return id; }
+
+        //Getter for reservation status
+        const std::string& getStatus() { return status; }
+
+        bool checkIn();
+
         //This function must be called immediately after constructing a new reservation
         //It should not be called inside the constructor other wise it will throw bad weak pointer exception
         void assignReservationToFlightAndSeat();

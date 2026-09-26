@@ -51,7 +51,7 @@ class Passenger: public User, public std::enable_shared_from_this<Passenger>{
 
         //Checks in passenger on flight updating reservation status on passenger's flight to checkedIN
         //If any invalid data, it shall print out error for user and return false
-        //Else print all available flights' details and return true
+        //Else returns true normally
         bool checkIn(int reservationID);
         
         //Function which iterates over all reservations made by user to print them out

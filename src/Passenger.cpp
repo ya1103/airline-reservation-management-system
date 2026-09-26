@@ -1,6 +1,7 @@
 #include "Passenger.hpp"
 #include "AirlineOperations.hpp"
 #include "Reservation.hpp"
+#include <algorithm>
 #include <limits>
 #include <iostream>
 
@@ -191,4 +192,22 @@ bool Passenger::bookFlight(const std::string& flightNumber, const std::string& s
 
     std::cout << "Seat " << seatNumber << " booked successfully on flight " << flightNumber << "!\n";
     return true;   
+}
+
+bool Passenger::checkIn(int reservationID)
+{
+    //Find reservation by id
+    auto it = std::find_if(passengerReservations.begin(), passengerReservations.end(), 
+                    [&](const auto& res){
+                        return res && res->getID() == reservationID;
+                    });
+
+    //Check nullability before dereferencing
+    if(it == passengerReservations.end())
+    {
+        std::cout << "Reservation ID not found, please try again!\n";
+        return false;
+    }
+
+    return (*it)->checkIn();
 }
