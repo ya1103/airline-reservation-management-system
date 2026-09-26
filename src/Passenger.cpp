@@ -166,6 +166,7 @@ void Passenger::showMenu(){
                 while(!(processApproved = modifySeatNumber(reservationID, newSeatNumber)));
                 break;
             }
+            case 8:
             
             case 9: {
                 logOut();
@@ -301,4 +302,30 @@ bool Passenger::modifySeatNumber(int reservationID, const std::string& newSeatNu
     }
 
     return (*it)->modifyReservation(newSeatNumber);
+}
+
+
+bool Passenger::processPayment(int reservationID, std::string paymentMethod)
+{
+    //Find reservation by id
+    auto it = std::find_if(passengerReservations.begin(), passengerReservations.end(), 
+                    [&](const auto& res){
+                        return res && res->getID() == reservationID;
+                    });
+
+    //Check nullability before dereferencing
+    if(it == passengerReservations.end())
+    {
+        std::cout << "Reservation ID not found, please try again!\n";
+        return false;
+    }
+    //Check if payment method is valid
+    if(paymentMethod == "CreditCard" || paymentMethod == "ApplePay" || paymentMethod == "GooglePay")
+    {
+        //Process payment
+        return (*it)->processPayment(std::move(paymentMethod));
+    }else{
+        std::cout << "Invalid payment method!\nMust be CreditCard or ApplePay or GooglePay, please try again!\n";
+        return false;
+    }
 }

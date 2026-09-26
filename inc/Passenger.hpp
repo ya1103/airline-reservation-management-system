@@ -70,6 +70,10 @@ class Passenger: public User, public std::enable_shared_from_this<Passenger>{
         //Function which will print menu options for passenger
         virtual void showMenu() override;
 
+        //Function which starts payment process
+        //Payment method has to be either CreditCard or ApplePay or GooglePay only for now
+        bool processPayment(int reservationID, std::string paymentMethod);
+
     };      
 
 #endif

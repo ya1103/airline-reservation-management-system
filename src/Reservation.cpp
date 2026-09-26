@@ -125,3 +125,21 @@ bool Reservation::modifyReservation(const std::string& newSeatNumber)
     std::cout << "Seat changed successfully to " << newSeatNumber << ".\n";
     return true;
 }
+
+
+bool Reservation::processPayment(std::string paymentMethod)
+{
+    auto seat = seatReference.lock();
+    
+    //Check nullability before dereferencing
+    if(!seat)
+    {
+        std::cout << "No seat reference!\n";
+        return false;
+    }
+    
+    double seatPrice = seat->getPrice();
+    paymentReference = std::make_shared<Payment>(shared_from_this(), seatPrice, std::move(paymentMethod));
+    paymentReference->process();
+    return true;
+}

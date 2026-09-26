@@ -59,7 +59,7 @@ class Reservation: public std::enable_shared_from_this<Reservation>{
         bool modifyReservation(const std::string& newSeatNumber);
 
         //function which processes payment with payment class
-        void processPayment();
+        bool processPayment(std::string paymentMethod);
 
         //Function which prints all details related to reservation
         void printReservInfo() const;

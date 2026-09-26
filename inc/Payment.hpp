@@ -3,7 +3,7 @@
 
 #include <string>
 #include <memory>
-#include <DateUtils.hpp>
+#include "DateUtils.hpp"
 
 //forward declaration
 class Reservation;
@@ -33,7 +33,7 @@ class Payment{
         static void setNextID(int passedID) {nextID = passedID;}
         
         //function which will start payment process and update status and returns it to caller
-        std::string process(double amountToBeDeducted, const std::string& method);
+        void process();
 
         //function which starts refund process and update status and returns it to caller
         void refund(void);

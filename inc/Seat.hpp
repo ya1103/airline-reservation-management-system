@@ -34,6 +34,7 @@ class Seat{
         const std::string& getSeatNumber() const { return seatNumber; }
         const std::string& getSeatClass() const { return seatClass; }
         bool getIsAvailable() const { return isAvailable; }
+        double getPrice() const { return price;}
 
         //Setter for availability
         void setIsAvailable(bool available) { isAvailable = available; }
