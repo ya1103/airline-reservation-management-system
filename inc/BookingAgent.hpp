@@ -42,7 +42,7 @@ class BookingAgent: public User{
         
         //function which searches all available seats on a flight
         //Prints all available seats
-        void availableSeats(const std::string& flightNumber, const std::string& departureDate);
+        bool availableSeats(const std::string& flightNumber, const std::string& departureDate);
 
         //Calls book flight using passenger object shared pointer and passing arguments
         bool BookFlightForPassenger(int targetPassengerID, const std::string& flightNumber, const std::string& seatNumber, const std::string& departureDate);

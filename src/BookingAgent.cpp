@@ -46,6 +46,26 @@ void BookingAgent::showMenu() {
                 while(!(processApproved = searchFlight(departureDate, origin, destination)));
                 break;
             }
+            case 2: {
+                bool processApproved = true;
+                std::string flightNumber, departureDate;
+                do{
+                    if(!processApproved)
+                    {
+                        std::cout << "To return back to agent menu enter '0', to try again enter any number: ";
+                        int userInput;
+                        std::cin >> userInput;
+                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                        if(userInput == 0) {break;}
+                    }
+                    std::cout << "Enter Flight Number: ";
+                    std::cin >> flightNumber;
+                    std::cout << "Enter Departure Date (YYYY-MM-DD): ";
+                    std::cin >> departureDate;
+                }
+                while(!(processApproved = availableSeats(flightNumber, departureDate)));
+                break;
+            }            
             case 3: {
                 bool processApproved = true;
                 int passengerID;
@@ -167,4 +187,19 @@ bool BookingAgent::searchFlight(const std::string& departureDate, const std::str
     }
 
     return AirlineOperationsPtr->searchFlight(departureDate, origin, destination);
+}
+
+bool BookingAgent::availableSeats(const std::string& flightNumber, const std::string& departureDate)
+{
+    auto AirlineOperationsPtr = User::airlineOperationsReference; //Airline operations pointer which holds all flights and seats
+
+    //Check nullability before dereferencing
+    if(!AirlineOperationsPtr)
+    {
+        std::cout << "No airline operations reference found!\n";
+        return false;
+    }
+
+    //Call airline operations to perform seats search
+    return AirlineOperationsPtr->searchAvailableSeats(flightNumber, departureDate);
 }
