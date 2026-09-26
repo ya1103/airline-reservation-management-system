@@ -45,10 +45,10 @@ class BookingAgent: public User{
         void availableSeats(const std::string& flightNumber, const std::string& departureDate);
 
         //Calls book flight using passenger object shared pointer and passing arguments
-        bool BookFlightForPassenger(std::shared_ptr<Passenger> targetPassenger, const std::string& flightNumber, const std::string& seatNumber, const std::string& departureDate);
+        bool BookFlightForPassenger(int targetPassengerID, const std::string& flightNumber, const std::string& seatNumber, const std::string& departureDate);
 
         //Checks in passenger on flight updating reservation status on passenger's flight
-        bool checkInPassenger(std::shared_ptr<Passenger> targetPassenger, std::string reservationID);
+        bool checkInPassenger(int targetPassengerID, std::string reservationID);
 };
 
 #endif
