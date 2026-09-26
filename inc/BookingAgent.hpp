@@ -38,7 +38,7 @@ class BookingAgent: public User{
         
         //Searches for flights based on criteria departure, origin, and destination
         //Prints all available flights
-        void searchFlight(const std::string& departureDate, const std::string& origin, const std::string& destination);
+        bool searchFlight(const std::string& departureDate, const std::string& origin, const std::string& destination);
         
         //function which searches all available seats on a flight
         //Prints all available seats

@@ -1,6 +1,7 @@
 #include "BookingAgent.hpp"
 #include "UserManager.hpp"
 #include "Passenger.hpp"
+#include "AirlineOperations.hpp"
 #include <limits>
 #include <iostream>
 
@@ -23,7 +24,28 @@ void BookingAgent::showMenu() {
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
         switch (choice) {
-
+            case 1: {
+                bool processApproved = true;
+                std::string departureDate, origin, destination;
+                do{
+                    if(!processApproved)
+                    {
+                        std::cout << "To return back to agent menu enter '0', to try again enter any number: ";
+                        int userInput;
+                        std::cin >> userInput;
+                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                        if(userInput == 0) {break;}
+                    }
+                    std::cout << "Enter Departure Date (YYYY-MM-DD): ";
+                    std::cin >> departureDate;
+                    std::cout << "Enter Origin City: ";
+                    std::cin >> origin;
+                    std::cout << "Enter Destination City: ";
+                    std::cin >> destination;
+                }
+                while(!(processApproved = searchFlight(departureDate, origin, destination)));
+                break;
+            }
             case 3: {
                 bool processApproved = true;
                 int passengerID;
@@ -131,4 +153,18 @@ bool BookingAgent::checkInPassenger(int targetPassengerID, int reservationID)
     } 
 
     return targetPassengerPtr->checkIn(reservationID);
+}
+
+bool BookingAgent::searchFlight(const std::string& departureDate, const std::string& origin, const std::string& destination)
+{
+    auto AirlineOperationsPtr = User::airlineOperationsReference; //Airline operations pointer which holds all flights and seats
+
+    //Check nullability before dereferencing
+    if(!AirlineOperationsPtr)
+    {
+        std::cout << "No airline operations reference found!\n";
+        return false;
+    }
+
+    return AirlineOperationsPtr->searchFlight(departureDate, origin, destination);
 }
