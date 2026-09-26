@@ -53,7 +53,28 @@ void BookingAgent::showMenu() {
                 while(!(processApproved = BookFlightForPassenger(passengerID, flightNumber, seatNumber, departureDate)));
                 break;
             }
+            case 4: {
+                bool processApproved = true;
+                int passengerID, reservationID;
 
+                do{
+                    if(!processApproved)
+                    {
+                        std::cout << "To return back to agent menu enter '0', to try again enter any number: ";
+                        int userInput;
+                        std::cin >> userInput;
+                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                        if(userInput == 0) {break;}
+                    }
+                    std::cout << "Enter Passenger ID: ";
+                    std::cin >> passengerID;
+
+                    std::cout << "Enter Reservation ID: ";
+                    std::cin >> reservationID;
+                }
+                while(!(processApproved = checkInPassenger(passengerID, reservationID)));
+                break;
+            }
             case 5:
                 logOut();
                 std::cout << "Logged out successfully.\n";
@@ -96,4 +117,18 @@ bool BookingAgent::BookFlightForPassenger(int targetPassengerID, const std::stri
     }
     
     return targetPassengerPtr->bookFlight(flightNumber, seatNumber, departureDate);
+}
+
+bool BookingAgent::checkInPassenger(int targetPassengerID, int reservationID)
+{
+    //Fetch passenger pointer by his id
+    auto targetPassengerPtr = getPassengerByID(targetPassengerID);
+    
+    //Check nullability before dereferencing
+    if (!targetPassengerPtr) {
+        std::cout << "No passenger found based on ID entered, please try again!\n";
+        return false;
+    } 
+
+    return targetPassengerPtr->checkIn(reservationID);
 }

@@ -48,7 +48,7 @@ class BookingAgent: public User{
         bool BookFlightForPassenger(int targetPassengerID, const std::string& flightNumber, const std::string& seatNumber, const std::string& departureDate);
 
         //Checks in passenger on flight updating reservation status on passenger's flight
-        bool checkInPassenger(int targetPassengerID, std::string reservationID);
+        bool checkInPassenger(int targetPassengerID, int reservationID);
 };
 
 #endif
