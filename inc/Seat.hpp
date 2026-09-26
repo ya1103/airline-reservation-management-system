@@ -40,21 +40,6 @@ class Seat{
         void setIsAvailable(bool available) { isAvailable = available; }
 
         // ==========================================
-        // FLIGHT REFERENCE
-        // ==========================================
-
-        // Getter: Promotes the weak_ptr to a shared_ptr to safely check/use it
-        // Returns nullptr if the Flight has been destroyed
-        // std::shared_ptr<Flight> getFlightReference() const {
-        //     return flightReference.lock();
-        // }
-
-        // // Setter: Accepts a shared_ptr and implicitly converts it to a weak_ptr
-        // void setFlightReference(std::shared_ptr<Flight> newFlight) {
-        //     flightReference = std::move(newFlight);
-        // }
-
-        // ==========================================
         // RESERVATION REFERENCE
         // ==========================================
 
