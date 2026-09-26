@@ -27,7 +27,7 @@ bool UserManager::createUser(const std::string& passedName, const std::string& p
     if (passedRole == "Administrator") {
         newUser = std::make_shared<Administrator>(passedName, passedEmail, password, shared_from_this());
     } else if (passedRole == "BookingAgent") {
-        newUser = std::make_shared<BookingAgent>(passedName, passedEmail, password);
+        newUser = std::make_shared<BookingAgent>(passedName, passedEmail, password, shared_from_this());
     } else if (passedRole == "Passenger") {
         newUser = std::make_shared<Passenger>(passedName, passedEmail, password);
     } else {
@@ -88,4 +88,14 @@ bool UserManager::updateUserName(int id, const std::string& role, std::string ne
     (*it)->printUserInfo();
     return true;
 
+}
+
+std::shared_ptr<Passenger> UserManager::findPassengerByID(int id)
+{
+    for (const auto& user : users) {
+    if (user->getID() == id && user->getRole() == "Passenger" && user->getIsActive()) {
+            return std::dynamic_pointer_cast<Passenger>(user);
+        }
+    }
+    return nullptr;
 }

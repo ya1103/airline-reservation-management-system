@@ -3,6 +3,8 @@
 
 #include "User.hpp"
 
+//Forward declaration
+class Passenger;
 
 //This will class will manage all type of users during runtime
 class UserManager: public std::enable_shared_from_this<UserManager>{
@@ -25,6 +27,10 @@ class UserManager: public std::enable_shared_from_this<UserManager>{
 
         //Update user name only if id and role matches existing user, unless returns false with message displaying failed process
         bool updateUserName(int id, const std::string& role, std::string newName);
+
+        // Finds an active Passenger by ID — used by BookingAgent to act on a passenger's behalf
+        // Returns shared pointer of found passenger else nullptr
+        std::shared_ptr<Passenger> findPassengerByID(int id);
     };
 
 #endif
