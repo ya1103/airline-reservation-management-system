@@ -37,7 +37,7 @@ bool UserManager::createUser(const std::string& passedName, const std::string& p
 
     //Assign user safely
     users.push_back(newUser);
-    std::cout << "User created successfully!\n";
+    std::cout << "\nUser created successfully!\n";
     return true;
 }
 
