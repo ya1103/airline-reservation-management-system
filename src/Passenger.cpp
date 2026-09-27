@@ -191,7 +191,7 @@ void Passenger::showMenu(){
                         processApproved = false;
                         continue;
                     }
-                } while(processApproved = processPayment(resID, std::move(method)));
+                } while(!(processApproved = processPayment(resID, std::move(method))));
                 break;
             }
 

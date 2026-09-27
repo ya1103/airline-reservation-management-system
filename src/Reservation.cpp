@@ -137,6 +137,13 @@ bool Reservation::processPayment(std::string paymentMethod)
         std::cout << "No seat reference!\n";
         return false;
     }
+
+    std::string CreditCardNumber;
+    if(paymentMethod == "CreditCard")
+    {
+        std::cout << "\nPlease Enter Credit Card Number (XXXX-XXXX-XXXX-XXXX): ";
+        std::cin >> CreditCardNumber;
+    }
     
     double seatPrice = seat->getPrice();
     paymentReference = std::make_shared<Payment>(shared_from_this(), seatPrice, std::move(paymentMethod));
