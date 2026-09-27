@@ -61,6 +61,13 @@ void Reservation::printReservInfo() const
         std::cout << " Flight         : Not available (reference expired)\n";
     }
 
+    //If there is a valid payment reference print it too
+    if(paymentReference)
+    {
+        std::cout << "----------------------------------------\n";
+        paymentReference->print();
+    }
+
     std::cout << "========================================\n";
 }
 
