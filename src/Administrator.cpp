@@ -113,7 +113,7 @@ void Administrator::showMenu() {
 
             case 5:
                 logOut();
-                std::cout << "Logged out successfully.\n";
+                std::cout << "\nLogged out successfully!\nLoading main menu...\n";
                 break;
 
             default:
@@ -166,9 +166,9 @@ void Administrator::manageFlights()
                     std::cout << "Flight number: ";    std::getline(std::cin, flightNumber);
                     std::cout << "Origin: ";            std::getline(std::cin, origin);
                     std::cout << "Destination: ";       std::getline(std::cin, destination);
-                    std::cout << "Departure date: ";    std::getline(std::cin, departureDate);
-                    std::cout << "Departure time: ";    std::getline(std::cin, departureTime);
-                    std::cout << "Duration (hours): ";  std::cin >> duration; std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                    std::cout << "Departure date (YYYY-MM-DD): ";    std::getline(std::cin, departureDate);
+                    std::cout << "Departure time (Hours): ";    std::getline(std::cin, departureTime);
+                    std::cout << "Duration (HH:MM): ";  std::cin >> duration; std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 }
                 while(!(processApproved = createNewFlight(flightNumber, origin, destination, departureDate, departureTime, duration)));
                 break;
@@ -351,8 +351,10 @@ bool Administrator::createNewFlight(std::string newFlightNumber, std::string new
             std::cout << "No airline operations reference found!\n";
             return false;
         }
-        return ops->createFlight(std::move(newFlightNumber), std::move(newOrigin), std::move(newDestination),
+        bool result = ops->createFlight(std::move(newFlightNumber), std::move(newOrigin), std::move(newDestination),
                                   std::move(newDepartureDate), std::move(newDepartureTime), newDuration);
+        if(result) {std::cout << "\nFlight added successfully!\n";}
+        return result;
     } catch (std::exception& e) {
         std::cout << std::endl << e.what() << std::endl;
         return false;

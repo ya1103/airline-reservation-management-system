@@ -34,7 +34,7 @@ void Flight::printFlightInfo() const {
     std::cout << " Route         : " << origin << " -> " << destination << "\n";
     std::cout << " Date          : " << departureDate << "\n";
     std::cout << " Departure     : " << departureTime << "\n";
-    std::cout << " Duration      : " << duration << " mins\n";
+    std::cout << " Duration      : " << duration << "\n";
 
     if (hoursDelay > 0 || minsDelay > 0) {
         std::cout << " Delay         : " << hoursDelay << "h " << minsDelay << "m\n";
