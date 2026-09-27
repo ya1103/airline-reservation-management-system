@@ -48,6 +48,9 @@ class User{
         //Role getter
         const std::string& getRole() const {return role;}
 
+        //Name getter
+        const std::string& getName() const {return name;}
+
         //Active status getter
         bool getIsActive() const {return isActive;}
 
