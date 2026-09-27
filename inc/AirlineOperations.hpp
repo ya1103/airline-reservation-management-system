@@ -72,15 +72,15 @@ class AirlineOperations{
         //function which creates a new maintenance record
         bool newAircraftMaintenance(const std::string& tailNumber, std::string dateScheduled, std::string caseDescription);
     
+        //function which returns list of available flights based on criteria
+        //vector contains tuples where each tuple holds
+        //prints flight basic info besides detailed info related to admins only
+        bool searchFlightAsAdmin(const std::string& departureDate, const std::string& origin, const std::string& destination);       
 public:
         //function which returns list of available flights based on criteria
         //vector contains tuples where each tuple holds
-        //1) Flight Number
-        //2) Origin
-        //3) Destination
-        //4) Departure date and time
-        //5) Arrival date and time
-        bool searchFlight(const std::string& departureDate, const std::string& origin, const std::string& destination);
+        //prints flight basic info related to user only
+        bool searchFlightAsPassenger(const std::string& departureDate, const std::string& origin, const std::string& destination);
         
         //function which searches all available seats on a flight
         //returns an array of seat numbers available on flight

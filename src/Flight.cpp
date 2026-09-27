@@ -39,12 +39,16 @@ void Flight::printFlightInfo() const {
     if (hoursDelay > 0 || minsDelay > 0) {
         std::cout << " Delay         : " << hoursDelay << "h " << minsDelay << "m\n";
     }
+}
 
+
+void Flight::printFlightOperationsInfo() const
+{
     std::cout << "----------------------------------------\n";
-    std::cout << " Aircraft      : " << (aircraftReference ? "Assigned" : "Not Assigned") << "\n";
+    std::cout << " Aircraft      : " << (aircraftReference ? aircraftReference->getModel() : "Not Assigned") << "\n";
     std::cout << " Crew Count    : " << crewMembersReference.size() << "\n";
     std::cout << " Reservations  : " << reservationsReference.size() << "\n";
-    std::cout << " Seats Loaded  : " << seatsReference.size() << " / " << numberOfSeats << "\n";
+    std::cout << " Seats on Aircraft  : " << seatsReference.size() << "\n";
     std::cout << "========================================\n";
 }
 

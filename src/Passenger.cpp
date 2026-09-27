@@ -191,8 +191,7 @@ void Passenger::showMenu(){
                         continue;
                     }
                 } while(processApproved = processPayment(resID, std::move(method)));
-
-
+                break;
             }
 
 
@@ -220,7 +219,7 @@ bool Passenger::searchFlight(const std::string& departureDate, const std::string
         return false;
     }
 
-    return AirlineOperationsPtr->searchFlight(departureDate, origin, destination);
+    return AirlineOperationsPtr->searchFlightAsPassenger(departureDate, origin, destination);
 }
 
 bool Passenger::availableSeats(const std::string& flightNumber, const std::string& departureDate)

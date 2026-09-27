@@ -186,7 +186,7 @@ bool BookingAgent::searchFlight(const std::string& departureDate, const std::str
         return false;
     }
 
-    return AirlineOperationsPtr->searchFlight(departureDate, origin, destination);
+    return AirlineOperationsPtr->searchFlightAsPassenger(departureDate, origin, destination);
 }
 
 bool BookingAgent::availableSeats(const std::string& flightNumber, const std::string& departureDate)

@@ -69,6 +69,11 @@ class Flight: public std::enable_shared_from_this<Flight>{
             //Update status to Delayed
             flightStatus = "Delayed";
         }
+
+        //Function which prints extra details related to flight
+        //Such as aircraft type, number of seats, number of crew members, number of reservations
+        //Mainly important to administrators and airline operations
+        void printFlightOperationsInfo() const;
     public:
 
         //Parameterized constructor
