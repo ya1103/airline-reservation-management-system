@@ -63,10 +63,16 @@ void Flight::printSeatMap() const {
     std::cout << "=========================================\n\n";
 
     int seatIndex = 0;
-    
-    for (int r = 1; r <= 30; ++r) {
 
-        for (int c = 0; c < 7; ++c) {
+    //Check nullability before dereferencing to avoid runtime error
+    if (seatsReference.empty()) {
+        std::cout << "No seats have been initialized for this flight.\n";
+        return;
+    }
+    
+    for (int r = 1; r <= 30 && seatIndex < seatsReference.size(); ++r) {
+
+        for (int c = 0; c < 7 && seatIndex < seatsReference.size(); ++c) {
             auto& seat = seatsReference[seatIndex++];
             
             // Print the seat number or a "-" if booked

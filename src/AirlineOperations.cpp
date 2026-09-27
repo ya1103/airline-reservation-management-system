@@ -62,9 +62,11 @@ bool AirlineOperations::createFlight(std::string flightNumber, std::string origi
 {
     //check for contradiction, if found error will be thrown, process aborts
     checkFlightContradiction(flightNumber, departureDate);
-    allFlights.push_back(std::make_shared<Flight>(std::move(flightNumber), std::move(origin),
+    auto newFlight = std::make_shared<Flight>(std::move(flightNumber), std::move(origin),
                                                     std::move(destination), std::move(departureDate),
-                                                    std::move(departureTime), duration));
+                                                    std::move(departureTime), duration);
+    newFlight->initializeSeats();
+    allFlights.push_back(newFlight);
     return true;
 }
 
