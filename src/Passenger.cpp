@@ -182,6 +182,7 @@ void Passenger::showMenu(){
                     std::cout << "Please enter reservation number: ";
                     std::cin >> resID;
                     std::cout << "Please select payment method CreditCard/ Cash/ ApplePay/ GooglePay: ";
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                     std::getline(std::cin, method);
 
                     if(method == "Cash")

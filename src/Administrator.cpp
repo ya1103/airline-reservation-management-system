@@ -167,8 +167,8 @@ void Administrator::manageFlights()
                     std::cout << "Origin: ";            std::getline(std::cin, origin);
                     std::cout << "Destination: ";       std::getline(std::cin, destination);
                     std::cout << "Departure date (YYYY-MM-DD): ";    std::getline(std::cin, departureDate);
-                    std::cout << "Departure time (Hours): ";    std::getline(std::cin, departureTime);
-                    std::cout << "Duration (HH:MM): ";  std::cin >> duration; std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                    std::cout << "Departure time (HH:MM): ";    std::getline(std::cin, departureTime);
+                    std::cout << "Duration (Hours): ";  std::cin >> duration; std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 }
                 while(!(processApproved = createNewFlight(flightNumber, origin, destination, departureDate, departureTime, duration)));
                 break;
