@@ -234,7 +234,7 @@ bool Passenger::bookFlight(const std::string& flightNumber, const std::string& s
     newReservation->assignReservationToFlightAndSeat();
     makeReservation(std::move(newReservation));
 
-    std::cout << "Seat " << seatNumber << " booked successfully on flight " << flightNumber << "!\n";
+    std::cout << "\nSeat " << seatNumber << " booked successfully on flight " << flightNumber << "!\n";
     return true;   
 }
 
