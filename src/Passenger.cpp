@@ -277,7 +277,7 @@ bool Passenger::checkIn(int reservationID)
     //Check nullability before dereferencing
     if(it == passengerReservations.end())
     {
-        std::cout << "Reservation ID not found, please try again!\n";
+        std::cout << "\nReservation ID not found, please try again!\n";
         return false;
     }
 

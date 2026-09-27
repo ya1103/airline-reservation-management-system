@@ -21,19 +21,19 @@ bool Reservation::checkIn()
 {
     if(status == "CheckedIn")
     {
-        std::cout << "Passenger already checked-in on flight\n";
+        std::cout << "\nPassenger already checked-in on flight\n";
         return true;
     }
 
     if(status != "Confirmed")
     {
-        std::cout << "Please complete payment before checking in.\n";
+        std::cout << "\nPlease complete payment before checking in.\n";
         return false;
     }
 
     //If all constraints passed then check in passenger
     setStatus("CheckedIn");
-    std::cout << "Checked-in passenger on flight successfully";
+    std::cout << "\nChecked-in passenger on flight successfully";
     return true;
 }
 
