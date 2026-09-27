@@ -93,7 +93,7 @@ bool AirlineOperations::delayFlight(const std::string& targetFlightNumber, const
     for (const auto& eachFlight : allFlights) {
         if (eachFlight->getFlightNumber() == targetFlightNumber &&
             eachFlight->getDepartureDate() == targetFlightDepartureDate) {
-            eachFlight->setDelay(hours, mins);
+            eachFlight->delayDepartureTime(hours, mins);
             std::cout << "Delay for flight was set successfully!\n";
             eachFlight->printFlightInfo();
             return true;
