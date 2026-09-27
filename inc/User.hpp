@@ -38,6 +38,10 @@ class User{
         //Email getter
         const std::string& getEmail() const{return email;}
 
+        //Helper function which checks if givenPassword matches saved password or not
+        //Used for login process
+        bool checkPassword(const std::string& givenPassword) { return givenPassword == password;}
+
         //ID getter
         int getID() const {return id;}
 
