@@ -166,8 +166,36 @@ void Passenger::showMenu(){
                 while(!(processApproved = modifySeatNumber(reservationID, newSeatNumber)));
                 break;
             }
-            case 8:
-            
+            case 8:{
+                bool processApproved = true;
+                int resID;
+                std::string method;
+                do{
+                    if(!processApproved)
+                    {
+                        std::cout << "To return back to passenger menu enter '0', to try again enter any number: ";
+                        int userInput;
+                        std::cin >> userInput;
+                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                        if(userInput == 0) {break;}
+                    }
+                    std::cout << "Please enter reservation number: ";
+                    std::cin >> resID;
+                    std::cout << "Please select payment method CreditCard/ Cash/ ApplePay/ GooglePay: ";
+                    std::getline(std::cin, method);
+
+                    if(method == "Cash")
+                    {
+                        std::cout << "Please visit nearest booking agency to complete payment in cash!\n";
+                        processApproved = false;
+                        continue;
+                    }
+                } while(processApproved = processPayment(resID, std::move(method)));
+
+
+            }
+
+
             case 9: {
                 logOut();
                 std::cout << "Logged out successfully.\n";
