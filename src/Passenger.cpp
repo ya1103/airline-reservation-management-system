@@ -15,9 +15,9 @@ void Passenger::showMenu(){
                   << "3. Book Flight\n"
                   << "4. Check-In\n"
                   << "5. View Reservation History\n"
-                  << "6. Cancel Reservation"
-                  << "7. Modify Seat Number in Reservation"
-                  << "8. Process Payment"
+                  << "6. Cancel Reservation\n"
+                  << "7. Modify Seat Number in Reservation\n"
+                  << "8. Process Payment\n"
                   << "9. Log Out\n"
                   << "Enter your choice: ";
 
