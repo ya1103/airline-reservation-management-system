@@ -99,3 +99,23 @@ std::shared_ptr<Passenger> UserManager::findPassengerByID(int id)
     }
     return nullptr;
 }
+
+std::shared_ptr<User> UserManager::logIn(const std::string& emailInputByUser, const std::string& passwordAttemptByUser)
+{
+    auto userIterator = std::find_if(users.begin(), users.end(), 
+                        [&](const auto& u){return u->getEmail() == emailInputByUser 
+                            && u->checkPassword(passwordAttemptByUser)
+                            && u->getIsActive();
+                        });
+    
+    //Check if a user found with given criteria
+    if(userIterator == users.end())
+    {
+        std::cout << "No user found with given email or password! Please try again.\n";
+        return nullptr;
+    }
+
+    //If safe check passed, then return the shared pointer of user and flip internal status to be logged in
+    (*userIterator)->logIn();
+    return *userIterator;
+}
