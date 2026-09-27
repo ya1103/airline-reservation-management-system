@@ -57,7 +57,7 @@ class User{
         //Active user
         void activate() {isActive = true;}
         
-        static void setFlightsReference(std::shared_ptr<AirlineOperations>);
+        static void setFlightsReference(std::shared_ptr<AirlineOperations> airlinePtr) { airlineOperationsReference = airlinePtr;}
 
         static std::shared_ptr<AirlineOperations> getAirlineOperations(void) {return airlineOperationsReference;}
 
