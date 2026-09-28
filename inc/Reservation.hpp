@@ -24,6 +24,10 @@ class Reservation: public std::enable_shared_from_this<Reservation>{
         
         //Setter for reservation status
         void setStatus(std::string newStatus) { status = std::move(newStatus); }
+
+        //Function which prints boarding pass for passengers
+        void printBoardingPass() const;
+        
         public:
         //Parameterized Constructor ONLY for creating new reservations
         //Note: after constructing a new reservation, assignReservationToFlightAndSeat() must be called immediately after

@@ -2,6 +2,7 @@
 #include "Seat.hpp"
 #include "Flight.hpp"
 #include "Payment.hpp"
+#include "Passenger.hpp"
 
 // This function must be called immediately after constructing a new reservation
 // It should not be called inside the constructor other wise it will throw bad weak pointer exception
@@ -22,6 +23,7 @@ bool Reservation::checkIn()
     if(status == "CheckedIn")
     {
         std::cout << "\nPassenger already checked-in on flight\n";
+        printBoardingPass();
         return true;
     }
 
@@ -34,7 +36,38 @@ bool Reservation::checkIn()
     //If all constraints passed then check in passenger
     setStatus("CheckedIn");
     std::cout << "\nChecked-in passenger on flight successfully";
+    printBoardingPass();
     return true;
+}
+
+void Reservation::printBoardingPass() const
+{
+    auto passenger = passengerReference.lock();
+    auto flight = flightReference.lock();
+    auto seat = seatReference.lock();
+
+    if (!passenger || !flight || !seat) {
+        std::cout << "Unable to print boarding pass: reservation details are no longer available.\n";
+        return;
+    }
+
+    std::cout << "\nBoarding Pass:\n"
+              << "-----------------------------\n"
+              << "Reservation ID: " << id << "\n"
+              << "Passenger: " << passenger->getName() << "\n"
+              << "Flight: " << flight->getFlightNumber() << "\n"
+              << "Origin: " << flight->getOrigin() << "\n"
+              << "Destination: " << flight->getDestination() << "\n"
+              << "Departure: " << flight->getDepartureDate() << " " << flight->getDepartureTime() << "\n";
+
+    if (flight->getHoursDelay() > 0 || flight->getMinsDelay() > 0) {
+        std::cout << "Delay: " << flight->getHoursDelay() << "h " << flight->getMinsDelay() << "m\n";
+    }
+
+    std::cout << "Seat: " << seat->getSeatNumber() << "\n"
+              << "Gate: " << flight->getGate() << "\n"
+              << "Boarding Time: " << flight->getBoardingTime() << "\n"
+              << "-----------------------------\n";
 }
 
 void Reservation::printReservInfo() const
