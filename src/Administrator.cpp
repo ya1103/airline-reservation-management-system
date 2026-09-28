@@ -30,11 +30,11 @@ void Administrator::showMenu() {
             case 4: generateReports(); break;
             case 5:
                 logOut();
-                std::cout << "Logged out successfully.\n";
+                std::cout << "\nLogged out successfully.\n";
                 exitMenu = true;
                 break;
             default:
-                std::cout << "Invalid choice, please try again.\n";
+                std::cout << "\nInvalid choice, please try again.\n";
         }
     }
 }
@@ -78,7 +78,7 @@ void Administrator::manageFlights() {
                         if(userInput == 0) {break;}
 
                     }
-                    std::cout << "Flight number: ";    std::getline(std::cin, flightNumber);
+                    std::cout << "\nFlight number: ";    std::getline(std::cin, flightNumber);
                     std::cout << "Origin: ";            std::getline(std::cin, origin);
                     std::cout << "Destination: ";       std::getline(std::cin, destination);
                     std::cout << "Departure date (YYYY-MM-DD): ";    std::getline(std::cin, departureDate);
@@ -100,7 +100,7 @@ void Administrator::manageFlights() {
                         int userInput = InputUtils::readInt("To return back to main menu enter '0', to try again enter any number: ");
                         if(userInput == 0) {break;}
                     }
-                    std::cout << "Flight number: ";  std::getline(std::cin, flightNumber);
+                    std::cout << "\nFlight number: ";  std::getline(std::cin, flightNumber);
                     std::cout << "Departure date: "; std::getline(std::cin, departureDate);
                     std::cout << "New status: ";     std::getline(std::cin, newStatus);
                 }
@@ -109,6 +109,8 @@ void Administrator::manageFlights() {
             }
 
             case 4: {
+                // Delay flights
+
                 bool processApproved = true;
                 std::string flightNumber, departureDate;
                 int hours, mins;
@@ -118,7 +120,7 @@ void Administrator::manageFlights() {
                         int userInput = InputUtils::readInt("To return back to main menu enter '0', to try again enter any number: ");
                         if(userInput == 0) {break;}
                     }
-                    std::cout << "Flight number: ";   std::getline(std::cin, flightNumber);
+                    std::cout << "\nFlight number: ";   std::getline(std::cin, flightNumber);
                     std::cout << "Departure date: ";  std::getline(std::cin, departureDate);
                     hours = InputUtils::readInt("Delay hours: ");
                     mins = InputUtils::readInt("Delay minutes: ");
@@ -128,6 +130,8 @@ void Administrator::manageFlights() {
             }
 
             case 5: {
+                //Assign gates
+
                 bool processApproved = true;
                 std::string flightNumber, departureDate, gate;
                 do{
@@ -136,7 +140,7 @@ void Administrator::manageFlights() {
                         int userInput = InputUtils::readInt("To return back to main menu enter '0', to try again enter any number: ");
                         if(userInput == 0) {break;}
                     }
-                    std::cout << "Flight number: ";   std::getline(std::cin, flightNumber);
+                    std::cout << "\nFlight number: ";   std::getline(std::cin, flightNumber);
                     std::cout << "Departure date: ";  std::getline(std::cin, departureDate);
                     std::cout << "Gate (e.g. B12): "; std::getline(std::cin, gate);
                 }
@@ -144,6 +148,8 @@ void Administrator::manageFlights() {
                 break;
             }
             case 6: {
+                //Create new crew member
+
                 bool processApproved = true;
                 std::string name, role;
                 do{
@@ -152,7 +158,7 @@ void Administrator::manageFlights() {
                         int userInput = InputUtils::readInt("To return back to main menu enter '0', to try again enter any number: ");
                         if(userInput == 0) {break;}
                     }
-                    std::cout << "Name: ";
+                    std::cout << "\nName: ";
                     std::getline(std::cin, name);
                     std::cout << "Role (Pilot/CoPilot/FlightAttendant): ";
                     std::getline(std::cin, role);
@@ -161,6 +167,8 @@ void Administrator::manageFlights() {
                 break;
             }
             case 7: {
+                //Assign crew member to flight
+
                 bool processApproved = true;
                 int targetID;
                 std::string flightNumber, departureDate;
@@ -170,7 +178,7 @@ void Administrator::manageFlights() {
                         int userInput = InputUtils::readInt("To return back to main menu enter '0', to try again enter any number: ");
                         if(userInput == 0) {break;}
                     }
-                    targetID = InputUtils::readInt("Crew member ID: ");
+                    targetID = InputUtils::readInt("\nCrew member ID: ");
                     std::cout << "Flight number: ";   std::getline(std::cin, flightNumber);
                     std::cout << "Departure date: ";  std::getline(std::cin, departureDate);
                 }
@@ -178,6 +186,8 @@ void Administrator::manageFlights() {
                 break;
             }
             case 8: {
+                //Remove crew member from flight
+
                 bool processApproved = true;
                 int targetID;
                 std::string flightNumber, departureDate;
@@ -187,7 +197,7 @@ void Administrator::manageFlights() {
                         int userInput = InputUtils::readInt("To return back to main menu enter '0', to try again enter any number: ");
                         if(userInput == 0) {break;}
                     }
-                    targetID = InputUtils::readInt("Crew member ID: ");
+                    targetID = InputUtils::readInt("\nCrew member ID: ");
                     std::cout << "Flight number: ";   std::getline(std::cin, flightNumber);
                     std::cout << "Departure date: ";  std::getline(std::cin, departureDate);
                 }
@@ -214,6 +224,8 @@ void Administrator::manageAircraft() {
         int choice = InputUtils::readInt("Enter your choice: ");
         switch (choice) {
             case 1: {
+                //Creating new aircraft
+
                 bool processApproved = true;
                 std::string tailNumber, model;
                 int capacity;
@@ -225,7 +237,7 @@ void Administrator::manageAircraft() {
                         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                         if(userInput == 0) {break;}
                     }
-                    std::cout << "Tail number: ";       std::getline(std::cin, tailNumber);
+                    std::cout << "\nTail number: ";       std::getline(std::cin, tailNumber);
                     std::cout << "Model: ";             std::getline(std::cin, model);
                     std::cout << "Capacity: ";          std::cin >> capacity;
                     isAvailable = InputUtils::readInt("Available? (1/0): ") != 0;
@@ -234,6 +246,8 @@ void Administrator::manageAircraft() {
                 break;
             }
             case 2: {
+                //Assign aircraft to flight
+
                 bool processApproved = true;
                 std::string tailNumber, flightNumber, departureDate;
                 do{
@@ -242,7 +256,7 @@ void Administrator::manageAircraft() {
                         int userInput = InputUtils::readInt("To return back to main menu enter '0', to try again enter any number: ");
                         if(userInput == 0) {break;}
                     }
-                    std::cout << "Tail number: ";    std::getline(std::cin, tailNumber);
+                    std::cout << "\nTail number: ";    std::getline(std::cin, tailNumber);
                     std::cout << "Flight number: ";  std::getline(std::cin, flightNumber);
                     std::cout << "Departure date: "; std::getline(std::cin, departureDate);
                 }
@@ -250,6 +264,8 @@ void Administrator::manageAircraft() {
                 break;
             }
             case 3: {
+                //Create new maintenance schedule
+
                 bool processApproved = true;
                 std::string tailNumber, dateScheduled, description;
                 do{
@@ -258,7 +274,7 @@ void Administrator::manageAircraft() {
                         int userInput = InputUtils::readInt("To return back to main menu enter '0', to try again enter any number: ");
                         if(userInput == 0) {break;}
                     }
-                    std::cout << "Tail number: ";     std::getline(std::cin, tailNumber);
+                    std::cout << "\nTail number: ";     std::getline(std::cin, tailNumber);
                     std::cout << "Scheduled date: ";  std::getline(std::cin, dateScheduled);
                     std::cout << "Description: ";     std::getline(std::cin, description);
                 }
@@ -288,6 +304,8 @@ void Administrator::manageUsers() {
         int choice = InputUtils::readInt("Enter your choice: ");
         switch (choice) {
             case 1: {
+                //Creating new user
+
                 bool processApproved = true;
                 std::string name, role, email, password;
                 do{
@@ -296,7 +314,7 @@ void Administrator::manageUsers() {
                         int userInput = InputUtils::readInt("To return back to main menu enter '0', to try again enter any number: ");
                         if(userInput == 0) {break;}
                     }
-                    std::cout << "Enter Name: ";
+                    std::cout << "\nEnter Name: ";
                     std::getline(std::cin, name);
 
                     std::cout << "Enter Role (Passenger / BookingAgent / Administrator): ";
@@ -313,6 +331,8 @@ void Administrator::manageUsers() {
                 break;
             }
             case 2: {
+                //Updating user name
+
                 bool processApproved = true;
                 int targetId;
                 std::string targetRole, newName;
@@ -323,7 +343,7 @@ void Administrator::manageUsers() {
                         if(userInput == 0) {break;}
                     }
 
-                    targetId = InputUtils::readInt("Enter User ID to update: ");
+                    targetId = InputUtils::readInt("\nEnter User ID to update: ");
 
                     std::cout << "Enter Role of the user: ";
                     std::cin >> targetRole;
@@ -336,6 +356,8 @@ void Administrator::manageUsers() {
                 break;
             }
             case 3: {
+                // Deactivating user
+
                 bool processApproved = true;
                 int targetId;
                 std::string targetRole;
