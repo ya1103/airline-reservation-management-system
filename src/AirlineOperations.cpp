@@ -35,24 +35,25 @@ bool AirlineOperations::assignAircraftToFlight(const std::string& tailNumber, co
     auto aircraftIt = std::find_if(allAircrafts.begin(), allAircrafts.end(),
         [&](const auto& a) { return a->getTailNumber() == tailNumber; });
     if (aircraftIt == allAircrafts.end()) {
-        std::cout << "No aircraft with tail number entered was found, please try again!\n";
+        std::cout << "\nNo aircraft with tail number entered was found, please try again!\n";
         return false;
     }
 
     auto flightIt = std::find_if(allFlights.begin(), allFlights.end(),
         [&](const auto& f) { return f->getFlightNumber() == flightNumber; });
     if (flightIt == allFlights.end()) {
-        std::cout << "No flight with flight number entered was found, please try again!\n";
+        std::cout << "\nNo flight with flight number entered was found, please try again!\n";
         return false;
     }
 
     if ((*aircraftIt)->hasFlightOnDate(departureDate)) {
-        std::cout << "Aircraft already has a flight scheduled on this date.\n";
+        std::cout << "\nAircraft already has a flight scheduled on this date.\n";
         return false;
     }
 
     (*flightIt)->setAircraftReference(*aircraftIt);
     (*aircraftIt)->addFlight(*flightIt); // you'll need this to keep assignedFlights in sync — the other direction
+    std::cout << "\nAircraft assigned successfully to " << (*flightIt)->getFlightNumber(); 
     return true;
 }
 
