@@ -11,7 +11,7 @@ void Passenger::showMenu(){
                   << "           PASSENGER MENU           \n"
                   << "====================================\n"
                   << "1. Search Flight\n"
-                  << "2. View Available Seats\n"
+                  << "2. View Available Seats On Flight\n"
                   << "3. Book Flight\n"
                   << "4. Check-In\n"
                   << "5. View Reservation History\n"

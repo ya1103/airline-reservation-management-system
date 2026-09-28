@@ -21,7 +21,7 @@ void Payment::refund(void)
 void Payment::process()
 {
     std::cout << "Processing payment through " << method << "...\n";
-    std::cout << amount << " deducted successfully!\n";
+    std::cout << amount << "$ deducted successfully!\n";
     status = "Completed";
     paymentDate = DateUtils::getCurrentDate();
 }

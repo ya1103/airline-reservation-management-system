@@ -86,8 +86,6 @@ void Reservation::printReservInfo() const
         std::cout << " Seat           : Not available (reference expired)\n";
     }
 
-    std::cout << "----------------------------------------\n";
-
     if (auto flight = flightReference.lock()) {
         flight->printFlightInfo();
     } else {
@@ -97,7 +95,9 @@ void Reservation::printReservInfo() const
     //If there is a valid payment reference print it too
     if(paymentReference)
     {
-        std::cout << "----------------------------------------\n";
+        std::cout << "========================================\n";
+        std::cout << "           PAYMENT INFORMATION          \n";
+        std::cout << "========================================\n";
         paymentReference->print();
     }
 
