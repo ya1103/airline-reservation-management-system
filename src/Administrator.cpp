@@ -141,7 +141,7 @@ void Administrator::manageFlights() {
                         if(userInput == 0) {break;}
                     }
                     std::cout << "\nFlight number: ";   std::getline(std::cin, flightNumber);
-                    std::cout << "Departure date: ";  std::getline(std::cin, departureDate);
+                    std::cout << "Departure date (YYYY-MM-DD): ";  std::getline(std::cin, departureDate);
                     std::cout << "Gate (e.g. B12): "; std::getline(std::cin, gate);
                 }
                 while(!(processApproved = assignGate(flightNumber, departureDate, gate)));
