@@ -2,6 +2,7 @@
 #include "Flight.hpp"
 #include "Aircraft.hpp"
 #include "CrewMember.hpp"
+#include <iomanip>
 #include <iostream>
 #include <algorithm>
 #include <stdexcept>
@@ -309,5 +310,35 @@ bool AirlineOperations::assignGate(const std::string& flightNumber, const std::s
 
     (*it)->setGate(std::move(gate));
     std::cout << "Gate " << (*it)->getGate() << " assigned to flight " << flightNumber << ".\n";
+    return true;
+}
+
+bool AirlineOperations::viewAllFlights() const
+{
+    if (allFlights.empty()) {
+        std::cout << "No flights have been created yet.\n";
+        return false;
+    }
+
+    std::cout << "\n" << std::left
+              << std::setw(10) << "Flight"
+              << std::setw(24) << "Route"
+              << std::setw(12) << "Date"
+              << std::setw(8)  << "Time"
+              << std::setw(14) << "Status"
+              << "Gate\n"
+              << std::string(74, '-') << "\n";
+
+    for (const auto& f : allFlights) {
+        std::cout << std::setw(10) << f->getFlightNumber()
+                  << std::setw(24) << (f->getOrigin() + " -> " + f->getDestination())
+                  << std::setw(12) << f->getDepartureDate()
+                  << std::setw(8)  << f->getDepartureTime()
+                  << std::setw(14) << f->getFlightStatus()
+                  << f->getGate() << "\n";
+    }
+    std::cout << "\nTotal flights: " << allFlights.size() << "\n";
+
+    std::cout << std::right; // restore default alignment
     return true;
 }

@@ -3,6 +3,7 @@
 #include "AirlineOperations.hpp"
 #include "Aircraft.hpp"
 #include "UserManager.hpp"
+#include <iomanip>
 #include <exception>
 #include <iostream>
 #include <limits>
@@ -527,4 +528,28 @@ bool Administrator::updateUserName(int id, const std::string& role, std::string 
 
     //Pass parameters to UserManager to handle process
    return manager->updateUserName(id, role, std::move(newName));
+}
+
+bool Administrator::assignGate(const std::string& flightNumber, const std::string& departureDate, std::string gate)
+{
+    if (gate.empty()) {
+        std::cout << "Gate cannot be empty, please try again!\n";
+        return false;
+    }
+    auto ops = User::getAirlineOperations();
+    if (!ops) {
+        std::cout << "No airline operations reference found!\n";
+        return false;
+    }
+    return ops->assignGate(flightNumber, departureDate, std::move(gate));
+}
+
+bool Administrator::viewAllFlights()
+{
+    auto ops = User::getAirlineOperations();
+    if (!ops) {
+        std::cout << "No airline operations reference found!\n";
+        return false;
+    }
+    return ops->viewAllFlights();
 }

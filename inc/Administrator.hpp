@@ -94,6 +94,23 @@ class Administrator: public User{
         //Function which creates a new maintenance schedule for an aircraft
         //Returns bool indicating success or failure process
         bool newAircraftMaintenance(const std::string& tailNumber, std::string dateScheduled, std::string caseDescription);
+
+        //Assigns gate to flight
+        //Returns bool indicating success or failure process
+        bool assignGate(const std::string& flightNumber, const std::string& departureDate, std::string gate);
+        
+        //Prints out for admin all flights with their details
+        //Returns bool indicating success or failure process
+        bool viewAllFlights();
+
+        //Wraps menu options for related aircraft operations
+        void manageAircraft();
+
+        //Wraps menu options for related user operations
+        void manageUsers();
+
+        //Wraps menu options for related reports operations
+        void generateReports();
     };
 
 #endif
