@@ -19,6 +19,7 @@ class Flight: public std::enable_shared_from_this<Flight>{
         std::string destination;
         std::string departureDate;
         std::string departureTime;
+        std::string gate = "TBA"; //(TBA) To be announced until set by airline operations' admin
         int duration;
         int hoursDelay = 0;
         int minsDelay = 0;
@@ -94,6 +95,11 @@ class Flight: public std::enable_shared_from_this<Flight>{
         const auto& getDepartureDate() const { return departureDate; }
         int getDuration() const { return duration; }
         const auto& getFlightStatus() const { return flightStatus; }
+        const std::string& getGate() const { return gate; }
+        int getHoursDelay() const { return hoursDelay; }
+        int getMinsDelay() const { return minsDelay; }
+        // Boarding opens 60 minutes before the effective departure (scheduled time + any delay)
+        std::string getBoardingTime() const;
         
         //function which updates flight status acts as a setter
         void updateStatus(std::string newStatus){

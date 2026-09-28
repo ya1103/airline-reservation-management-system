@@ -6,7 +6,42 @@
 #include "algorithm"
 #include <iomanip>
 #include <iostream>
+#include <optional>
+#include <cctype>
+#include <sstream>
 
+namespace {
+    // Parses "HH:MM" into minutes since midnight. Returns nullopt if malformed.
+    std::optional<int> parseTimeToMinutes(const std::string& t) {
+        if (t.size() != 5 || t[2] != ':') return std::nullopt;
+        for (int i : {0, 1, 3, 4}) {
+            if (!std::isdigit(static_cast<unsigned char>(t[i]))) return std::nullopt;
+        }
+        int h = (t[0] - '0') * 10 + (t[1] - '0');
+        int m = (t[3] - '0') * 10 + (t[4] - '0');
+        if (h > 23 || m > 59) return std::nullopt;
+        return h * 60 + m;
+    }
+}
+
+std::string Flight::getBoardingTime() const {
+    auto scheduled = parseTimeToMinutes(departureTime);
+    if (!scheduled) return "To be announced"; // departureTime wasn't in HH:MM format
+
+    int boarding = *scheduled + (hoursDelay * 60) + minsDelay - 60;
+
+    // Wrap into 0..1439, remembering if we crossed midnight
+    int dayShift = 0;
+    while (boarding < 0)     { boarding += 1440; --dayShift; }
+    while (boarding >= 1440) { boarding -= 1440; ++dayShift; }
+
+    std::ostringstream out;
+    out << std::setfill('0') << std::setw(2) << boarding / 60 << ':'
+        << std::setw(2) << boarding % 60;
+    if (dayShift < 0) out << " (previous day)";
+    else if (dayShift > 0) out << " (next day)";
+    return out.str();
+}
 
 //Function which must be called after constructing each flight
 //Unless no seats are assigned to this flight
