@@ -49,6 +49,7 @@ class Flight: public std::enable_shared_from_this<Flight>{
         void setDepartureDate(std::string newDepartureDate) { departureDate = newDepartureDate; }
         void setDuration(int newDuration) { duration = newDuration; }
         void setFlightStatus(std::string newFlightStatus) { flightStatus = newFlightStatus; }
+        void setGate(std::string newGate) { gate = std::move(newGate); }
         
         //Function which updates flight departure time
         //Takes two parameters delay in hours and mins

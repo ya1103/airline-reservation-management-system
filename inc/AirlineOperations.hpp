@@ -76,6 +76,12 @@ class AirlineOperations{
         //vector contains tuples where each tuple holds
         //prints flight basic info besides detailed info related to admins only
         bool searchFlightAsAdmin(const std::string& departureDate, const std::string& origin, const std::string& destination);       
+        
+        //Assigning flight to new gate, initially gate is already set TBA
+        bool assignGate(const std::string& flightNumber, const std::string& departureDate, std::string gate);
+        
+        //Prints all flights whatever its status is
+        bool viewAllFlights() const;
 public:
         //function which returns list of available flights based on criteria
         //vector contains tuples where each tuple holds

@@ -296,3 +296,18 @@ AirlineOperations::bookFlight(const std::string& flightNumber, const std::string
         return {*flightIt, seat};
     }
 }
+
+bool AirlineOperations::assignGate(const std::string& flightNumber, const std::string& departureDate, std::string gate)
+{
+    auto it = std::find_if(allFlights.begin(), allFlights.end(),
+        [&](const auto& f) { return f->getFlightNumber() == flightNumber && f->getDepartureDate() == departureDate; });
+
+    if (it == allFlights.end()) {
+        std::cout << "Flight not found, please double check criteria and try again!\n";
+        return false;
+    }
+
+    (*it)->setGate(std::move(gate));
+    std::cout << "Gate " << (*it)->getGate() << " assigned to flight " << flightNumber << ".\n";
+    return true;
+}
