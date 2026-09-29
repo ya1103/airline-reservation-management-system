@@ -82,6 +82,11 @@ class AirlineOperations{
         
         //Prints all flights whatever its status is
         bool viewAllFlights() const;
+
+        //Prints all aircrew members info and returns true
+        //Sorts pilots first, then flight attendants  
+        //If no crew members found returns false
+        bool printAircrewEmployees() const;
 public:
         //function which returns list of available flights based on criteria
         //vector contains tuples where each tuple holds

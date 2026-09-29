@@ -343,3 +343,44 @@ bool AirlineOperations::viewAllFlights() const
     std::cout << std::right; // restore default alignment
     return true;
 }
+
+bool AirlineOperations::printAircrewEmployees() const
+{
+    int counter = 0; //to count number of employees
+    //First we print pilots
+    for(auto pilot: allCrewMembers)
+    {
+        //Check nullability before dereferencing
+        if(pilot)
+        {
+            if(pilot->getRole() == "Pilot")
+            {
+                counter++;
+                std::cout << std::endl;
+                pilot->print();
+            }
+        }
+    }
+
+    for(auto flightAttendant: allCrewMembers)
+    {
+        //Check nullability before dereferencing
+        if(flightAttendant)
+        {
+            if(flightAttendant->getRole() == "FlightAttendant")
+            {
+                counter++;
+                std::cout << std::endl;
+                flightAttendant->print();
+            }
+        }
+    }
+
+    //Check if counter has incremented and return status
+    if(counter > 0)
+    {
+        return true;
+    } else{
+        return false;
+    }
+}

@@ -111,6 +111,10 @@ class Administrator: public User{
 
         //Wraps menu options for related reports operations
         void generateReports();
+
+        //Prints all crew members on airline operations and returns true
+        //If no crew members found returns false
+        bool printAllCrewMembers();
     };
 
 #endif
