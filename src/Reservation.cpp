@@ -191,3 +191,9 @@ bool Reservation::processPayment(std::string paymentMethod)
     status = "Confirmed";
     return true;
 }
+
+
+double Reservation::getRevenue() const 
+{
+    return paymentReference ? paymentReference->getAmount() : 0.0;
+}

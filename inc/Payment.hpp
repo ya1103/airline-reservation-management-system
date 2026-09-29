@@ -40,6 +40,9 @@ class Payment{
         
         // Print function to display payment details
         void print() const;
+
+        //Getter for amount
+        double getAmount() const { return amount; }
 };
 
 #endif

@@ -87,6 +87,9 @@ class AirlineOperations{
         //Sorts pilots first, then flight attendants  
         //If no crew members found returns false
         bool printAircrewEmployees() const;
+
+        //Generates operational for specific month (Format YYYY-MM)
+        void generateOperationalReport(const std::string& yearMonth) const;
 public:
         //function which returns list of available flights based on criteria
         //vector contains tuples where each tuple holds

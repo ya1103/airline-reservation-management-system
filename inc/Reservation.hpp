@@ -67,6 +67,12 @@ class Reservation: public std::enable_shared_from_this<Reservation>{
 
         //Function which prints all details related to reservation
         void printReservInfo() const;
+        
+        //Status getter
+        const std::string& getStatus() const { return status; }
+        
+        //Revenue getter
+        double getRevenue() const ;
 };
 
 #endif

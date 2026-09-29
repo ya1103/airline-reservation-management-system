@@ -40,7 +40,41 @@ void Administrator::showMenu() {
 }
 
 void Administrator::generateReports() {
-    std::cout << "\nReporting module is not implemented yet.\n";
+    bool exitSubmenu = false;
+    while (!exitSubmenu) {
+        std::cout << "\n--- Generate Reports ---\n"
+                  << "1. Operational Reports\n"
+                  << "2. Maintenance Reports\n"
+                  << "3. User Activity Reports\n"
+                  << "4. Back to Main Menu\n";
+
+        int choice = InputUtils::readInt("Enter choice: ");
+        switch (choice) {
+            case 1: {
+                std::cout << "\n--- Operational Reports ---\n";
+                std::string yearMonth;
+                std::cout << "Enter Month and Year for Report (YYYY-MM): ";
+                std::getline(std::cin, yearMonth);
+                generateOperationalReport(yearMonth);
+                break;
+            }
+            case 2: {
+                std::cout << "\n--- Maintenance Reports ---\n";
+                std::cout << "Not implemented yet.\n"; // placeholder
+                break;
+            }
+            case 3: {
+                std::cout << "\n--- User Activity Reports ---\n";
+                std::cout << "Not implemented yet.\n"; // placeholder
+                break;
+            }
+            case 4:
+                exitSubmenu = true;
+                break;
+            default:
+                std::cout << "Invalid choice, please try again.\n";
+        }
+    }
 }
 
 void Administrator::manageFlights() {
@@ -617,4 +651,15 @@ bool Administrator::printAllCrewMembers()
     }
     
     return ops->printAircrewEmployees();
+}
+
+
+void Administrator::generateOperationalReport(const std::string& yearMonth)
+{
+    auto ops = User::getAirlineOperations();
+    if (!ops) {
+        std::cout << "No airline operations reference found!\n";
+        return;
+    }
+    ops->generateOperationalReport(yearMonth);
 }

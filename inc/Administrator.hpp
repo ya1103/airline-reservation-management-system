@@ -115,6 +115,9 @@ class Administrator: public User{
         //Prints all crew members on airline operations and returns true
         //If no crew members found returns false
         bool printAllCrewMembers();
+
+        //Generates operational for specific month (Format YYYY-MM)
+        void generateOperationalReport(const std::string& yearMonth);
     };
 
 #endif

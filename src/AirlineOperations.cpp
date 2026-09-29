@@ -2,6 +2,7 @@
 #include "Flight.hpp"
 #include "Aircraft.hpp"
 #include "CrewMember.hpp"
+#include "Reservation.hpp"
 #include <iomanip>
 #include <iostream>
 #include <algorithm>
@@ -390,5 +391,57 @@ bool AirlineOperations::printAircrewEmployees() const
         return true;
     } else{
         return false;
+    }
+}
+
+
+void AirlineOperations::generateOperationalReport(const std::string& yearMonth) const {
+    int totalScheduled = 0, completed = 0, delayed = 0, cancelled = 0;
+    long long totalReservations = 0;
+    double totalRevenue = 0.0;
+
+    std::vector<std::shared_ptr<Flight>> matchingFlights;
+    for (const auto& flight : allFlights) {
+        if (flight->getDepartureDate().substr(0, 7) != yearMonth) continue; // "2023-12-04".substr(0,7) == "2023-12"
+        matchingFlights.push_back(flight);
+
+        totalScheduled++;
+        const auto& status = flight->getFlightStatus();
+        if (status == "Departed")       completed++;
+        else if (status == "Delayed")   delayed++;
+        else if (status == "Cancelled") cancelled++;
+
+        for (const auto& res : flight->getReservations()) {
+            if (res->getStatus() == "Cancelled") continue;
+            totalReservations++;
+            totalRevenue += res->getRevenue();
+        }
+    }
+
+    if (matchingFlights.empty()) {
+        std::cout << "No flights found for " << yearMonth << ".\n";
+        return;
+    }
+
+    std::cout << "\nReport Summary:\n"
+              << "- Total Flights Scheduled: " << totalScheduled << "\n"
+              << "- Flights Completed: " << completed << "\n"
+              << "- Flights Delayed: " << delayed << "\n"
+              << "- Flights Canceled: " << cancelled << "\n"
+              << "- Total Reservations Made: " << totalReservations << "\n"
+              << "- Total Revenue: $" << std::fixed << std::setprecision(2) << totalRevenue << "\n";
+
+    std::cout << "\nDetailed Flight Performance:\n";
+    int n = 1;
+    for (const auto& flight : matchingFlights) {
+        long long bookings = 0;
+        double revenue = 0.0;
+        for (const auto& res : flight->getReservations()) {
+            if (res->getStatus() == "Cancelled") continue;
+            bookings++;
+            revenue += res->getRevenue();
+        }
+        std::cout << n++ << ". Flight " << flight->getFlightNumber() << ": " << flight->getFlightStatus()
+                  << " (" << bookings << " Bookings, $" << std::fixed << std::setprecision(2) << revenue << ")\n";
     }
 }
