@@ -207,7 +207,7 @@ void Administrator::manageFlights() {
                 int targetID;
                 std::string flightNumber, departureDate;
 
-                //First print all crew members info, sorted by pilots and flight attendants
+                //First print all crew members info, sorted by pilots, copilots and flight attendants
                 //So admin can choose the required by his ID
                 //If returned false, this means no crew members on airline, so inform user and skip operation
                 if(!(printAllCrewMembers()))
@@ -234,6 +234,15 @@ void Administrator::manageFlights() {
                 bool processApproved = true;
                 int targetID;
                 std::string flightNumber, departureDate;
+                
+                //First print all crew members info, sorted by pilots, copilots and flight attendants
+                //So admin can choose the required by his ID
+                //If returned false, this means no crew members on airline, so inform user and skip operation
+                if(!(printAllCrewMembers()))
+                {
+                    std::cout << "\nNo crew members on airline!\nReturning back to menu...\n";
+                    continue;
+                }
                 do{
                     if(!processApproved)
                     {

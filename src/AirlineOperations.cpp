@@ -370,7 +370,23 @@ bool AirlineOperations::printAircrewEmployees() const
             }
         }
     }
+    
+    //Secondly, we print copilots
+    for(auto copilot: allCrewMembers)
+    {
+        //Check nullability before dereferencing
+        if(copilot)
+        {
+            if(copilot->getRole() == "CoPilot")
+            {
+                counter++;
+                std::cout << std::endl;
+                copilot->print();
+            }
+        }
+    }
 
+    //Finally, we print flight attendants
     for(auto flightAttendant: allCrewMembers)
     {
         //Check nullability before dereferencing
