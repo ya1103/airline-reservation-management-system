@@ -82,9 +82,24 @@ void Flight::printFlightOperationsInfo() const
     std::cout << "----------------------------------------\n";
     std::cout << " Aircraft      : " << (aircraftReference ? aircraftReference->getModel() : "Not Assigned") << "\n";
     std::cout << " Crew Count    : " << crewMembersReference.size() << "\n";
-    std::cout << " Reservations  : " << reservationsReference.size() << "\n";
-    std::cout << " Seats on Aircraft  : " << seatsReference.size() << "\n";
+    std::cout << " Reserved Seats on Aircraft  : " << countReservedSeats() << "/" << seatsReference.size() << "\n";
     std::cout << "========================================\n";
+}
+
+int Flight::countReservedSeats() const
+{
+    int counter = 0;
+    if(seatsReference.size() == 0)
+    {
+        std::cout << "\nNo seats assigned to flight! ";
+        return 0;
+    }
+    for(auto eachSeat: seatsReference)
+    {
+        if(!eachSeat->getIsAvailable()) 
+            counter++;
+    }
+    return counter;
 }
 
 void Flight::removeCrewMember(std::shared_ptr<CrewMember> crewMember) {

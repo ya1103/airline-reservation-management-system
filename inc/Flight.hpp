@@ -76,6 +76,10 @@ class Flight: public std::enable_shared_from_this<Flight>{
         //Such as aircraft type, number of seats, number of crew members, number of reservations
         //Mainly important to administrators and airline operations
         void printFlightOperationsInfo() const;
+
+        //Function which counts reserved seats by checking if it is unavailable
+        //Returns count of reserved seats
+        int countReservedSeats() const;
     public:
 
         //Parameterized constructor

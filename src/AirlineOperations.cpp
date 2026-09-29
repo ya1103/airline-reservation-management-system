@@ -330,22 +330,26 @@ bool AirlineOperations::viewAllFlights() const
         return false;
     }
 
-    std::cout << "\n" << std::left
-              << std::setw(10) << "Flight"
-              << std::setw(24) << "Route"
-              << std::setw(12) << "Date"
-              << std::setw(8)  << "Time"
-              << std::setw(14) << "Status"
-              << "Gate\n"
-              << std::string(74, '-') << "\n";
 
     for (const auto& f : allFlights) {
+        std::cout << "\n" << std::left
+            << std::setw(10) << "Flight"
+            << std::setw(24) << "Route"
+            << std::setw(12) << "Date"
+            << std::setw(8)  << "Time"
+            << std::setw(14) << "Status"
+            << "Gate\n"
+            << std::string(74, '-') << "\n";
+
         std::cout << std::setw(10) << f->getFlightNumber()
                   << std::setw(24) << (f->getOrigin() + " -> " + f->getDestination())
                   << std::setw(12) << f->getDepartureDate()
                   << std::setw(8)  << f->getDepartureTime()
                   << std::setw(14) << f->getFlightStatus()
                   << f->getGate() << "\n";
+        //Finally print flight operations info
+        f->printFlightOperationsInfo();
+        
     }
     std::cout << "\nTotal flights: " << allFlights.size() << "\n";
 
