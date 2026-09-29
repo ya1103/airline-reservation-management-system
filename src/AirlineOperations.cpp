@@ -74,17 +74,23 @@ bool AirlineOperations::createFlight(std::string flightNumber, std::string origi
 
 // AirlineOperations.cpp — the real logic moves here
 bool AirlineOperations::updateFlightStatus(const std::string& targetFlightNumber, const std::string& targetFlightDeparture,
-                                            std::string newStatus) {
+    std::string newStatus) {
+    bool isAccepted;
     for (auto& eachFlight : allFlights) {
         if (eachFlight->getFlightNumber() == targetFlightNumber && eachFlight->getDepartureDate() == targetFlightDeparture) {
             if (eachFlight->getFlightStatus() == newStatus) {
                 std::cout << "Flight status is already " << newStatus << std::endl;
             } else {
-                eachFlight->setFlightStatus(std::move(newStatus));
-                std::cout << "Flight updated successfully!\n";
+                isAccepted = eachFlight->setFlightStatus(std::move(newStatus));
             }
-            eachFlight->printFlightInfo();
-            return true;
+            if(isAccepted)
+            {
+                std::cout << "Flight updated successfully!\n";
+                eachFlight->printFlightInfo();
+                return true;
+            }else{
+                return false;
+            }
         }
     }
     std::cout << "No flights found based on entered criteria, please try again!\n";

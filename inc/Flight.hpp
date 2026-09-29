@@ -48,7 +48,7 @@ class Flight: public std::enable_shared_from_this<Flight>{
         void setDepartureTime(std::string newDepartureTime) { departureTime = newDepartureTime; }
         void setDepartureDate(std::string newDepartureDate) { departureDate = newDepartureDate; }
         void setDuration(int newDuration) { duration = newDuration; }
-        void setFlightStatus(std::string newFlightStatus) { flightStatus = newFlightStatus; }
+        bool setFlightStatus(std::string newFlightStatus);
         void setGate(std::string newGate) { gate = std::move(newGate); }
         
         //Function which updates flight departure time
@@ -81,7 +81,7 @@ class Flight: public std::enable_shared_from_this<Flight>{
         //Parameterized constructor
         //Note: initializeSeats() must be called after constructing each flight
         Flight(std::string newFlightNumber, std::string newOrigin, std::string newDestination,
-                std::string newDepartureDate, std::string newDepartureTime, int newDuration, std::string newStatus = "On Schedule")
+                std::string newDepartureDate, std::string newDepartureTime, int newDuration, std::string newStatus = "Scheduled")
                 : flightNumber(std::move(newFlightNumber)), origin(std::move(newOrigin)), destination(std::move(newDestination)), departureDate(std::move(newDepartureDate)),
                     departureTime(std::move(newDepartureTime)), duration(newDuration) , flightStatus(std::move(newStatus)) {}
         
@@ -101,12 +101,7 @@ class Flight: public std::enable_shared_from_this<Flight>{
         int getMinsDelay() const { return minsDelay; }
         // Boarding opens 60 minutes before the effective departure (scheduled time + any delay)
         std::string getBoardingTime() const;
-        
-        //function which updates flight status acts as a setter
-        void updateStatus(std::string newStatus){
-            flightStatus = std::move(newStatus);
-        }
-        
+
         //Function which releases acquired seat back to available
         //This is used if reassigning a new seat is to be made
         void releaseSeat(std::shared_ptr<Seat> seat);

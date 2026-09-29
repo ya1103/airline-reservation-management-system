@@ -166,3 +166,16 @@ void Flight::releaseSeat(std::shared_ptr<Seat> seat)
         seat->setIsAvailable(true);
     }
 }
+
+bool Flight::setFlightStatus(std::string newFlightStatus)
+{
+    if (newFlightStatus == "Scheduled" || newFlightStatus == "Delayed" ||
+        newFlightStatus == "Cancelled" || newFlightStatus == "Departed") {
+        flightStatus = std::move(newFlightStatus);
+        return true;
+    } else {
+        std::cout << "Invalid status. Must be Scheduled, Delayed, Cancelled, or Departed.\n";
+        return false;
+    }
+
+}
