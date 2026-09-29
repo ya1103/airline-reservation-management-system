@@ -80,10 +80,63 @@ void Flight::printFlightInfo() const {
 void Flight::printFlightOperationsInfo() const
 {
     std::cout << "----------------------------------------\n";
-    std::cout << " Aircraft      : " << (aircraftReference ? aircraftReference->getModel() : "Not Assigned") << "\n";
-    std::cout << " Crew Count    : " << crewMembersReference.size() << "\n";
+    std::cout << " Aircraft    : " << (aircraftReference ? aircraftReference->getModel() : "Not Assigned") << "\n";
+    std::cout << " Crew Members:"; viewAllAssignedCrewMembers(); 
+    std::cout << " Crew Count  : " << crewMembersReference.size() << "\n";
     std::cout << " Reserved Seats on Aircraft  : " << countReservedSeats() << "/" << seatsReference.size() << "\n";
     std::cout << "========================================\n";
+}
+
+
+void Flight::viewAllAssignedCrewMembers() const
+{
+    if(crewMembersReference.size() == 0)
+    {
+        std::cout << "\tNo crew members assgined yet.\n";
+        return;
+    }
+
+    //First we print pilots
+    for(auto pilot: crewMembersReference)
+    {
+        //Check nullability before dereferencing
+        if(pilot)
+        {
+            if(pilot->getRole() == "Pilot")
+            {
+                std::cout << std::endl;
+                pilot->print();
+            }
+        }
+    }
+    
+    //Secondly, we print copilots
+    for(auto copilot: crewMembersReference)
+    {
+        //Check nullability before dereferencing
+        if(copilot)
+        {
+            if(copilot->getRole() == "CoPilot")
+            {
+                std::cout << std::endl;
+                copilot->print();
+            }
+        }
+    }
+
+    //Finally, we print flight attendants
+    for(auto flightAttendant: crewMembersReference)
+    {
+        //Check nullability before dereferencing
+        if(flightAttendant)
+        {
+            if(flightAttendant->getRole() == "FlightAttendant")
+            {
+                std::cout << std::endl;
+                flightAttendant->print();
+            }
+        }
+    }
 }
 
 int Flight::countReservedSeats() const

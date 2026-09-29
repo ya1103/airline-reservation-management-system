@@ -45,8 +45,8 @@ std::vector<std::shared_ptr<Flight>> CrewMember::getActiveFlights() const {
 
 // Print function to display crew member details
 void CrewMember::print() const {
-    std::cout << "ID: " << id << "\n"
-            << "Name: " << name << "\n"
-            << "Role: " << role << "\n"
-            << "Flight Hours: " << flightHours << "\n";
+    std::cout << "\tID: " << id << "\n"
+            << "\tName: " << name << "\n"
+            << "\tRole: " << role << "\n"
+            << "\tFlight Hours: " << flightHours << "\n";
 }

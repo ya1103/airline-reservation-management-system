@@ -80,6 +80,9 @@ class Flight: public std::enable_shared_from_this<Flight>{
         //Function which counts reserved seats by checking if it is unavailable
         //Returns count of reserved seats
         int countReservedSeats() const;
+
+        //Prints all assigned crew members related to this flight
+        void viewAllAssignedCrewMembers() const;
     public:
 
         //Parameterized constructor
