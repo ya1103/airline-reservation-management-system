@@ -6,6 +6,7 @@
 //Schedule new flight to crew member
 void CrewMember::addFlight(std::shared_ptr<Flight> newFlight){
     flightsReference.push_back(std::move(newFlight));
+    flightHours += newFlight->getDuration();
 }
 
 //Remove scheduled flight from crew member

@@ -149,6 +149,8 @@ bool AirlineOperations::assignCrewMemberToFlight(int targetID, const std::string
 
     (*flightIt)->addCrewMember(*crewIt);
     (*crewIt)->addFlight(*flightIt);
+    std::cout << "Crew member with ID " << (*crewIt)->getId() 
+                << ", assigned to flight number: " << (*flightIt)->getFlightNumber() << " successfully";
     return true;
 }
 
