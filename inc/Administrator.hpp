@@ -118,6 +118,9 @@ class Administrator: public User{
 
         //Generates operational for specific month (Format YYYY-MM)
         void generateOperationalReport(const std::string& yearMonth);
+
+        //Generates operational for specific month (Format YYYY-MM)
+        void generateMaintenanceReport(const std::string& yearMonth);
     };
 
 #endif

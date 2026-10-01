@@ -3,6 +3,7 @@
 #include "Aircraft.hpp"
 #include "CrewMember.hpp"
 #include "Reservation.hpp"
+#include "MaintenanceRecord.hpp"
 #include <iomanip>
 #include <iostream>
 #include <algorithm>
@@ -463,5 +464,44 @@ void AirlineOperations::generateOperationalReport(const std::string& yearMonth) 
         }
         std::cout << n++ << ". Flight " << flight->getFlightNumber() << ": " << flight->getFlightStatus()
                   << " (" << bookings << " Bookings, $" << std::fixed << std::setprecision(2) << revenue << ")\n";
+    }
+}
+
+void AirlineOperations::generateMaintenanceReport(const std::string& yearMonth) const {
+    struct Row { std::string tailNumber, date, description, status; };
+    std::vector<Row> matching;
+
+    int scheduled = 0, completed = 0, pending = 0;
+
+    for (const auto& aircraft : allAircrafts) {
+        for (const auto& record : aircraft->getMaintenanceOfAircraft()) {
+            if (record->getDateScheduled().substr(0, 7) != yearMonth) continue;
+
+            matching.push_back({aircraft->getTailNumber(), record->getDateScheduled(),
+                                 record->getDescription(), record->getStatus()});
+
+            const auto& status = record->getStatus();
+            if (status == "Completed")      completed++;
+            else if (status == "Scheduled") scheduled++;
+            else if (status == "Pending")   pending++;
+        }
+    }
+
+    if (matching.empty()) {
+        std::cout << "No maintenance records found for " << yearMonth << ".\n";
+        return;
+    }
+
+    std::cout << "\nMaintenance Report Summary:\n"
+              << "- Total Records: " << matching.size() << "\n"
+              << "- Scheduled: " << scheduled << "\n"
+              << "- Completed: " << completed << "\n"
+              << "- Pending: " << pending << "\n";
+
+    std::cout << "\nDetailed Maintenance Records:\n";
+    int n = 1;
+    for (const auto& row : matching) {
+        std::cout << n++ << ". Aircraft " << row.tailNumber << " (" << row.date << "): "
+                  << row.description << " [" << row.status << "]\n";
     }
 }

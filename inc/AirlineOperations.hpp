@@ -90,6 +90,9 @@ class AirlineOperations{
 
         //Generates operational for specific month (Format YYYY-MM)
         void generateOperationalReport(const std::string& yearMonth) const;
+
+        //Generates operational for specific month (Format YYYY-MM)
+        void generateMaintenanceReport(const std::string& yearMonth) const;
 public:
         //function which returns list of available flights based on criteria
         //vector contains tuples where each tuple holds

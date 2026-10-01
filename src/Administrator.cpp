@@ -60,12 +60,15 @@ void Administrator::generateReports() {
             }
             case 2: {
                 std::cout << "\n--- Maintenance Reports ---\n";
-                std::cout << "Not implemented yet.\n"; // placeholder
+                std::string yearMonth;
+                std::cout << "Enter Month and Year for Report (YYYY-MM): ";
+                std::getline(std::cin, yearMonth);
+                generateMaintenanceReport(yearMonth);
                 break;
             }
             case 3: {
                 std::cout << "\n--- User Activity Reports ---\n";
-                std::cout << "Not implemented yet.\n"; // placeholder
+                std::cout << "Under Development.\n";
                 break;
             }
             case 4:
@@ -671,4 +674,13 @@ void Administrator::generateOperationalReport(const std::string& yearMonth)
         return;
     }
     ops->generateOperationalReport(yearMonth);
+}
+
+void Administrator::generateMaintenanceReport(const std::string& yearMonth) {
+    auto ops = User::getAirlineOperations();
+    if (!ops) {
+        std::cout << "No airline operations reference found!\n";
+        return;
+    }
+    ops->generateMaintenanceReport(yearMonth);
 }
